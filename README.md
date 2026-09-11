@@ -91,16 +91,4 @@ start index.html       # Windows
 
 并在 `CATS` 数组（若为新增分类）与跑马灯 `items` 数组中加入对应名称即可。
 
-## 🌐 部署到 GitHub Pages
 
-1. 新建仓库并推送本目录内容
-2. `Settings → Pages → Branch: main / (root) → Save`
-3. 访问 `https://<用户名>.github.io/<仓库名>/` 即可
-
-## 🙏 参考
-
-- 机构分类与动画灵感参考：[迪威模型 3dWhere.com](https://www.3dwhere.com/movieslist) · 机械动画库
-
-## 📄 License
-
-[MIT](LICENSE)
