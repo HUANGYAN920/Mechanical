@@ -1,5 +1,5 @@
 # ⚙️ 机械机构示例库 · MECH ENGINE 
-演示地址：https://github.com/HUANGYAN920/Mechanical.git
+演示地址：https://huangyan920.github.io/Mechanical/
 > 带 **实时运动学仿真** 的机械传动机构参考库 · 科技风展示网页
 
 一款纯静态、单文件的科技风机构展示页，内置 **18 种经典机械机构** 的实时运动学仿真动画。所有机构都由 JavaScript 按真实几何关系逐帧求解（而非预设逐帧动画），辅助机械设计选型与方案构思。
