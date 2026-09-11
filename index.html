@@ -17,6 +17,7 @@
   --line:rgba(0,224,255,.14);
   --grid:rgba(0,224,255,.05);
   --cyan:#00e0ff;
+  --cyan-bright:#7ee7ff;
   --cyan-dim:rgba(0,224,255,.32);
   --cyan-faint:rgba(0,224,255,.10);
   --amber:#ffb020;
@@ -25,7 +26,86 @@
   --text:#e4f0fa;
   --muted:#8aa3ba;
   --muted2:#5f768c;
+  --accent-solid:#02121a;
+  --bar-text:#02121a;
+  --btn-grad:linear-gradient(92deg,#00e0ff,#7ee7ff);
+  --logo-ink:#00e0ff;
+  --chip-bg:rgba(255,176,32,.20);
+  --chip-fill:rgba(255,176,32,.18);
+  --rail:#0b1a2c;
+  --search-bg:rgba(8,17,32,.6);
+  --topbar:rgba(4,7,13,.72);
+  --headbar:rgba(5,10,18,.78);
+  --footbg:rgba(4,7,13,.6);
 }
+/* 曜白 · 明亮主题 */
+[data-theme="light"]{
+  --bg0:#eaf1f8;
+  --bg1:#f4f8fc;
+  --bg2:#ffffff;
+  --panel:rgba(255,255,255,.82);
+  --panel2:rgba(255,255,255,.95);
+  --line:rgba(13,110,150,.22);
+  --grid:rgba(13,110,150,.08);
+  --cyan:#0a7ea8;
+  --cyan-bright:#2f9cc9;
+  --cyan-dim:rgba(13,110,150,.40);
+  --cyan-faint:rgba(13,110,150,.12);
+  --amber:#b9770a;
+  --amber-dim:rgba(185,119,10,.42);
+  --rose:#d63d78;
+  --text:#10283a;
+  --muted:#46667d;
+  --muted2:#6f8fa6;
+  --accent-solid:#ffffff;
+  --bar-text:#ffffff;
+  --btn-grad:linear-gradient(92deg,#0a7ea8,#2f9cc9);
+  --logo-ink:#0a7ea8;
+  --chip-bg:rgba(185,119,10,.22);
+  --chip-fill:rgba(185,119,10,.16);
+  --rail:#dbe7f1;
+  --search-bg:rgba(255,255,255,.75);
+  --topbar:rgba(234,241,248,.88);
+  --headbar:rgba(255,255,255,.9);
+  --footbg:rgba(234,241,248,.9);
+}
+[data-theme="light"] .status-bar{color:#7591a6}
+[data-theme="light"] .hero-kicker{color:var(--amber)}
+[data-theme="light"] .canvas-tag{background:rgba(255,255,255,.9)}
+[data-theme="light"] .modal-bg{background:rgba(15,30,45,.55)}
+[data-theme="light"] .mech-card:hover{box-shadow:0 18px 44px rgba(30,60,85,.28),0 0 30px color-mix(in srgb,var(--cyan) 14%,transparent)}
+/* 熔金 · 暖色主题 */
+[data-theme="amber"]{
+  --bg0:#0c0702;
+  --bg1:#160d05;
+  --bg2:#1f1408;
+  --panel:rgba(46,30,10,.55);
+  --panel2:rgba(40,25,9,.8);
+  --line:rgba(255,184,77,.20);
+  --grid:rgba(255,184,77,.06);
+  --cyan:#ffb84d;
+  --cyan-bright:#ffd98a;
+  --cyan-dim:rgba(255,184,77,.38);
+  --cyan-faint:rgba(255,184,77,.12);
+  --amber:#2ad4ee;
+  --amber-dim:rgba(42,212,238,.40);
+  --rose:#ff7aa2;
+  --text:#f7ead4;
+  --muted:#c9a678;
+  --muted2:#96714a;
+  --accent-solid:#241300;
+  --bar-text:#241300;
+  --btn-grad:linear-gradient(92deg,#ffb84d,#ffd98a);
+  --logo-ink:#ffb84d;
+  --chip-bg:rgba(42,212,238,.22);
+  --chip-fill:rgba(42,212,238,.16);
+  --rail:#1a1206;
+  --search-bg:rgba(22,13,5,.6);
+  --topbar:rgba(12,7,2,.78);
+  --headbar:rgba(18,12,4,.85);
+  --footbg:rgba(12,7,2,.75);
+}
+body{transition:background .45s ease,color .45s ease}
 *{margin:0;padding:0;box-sizing:border-box}
 html{scroll-behavior:smooth}
 body{
@@ -39,9 +119,9 @@ body{
 .bg-fixed{
   position:fixed;inset:0;z-index:-3;
   background:
-    radial-gradient(900px 520px at 12% -6%, rgba(0,224,255,.10), transparent 60%),
-    radial-gradient(800px 560px at 96% 22%, rgba(255,176,32,.07), transparent 60%),
-    radial-gradient(1000px 700px at 50% 118%, rgba(0,224,255,.08), transparent 62%),
+    radial-gradient(900px 520px at 12% -6%, color-mix(in srgb,var(--cyan) 10%,transparent), transparent 60%),
+    radial-gradient(800px 560px at 96% 22%, color-mix(in srgb,var(--amber) 7%,transparent), transparent 60%),
+    radial-gradient(1000px 700px at 50% 118%, color-mix(in srgb,var(--cyan) 8%,transparent), transparent 62%),
     linear-gradient(180deg,var(--bg0),var(--bg1) 42%,var(--bg0));
 }
 .bg-grid{
@@ -76,7 +156,7 @@ body{
 
 /* ===== 状态条 ===== */
 .status-bar{
-  border-bottom:1px solid var(--line);background:rgba(4,7,13,.72);
+  border-bottom:1px solid var(--line);background:var(--topbar);
   backdrop-filter:blur(8px);font-family:'Orbitron',sans-serif;
   font-size:11px;letter-spacing:.18em;color:var(--muted2);
   padding:7px 0;position:relative;z-index:50;
@@ -89,12 +169,15 @@ body{
 /* ===== 导航 ===== */
 header{
   position:sticky;top:0;z-index:40;
-  background:rgba(5,10,18,.78);backdrop-filter:blur(14px);
+  background:var(--headbar);backdrop-filter:blur(14px);
   border-bottom:1px solid var(--line);
 }
 .nav{display:flex;align-items:center;justify-content:space-between;height:66px;gap:18px}
 .logo{display:flex;align-items:center;gap:12px;cursor:pointer;user-select:none}
 .logo-gear{width:34px;height:34px;animation:spin 14s linear infinite}
+.logo-gear line,.logo-gear circle{stroke:var(--logo-ink)}
+.logo-gear circle + circle{fill:var(--logo-ink);stroke:none}
+.logo-gear line{stroke-width:2.4}
 @keyframes spin{to{transform:rotate(360deg)}}
 .logo-txt b{font-family:'Orbitron',sans-serif;font-size:17px;letter-spacing:.14em;color:var(--text);font-weight:700}
 .logo-txt b i{color:var(--cyan);font-style:normal}
@@ -115,6 +198,30 @@ header{
 }
 .nav-cta:hover{background:var(--cyan-faint);box-shadow:0 0 24px var(--cyan-dim)}
 
+/* ===== 主题切换 ===== */
+.theme-switch{display:flex;gap:4px;border:1px solid var(--line);padding:3px;background:var(--search-bg);}
+.ts-btn{
+  font-family:'Noto Sans SC',sans-serif;font-size:12px;letter-spacing:.04em;color:var(--muted);
+  background:transparent;border:1px solid transparent;padding:6px 12px;cursor:pointer;transition:all .3s;
+}
+.ts-btn:hover{color:var(--cyan)}
+.ts-btn.on{color:var(--bar-text);background:var(--btn-grad);font-weight:700}
+.ts-dot{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:6px;vertical-align:0;box-shadow:0 0 6px currentColor}
+
+/* ===== 搜索栏 ===== */
+.search-row{display:flex;align-items:center;gap:14px;margin:30px 0 0;flex-wrap:wrap}
+.search-box{flex:1;min-width:260px;display:flex;align-items:center;gap:10px;border:1px solid var(--line);
+  background:var(--search-bg);padding:0 16px;height:48px;transition:border .3s,box-shadow .3s;}
+.search-box:focus-within{border-color:var(--cyan-dim);box-shadow:0 0 22px color-mix(in srgb,var(--cyan) 18%,transparent)}
+.search-box svg{width:17px;height:17px;flex:none;stroke:var(--muted)}
+.search-box input{flex:1;background:transparent;border:none;outline:none;color:var(--text);
+  font-family:'Rajdhani','Noto Sans SC',sans-serif;font-size:15px;letter-spacing:.03em;}
+.search-box input::placeholder{color:var(--muted2)}
+.search-clear{background:transparent;border:none;color:var(--muted2);font-size:16px;cursor:pointer;padding:4px;line-height:1}
+.search-clear:hover{color:var(--cyan)}
+.search-count{font-family:'Orbitron',sans-serif;font-size:12px;letter-spacing:.18em;color:var(--muted2);white-space:nowrap}
+.search-count b{color:var(--cyan)}
+
 /* ===== HERO ===== */
 .hero{position:relative;padding:70px 0 40px;min-height:calc(100vh - 92px);display:flex;align-items:center}
 .hero::before{
@@ -133,17 +240,17 @@ header{
 }
 .hero h1 .line{display:block}
 .hero h1 .glow{color:transparent;-webkit-background-clip:text;background-clip:text;
-  background-image:linear-gradient(92deg,var(--cyan),#7ee7ff 55%,var(--amber));}
+  background-image:linear-gradient(92deg,var(--cyan),var(--cyan-bright) 55%,var(--amber));}
 .hero-desc{color:var(--muted);font-size:16.5px;max-width:520px;margin-bottom:30px;font-weight:400}
 .hero-desc b{color:var(--text);font-weight:600}
 .hero-btns{display:flex;gap:16px;flex-wrap:wrap;align-items:center}
 .btn-primary{
   font-family:'Noto Sans SC',sans-serif;font-weight:700;font-size:15px;letter-spacing:.1em;
-  color:#02121a;background:linear-gradient(92deg,var(--cyan),#8feaff);padding:14px 30px;
+  color:var(--accent-solid);background:var(--btn-grad);padding:14px 30px;
   text-decoration:none;position:relative;clip-path:polygon(10px 0,100% 0,100% calc(100% - 10px),calc(100% - 10px) 100%,0 100%,0 10px);
-  box-shadow:0 0 30px rgba(0,224,255,.25);transition:transform .3s,box-shadow .3s;
+  box-shadow:0 0 30px color-mix(in srgb,var(--cyan) 25%,transparent);transition:transform .3s,box-shadow .3s;
 }
-.btn-primary:hover{transform:translateY(-2px);box-shadow:0 0 46px rgba(0,224,255,.45)}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 0 46px color-mix(in srgb,var(--cyan) 45%,transparent)}
 .btn-ghost{
   font-family:'Orbitron',sans-serif;font-size:13px;letter-spacing:.16em;color:var(--text);
   border:1px solid var(--line);padding:13px 26px;text-decoration:none;transition:border .3s,color .3s;
@@ -157,7 +264,7 @@ header{
 
 /* hero 机械画布 */
 .hero-canvas{position:relative}
-.hero-canvas svg{width:100%;height:auto;display:block;filter:drop-shadow(0 0 26px rgba(0,224,255,.15))}
+.hero-canvas svg{width:100%;height:auto;display:block;filter:drop-shadow(0 0 26px color-mix(in srgb,var(--cyan) 15%,transparent))}
 .hud-ring{position:absolute;inset:6% 4%;border:1px dashed var(--line);border-radius:50%;pointer-events:none;
   animation:spin 60s linear infinite;}
 .hud-corner{position:absolute;width:26px;height:26px;border:2px solid var(--cyan);opacity:.6;pointer-events:none}
@@ -175,7 +282,7 @@ header{
 
 /* ===== 跑马灯 ===== */
 .marquee{overflow:hidden;border-top:1px solid var(--line);border-bottom:1px solid var(--line);
-  padding:16px 0;background:linear-gradient(90deg,rgba(0,224,255,.03),transparent,rgba(255,176,32,.03));
+  padding:16px 0;background:linear-gradient(90deg,color-mix(in srgb,var(--cyan) 4%,transparent),transparent,color-mix(in srgb,var(--amber) 4%,transparent));
   position:relative}
 .marquee-track{display:flex;gap:56px;width:max-content;animation:mq 32s linear infinite}
 .marquee:hover .marquee-track{animation-play-state:paused}
@@ -192,7 +299,20 @@ header{
   transition:all .3s;user-select:none;
 }
 .filter:hover{color:var(--cyan);border-color:var(--cyan-dim)}
-.filter.on{color:#02121a;background:linear-gradient(92deg,var(--cyan),#8feaff);border-color:transparent;font-weight:700}
+.filter.on{color:var(--bar-text);background:var(--btn-grad);border-color:transparent;font-weight:700}
+
+.pagination{display:flex;align-items:center;justify-content:center;gap:8px;margin-top:34px;flex-wrap:wrap}
+.page-btn{
+  font-family:'Noto Sans SC',sans-serif;font-size:13.5px;letter-spacing:.04em;color:var(--muted);
+  background:var(--panel);border:1px solid var(--line);min-width:38px;height:38px;padding:0 12px;
+  cursor:pointer;transition:all .25s;display:inline-flex;align-items:center;justify-content:center;user-select:none;
+}
+.page-btn:hover:not(:disabled){color:var(--cyan);border-color:var(--cyan-dim)}
+.page-btn.on{color:var(--bar-text);background:var(--btn-grad);border-color:transparent;font-weight:700}
+.page-btn:disabled{opacity:.35;cursor:not-allowed}
+.page-nav{font-family:'Orbitron',sans-serif;font-size:11px;letter-spacing:.14em}
+.page-info{font-family:'Orbitron',sans-serif;font-size:12px;letter-spacing:.18em;color:var(--muted2);margin:0 12px;white-space:nowrap}
+.page-info b{color:var(--cyan)}
 
 .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
 .mech-card{
@@ -206,7 +326,7 @@ header{
 }
 .mech-card::before{top:8px;left:8px;border-right:none;border-bottom:none}
 .mech-card::after{bottom:8px;right:8px;border-left:none;border-top:none}
-.mech-card:hover{transform:translateY(-6px);border-color:var(--cyan-dim);box-shadow:0 18px 44px rgba(0,0,0,.5),0 0 30px rgba(0,224,255,.12)}
+.mech-card:hover{transform:translateY(-6px);border-color:var(--cyan-dim);box-shadow:0 18px 44px color-mix(in srgb,#000 50%,transparent),0 0 30px color-mix(in srgb,var(--cyan) 12%,transparent)}
 .mech-card:hover::before,.mech-card:hover::after{width:26px;height:26px;border-color:var(--cyan)}
 .mech-svg{width:100%;aspect-ratio:200/150;display:block}
 .mech-body{padding-top:16px;position:relative;z-index:2}
@@ -223,11 +343,11 @@ header{
   color:var(--cyan);opacity:0;transform:translateX(6px);transition:all .35s;z-index:3}
 .mech-card:hover .mech-more{opacity:1;transform:none}
 .mech-bg{position:absolute;right:-34px;top:-20px;font-family:'Orbitron',sans-serif;font-size:110px;font-weight:900;
-  color:rgba(0,224,255,.05);user-select:none;line-height:1;z-index:0}
+  color:color-mix(in srgb,var(--cyan) 6%,transparent);user-select:none;line-height:1;z-index:0}
 
 /* SVG 机构样式 */
 .link{stroke:var(--cyan);stroke-width:3;stroke-linecap:round}
-.link.rod{stroke:#7ee7ff}
+.link.rod{stroke:var(--cyan-bright)}
 .crank{stroke:var(--amber);stroke-width:3;stroke-linecap:round}
 .g{stroke:var(--muted2);stroke-width:1;opacity:.55}
 .ground{fill:var(--muted2);opacity:.5}
@@ -250,9 +370,9 @@ header{
   position:relative;overflow:hidden;
 }
 .feat-panel::before{content:'';position:absolute;inset:0;background:
-  radial-gradient(500px 300px at 20% 50%,rgba(0,224,255,.07),transparent 65%);pointer-events:none}
+  radial-gradient(500px 300px at 20% 50%,color-mix(in srgb,var(--cyan) 7%,transparent),transparent 65%);pointer-events:none}
 .feat-visual{padding:30px;display:flex;align-items:center;justify-content:center;position:relative}
-.feat-visual svg{width:100%;max-width:440px;height:auto;filter:drop-shadow(0 0 24px rgba(0,224,255,.14))}
+.feat-visual svg{width:100%;max-width:440px;height:auto;filter:drop-shadow(0 0 24px color-mix(in srgb,var(--cyan) 14%,transparent))}
 .feat-info{padding:44px 40px 40px;border-left:1px solid var(--line);position:relative}
 .feat-idx{font-family:'Orbitron',sans-serif;color:var(--amber);font-size:13px;letter-spacing:.4em}
 .feat-info h3{font-family:'Noto Sans SC',sans-serif;font-weight:900;font-size:30px;margin:12px 0 6px}
@@ -277,7 +397,7 @@ header{
 /* ===== CTA ===== */
 .cta{padding:70px 0 96px;position:relative}
 .cta-panel{border:1px solid var(--cyan-dim);background:
-  radial-gradient(700px 300px at 50% 0%,rgba(0,224,255,.12),transparent 70%),var(--panel2);
+  radial-gradient(700px 300px at 50% 0%,color-mix(in srgb,var(--cyan) 12%,transparent),transparent 70%),var(--panel2);
   padding:60px 40px;text-align:center;position:relative;overflow:hidden}
 .cta-panel::before{content:'';position:absolute;left:0;top:0;height:2px;width:100%;
   background:linear-gradient(90deg,transparent,var(--cyan),var(--amber),transparent)}
@@ -286,7 +406,7 @@ header{
 .cta-panel p{color:var(--muted);max-width:560px;margin:0 auto 30px;font-size:15.5px}
 
 /* ===== FOOTER ===== */
-footer{border-top:1px solid var(--line);padding:44px 0 36px;background:rgba(4,7,13,.6)}
+footer{border-top:1px solid var(--line);padding:44px 0 36px;background:var(--footbg)}
 .foot-grid{display:flex;justify-content:space-between;gap:30px;flex-wrap:wrap;margin-bottom:30px}
 .foot-brand b{font-family:'Orbitron',sans-serif;letter-spacing:.14em;font-size:16px}
 .foot-brand b i{color:var(--cyan);font-style:normal}
@@ -312,7 +432,7 @@ footer{border-top:1px solid var(--line);padding:44px 0 36px;background:rgba(4,7,
   color:var(--muted);font-size:20px;cursor:pointer;transition:.3s;z-index:2}
 .modal-close:hover{color:var(--cyan);border-color:var(--cyan);transform:rotate(90deg)}
 .modal-grid{display:grid;grid-template-columns:1.1fr 1fr;gap:26px;margin-top:10px}
-.modal-visual{background:radial-gradient(300px 200px at 50% 40%,rgba(0,224,255,.08),transparent 70%);border:1px solid var(--line);display:flex;align-items:center;justify-content:center;padding:16px}
+.modal-visual{background:radial-gradient(300px 200px at 50% 40%,color-mix(in srgb,var(--cyan) 8%,transparent),transparent 70%);border:1px solid var(--line);display:flex;align-items:center;justify-content:center;padding:16px}
 .modal-visual svg{width:100%;height:auto;max-height:300px}
 .modal-en{font-family:'Orbitron',sans-serif;font-size:11px;letter-spacing:.34em;color:var(--cyan)}
 .modal h3{font-family:'Noto Sans SC',sans-serif;font-weight:900;font-size:26px;margin:8px 0 12px}
@@ -379,6 +499,11 @@ footer{border-top:1px solid var(--line);padding:44px 0 36px;background:rgba(4,7,
       <a href="#data">数据</a>
       <a href="#contact">合作</a>
     </nav>
+    <div class="theme-switch" id="themeSwitch" title="主题切换">
+      <button class="ts-btn on" data-theme="dark" title="极夜 · 深空"><span class="ts-dot"></span>极夜</button>
+      <button class="ts-btn" data-theme="light" title="曜白 · 明亮"><span class="ts-dot"></span>曜白</button>
+      <button class="ts-btn" data-theme="amber" title="熔金 · 暖夜"><span class="ts-dot"></span>熔金</button>
+    </div>
     <a class="nav-cta" href="#contact">GET STARTED</a>
   </div>
 </header>
@@ -398,7 +523,7 @@ footer{border-top:1px solid var(--line);padding:44px 0 36px;background:rgba(4,7,
         <a href="#featured" class="btn-ghost">查看仿真 ▸</a>
       </div>
       <div class="hero-stats reveal in">
-        <div class="hstat"><b>18<em>+</em></b><span>机构类型</span></div>
+        <div class="hstat"><b>100<em>+</em></b><span>机构类型</span></div>
         <div class="hstat"><b>12<em>+</em></b><span>覆盖行业</span></div>
         <div class="hstat"><b>98<em>%</em></b><span>最高传动效率</span></div>
         <div class="hstat"><b>36<em>+</em></b><span>标准体系 GB·ISO</span></div>
@@ -428,8 +553,17 @@ footer{border-top:1px solid var(--line);padding:44px 0 36px;background:rgba(4,7,
       <h2 class="sec-title">常用传动<em>机构示例</em></h2>
       <p class="sec-sub">点击任意卡片查看机构示意、关键参数与典型应用场景，右上角实时仿真持续运转。</p>
     </div>
+    <div class="search-row reveal" id="searchRow">
+      <div class="search-box">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><circle cx="11" cy="11" r="7"/><line x1="16.5" y1="16.5" x2="21" y2="21"/></svg>
+        <input type="text" id="searchInput" placeholder="搜索机构：名称 / 分类 / 英文名，如「齿轮」「cam」「夹紧」" autocomplete="off" />
+        <button class="search-clear" id="searchClear" title="清空" aria-label="清空搜索">✕</button>
+      </div>
+      <span class="search-count" id="searchCount"></span>
+    </div>
     <div class="filters reveal" id="filters"></div>
     <div class="grid reveal" id="grid"></div>
+    <div class="pagination reveal" id="pagination"></div>
   </div>
 </section>
 
@@ -465,7 +599,7 @@ footer{border-top:1px solid var(--line);padding:44px 0 36px;background:rgba(4,7,
 <!-- 数据带 -->
 <section class="data-band" id="data">
   <div class="container">
-    <div class="data-cell reveal"><b data-count="18">0</b><span>机构类型收录</span></div>
+    <div class="data-cell reveal"><b data-count="100">0</b><span>机构类型收录</span></div>
     <div class="data-cell reveal"><b data-count="12">0</b><span>覆盖工业领域</span></div>
     <div class="data-cell reveal"><b data-count="98">0<em>%</em></b><span>最高传动效率</span></div>
     <div class="data-cell reveal"><b data-count="36">0<em>+</em></b><span>标准体系条目</span></div>
@@ -514,7 +648,6 @@ footer{border-top:1px solid var(--line);padding:44px 0 36px;background:rgba(4,7,
       <span>© 2026 MECH ENGINE · 机械机构示例库</span>
       <span class="mono">SOLIDWORKS / GB / ISO COMPATIBLE</span>
     </div>
-    <div style="margin-top:14px;color:var(--muted2);font-size:12px;letter-spacing:.05em">机构分类与动画灵感参考：迪威模型 3dWhere.com · 机械动画库</div>
   </div>
 </footer>
 
@@ -995,6 +1128,1906 @@ const MECHANISMS = {
         setAttr(roller,{cx:rp.x,cy:rp.y});
       };
     }
+  },
+  'double-crank': {
+    name:'双曲柄机构', en:'DOUBLE-CRANK', cat:'连杆机构', idx:'19',
+    desc:'两连架杆均可整周回转，主动曲柄与从动曲柄同向变速转动，用于传动与调速。',
+    params:[['类型','铰链四杆（双曲柄）'],['传动特点','主/从动均整周回转'],['典型应用','惯性筛 / 变速传动'],['自由度','F = 1']],
+    build(svg){
+      const A={x:40,y:96},D={x:150,y:96},r1=24,r2=24,r3=72;
+      el('line',{x1:A.x,y1:A.y,x2:D.x,y2:D.y,class:'g'},svg);
+      el('polygon',{points:`${A.x-7},${A.y} ${A.x+7},${A.y} ${A.x},${A.y+15}`,class:'ground'},svg);
+      el('polygon',{points:`${D.x-7},${A.y} ${D.x+7},${A.y} ${D.x},${A.y+15}`,class:'ground'},svg);
+      el('circle',{cx:A.x,cy:A.y,r:4,class:'pin'},svg);
+      el('circle',{cx:D.x,cy:D.y,r:4,class:'pin'},svg);
+      const l1=el('line',{x1:A.x,y1:A.y,x2:A.x,y2:A.y,class:'crank'},svg);
+      const lc=el('line',{class:'link'},svg);
+      const l2=el('line',{x1:D.x,y1:D.y,x2:D.x,y2:D.y,class:'crank'},svg);
+      const pB=el('circle',{r:3,class:'pinB'},svg);
+      const pC=el('circle',{r:3,class:'pinB'},svg);
+      return function(t){
+        const th=t*1.3;
+        const B={x:A.x+r1*Math.cos(th),y:A.y+r1*Math.sin(th)};
+        const dx=B.x-D.x,dy=B.y-D.y,bd=Math.hypot(dx,dy);
+        let cosg=(bd*bd+r2*r2-r3*r3)/(2*bd*r2);
+        cosg=Math.max(-1,Math.min(1,cosg));
+        const g=Math.acos(cosg),psi=Math.atan2(dy,dx);
+        const C={x:D.x+r2*Math.cos(psi-g),y:D.y+r2*Math.sin(psi-g)};
+        setAttr(l1,{x2:B.x,y2:B.y});
+        setAttr(lc,{x1:B.x,y1:B.y,x2:C.x,y2:C.y});
+        setAttr(l2,{x2:C.x,y2:C.y});
+        setAttr(pB,{cx:B.x,cy:B.y});
+        setAttr(pC,{cx:C.x,cy:C.y});
+      };
+    }
+  },
+  'double-rocker': {
+    name:'双摇杆机构', en:'DOUBLE-ROCKER', cat:'连杆机构', idx:'20',
+    desc:'两连架杆均只能摆动不能整周回转，用于满足特定摆角要求的传动。',
+    params:[['类型','铰链四杆（双摇杆）'],['运动特点','两摇杆往复摆动'],['典型应用','夹持 / 翻料装置'],['自由度','F = 1']],
+    build(svg){
+      const A={x:40,y:100},D={x:152,y:100},r1=30,r2=30,r3=58;
+      el('line',{x1:20,y1:A.y,x2:178,y2:A.y,class:'g'},svg);
+      el('polygon',{points:`${A.x-7},${A.y} ${A.x+7},${A.y} ${A.x},${A.y+15}`,class:'ground'},svg);
+      el('polygon',{points:`${D.x-7},${A.y} ${D.x+7},${A.y} ${D.x},${A.y+15}`,class:'ground'},svg);
+      el('circle',{cx:A.x,cy:A.y,r:4,class:'pin'},svg);
+      el('circle',{cx:D.x,cy:D.y,r:4,class:'pin'},svg);
+      const l1=el('line',{x1:A.x,y1:A.y,x2:A.x,y2:A.y,class:'crank'},svg);
+      const lc=el('line',{class:'link'},svg);
+      const l2=el('line',{x1:D.x,y1:D.y,x2:D.x,y2:D.y,class:'crank'},svg);
+      const pB=el('circle',{r:3,class:'pinB'},svg);
+      const pC=el('circle',{r:3,class:'pinB'},svg);
+      return function(t){
+        const th=(35+25*Math.sin(t*1.2))*Math.PI/180;
+        const B={x:A.x+r1*Math.cos(th),y:A.y-r1*Math.sin(th)};
+        const dx=B.x-D.x,dy=B.y-D.y,bd=Math.hypot(dx,dy);
+        let cosg=(bd*bd+r2*r2-r3*r3)/(2*bd*r2);
+        cosg=Math.max(-1,Math.min(1,cosg));
+        const g=Math.acos(cosg),psi=Math.atan2(dy,dx);
+        const C={x:D.x+r2*Math.cos(psi+g),y:D.y+r2*Math.sin(psi+g)};
+        setAttr(l1,{x2:B.x,y2:B.y});
+        setAttr(lc,{x1:B.x,y1:B.y,x2:C.x,y2:C.y});
+        setAttr(l2,{x2:C.x,y2:C.y});
+        setAttr(pB,{cx:B.x,cy:B.y});
+        setAttr(pC,{cx:C.x,cy:C.y});
+      };
+    }
+  },
+  'scotch-yoke': {
+    name:'正弦机构（十字滑块）', en:'SCOTCH-YOKE', cat:'连杆机构', idx:'21',
+    desc:'曲柄销在十字滑块的横向槽内运动，驱动滑块沿导路做正弦往复运动。',
+    params:[['运动规律','正弦运动'],['行程','2r（曲柄直径）'],['特点','无急回 / 匀速往复'],['典型应用','正弦驱动 / 计量泵']],
+    build(svg){
+      const O={x:70,y:80},r=22;
+      el('polygon',{points:`${O.x-7},${O.y} ${O.x+7},${O.y} ${O.x},${O.y+15}`,class:'ground'},svg);
+      el('line',{x1:30,y1:O.y,x2:112,y2:O.y,class:'g'},svg);
+      el('circle',{cx:O.x,cy:O.y,r:4,class:'pin'},svg);
+      const crank=el('line',{x1:O.x,y1:O.y,x2:O.x,y2:O.y,class:'crank'},svg);
+      const pin=el('circle',{r:3,class:'pinB'},svg);
+      const guide=el('line',{x1:O.x,y1:24,x2:O.x,y2:136,class:'g'},svg);
+      const yoke=el('rect',{x:O.x-22,y:O.y-9,width:44,height:18,rx:2,class:'slider'},svg);
+      const slot=el('line',{x1:O.x-20,y1:O.y,y2:O.x+20,y2:O.y,class:'g'},svg);
+      return function(t){
+        const th=t*1.4;
+        const B={x:O.x+r*Math.cos(th),y:O.y+r*Math.sin(th)};
+        const yk=O.y-9+r*Math.sin(th);
+        setAttr(crank,{x2:B.x,y2:B.y});
+        setAttr(pin,{cx:B.x,cy:B.y});
+        setAttr(yoke,{y:yk});
+        setAttr(slot,{y1:yk+9,y2:yk+9});
+      };
+    }
+  },
+  'elliptic-trammel': {
+    name:'椭圆规机构', en:'ELLIPTIC-TRAMMEL', cat:'连杆机构', idx:'22',
+    desc:'两滑块沿相互垂直导路滑动，连杆上任意点轨迹为椭圆或直线。',
+    params:[['轨迹','椭圆 / 直线'],['特点','两滑块正交约束'],['典型应用','椭圆绘制 / 演示'],['自由度','F = 2（需约束）']],
+    build(svg){
+      const L=52, O={x:24,y:118};
+      el('line',{x1:30,y1:118,x2:176,y2:118,class:'g'},svg);
+      el('line',{x1:24,y1:120,x2:24,y2:24,class:'g'},svg);
+      const rod=el('line',{class:'crank',style:'stroke-width:3'},svg);
+      const sx=el('rect',{x:0,y:0,width:16,height:13,rx:2,class:'slider'},svg);
+      const sy=el('rect',{x:0,y:0,width:13,height:16,rx:2,class:'slider'},svg);
+      const pA=el('circle',{r:3,class:'pinB'},svg);
+      const pB=el('circle',{r:3,class:'pinB'},svg);
+      const trace=el('polyline',{class:'trace',fill:'none'},svg);
+      const pts=[];
+      return function(t){
+        const th=t*1.1;
+        const A={x:O.x+L*Math.cos(th),y:O.y};
+        const B={x:O.x,y:O.y-L*Math.sin(th)};
+        setAttr(rod,{x1:A.x,y1:A.y,x2:B.x,y2:B.y});
+        setAttr(sx,{x:A.x-8,y:O.y-6});
+        setAttr(sy,{x:O.x-6,y:B.y-8});
+        setAttr(pA,{cx:A.x,cy:A.y});
+        setAttr(pB,{cx:B.x,cy:B.y});
+        const a=L*0.62;
+        const P={x:A.x+(B.x-A.x)*a/L,y:A.y+(B.y-A.y)*a/L};
+        pts.push(P.x,P.y);
+        if(pts.length>500) pts.splice(0,2);
+        setAttr(trace,{points:pts.join(' ')});
+      };
+    }
+  },
+  'anti-parallelogram': {
+    name:'反平行四边形机构', en:'ANTI-PARALLELOGRAM', cat:'连杆机构', idx:'23',
+    desc:'两连架杆反向转动，连杆交叉布置，输出与输入转向相反、角速度不等。',
+    params:[['转向','输入/输出反向'],['类型','交叉铰链四杆'],['典型应用','车门开合 / 仪表传动'],['自由度','F = 1']],
+    build(svg){
+      const A={x:44,y:98},D={x:150,y:98},r1=26,r2=26,r3=80;
+      el('line',{x1:26,y1:A.y,x2:172,y2:A.y,class:'g'},svg);
+      el('polygon',{points:`${A.x-7},${A.y} ${A.x+7},${A.y} ${A.x},${A.y+15}`,class:'ground'},svg);
+      el('polygon',{points:`${D.x-7},${A.y} ${D.x+7},${A.y} ${D.x},${A.y+15}`,class:'ground'},svg);
+      el('circle',{cx:A.x,cy:A.y,r:4,class:'pin'},svg);
+      el('circle',{cx:D.x,cy:D.y,r:4,class:'pin'},svg);
+      const l1=el('line',{x1:A.x,y1:A.y,x2:A.x,y2:A.y,class:'crank'},svg);
+      const lc=el('line',{class:'link'},svg);
+      const l2=el('line',{x1:D.x,y1:D.y,x2:D.x,y2:D.y,class:'crank'},svg);
+      const pB=el('circle',{r:3,class:'pinB'},svg);
+      const pC=el('circle',{r:3,class:'pinB'},svg);
+      return function(t){
+        const th=t*1.2;
+        const B={x:A.x+r1*Math.cos(th),y:A.y-r1*Math.sin(th)};
+        const dx=B.x-D.x,dy=B.y-D.y,bd=Math.hypot(dx,dy);
+        let cosg=(bd*bd+r2*r2-r3*r3)/(2*bd*r2);
+        cosg=Math.max(-1,Math.min(1,cosg));
+        const g=Math.acos(cosg),psi=Math.atan2(dy,dx);
+        const C={x:D.x+r2*Math.cos(psi-g),y:D.y+r2*Math.sin(psi-g)};
+        setAttr(l1,{x2:B.x,y2:B.y});
+        setAttr(lc,{x1:B.x,y1:B.y,x2:C.x,y2:C.y});
+        setAttr(l2,{x2:C.x,y2:C.y});
+        setAttr(pB,{cx:B.x,cy:B.y});
+        setAttr(pC,{cx:C.x,cy:C.y});
+      };
+    }
+  },
+  'watt-linkage': {
+    name:'瓦特直线导向机构', en:'WATT-LINKAGE', cat:'连杆机构', idx:'24',
+    desc:'特定杆长组合下，连杆上某点可近似作直线运动，用于直线导向。',
+    params:[['轨迹','近似直线（一段）'],['特点','近似直线导向'],['典型应用','直线运动导向'],['自由度','F = 1']],
+    build(svg){
+      const A={x:40,y:102},D={x:158,y:102},r1=22,r2=22,r3=52;
+      el('line',{x1:20,y1:A.y,x2:180,y2:A.y,class:'g'},svg);
+      el('polygon',{points:`${A.x-7},${A.y} ${A.x+7},${A.y} ${A.x},${A.y+15}`,class:'ground'},svg);
+      el('polygon',{points:`${D.x-7},${A.y} ${D.x+7},${A.y} ${D.x},${A.y+15}`,class:'ground'},svg);
+      el('circle',{cx:A.x,cy:A.y,r:4,class:'pin'},svg);
+      el('circle',{cx:D.x,cy:D.y,r:4,class:'pin'},svg);
+      const trace=el('polyline',{class:'trace',fill:'none'},svg);
+      const l1=el('line',{x1:A.x,y1:A.y,x2:A.x,y2:A.y,class:'crank'},svg);
+      const lc=el('line',{class:'link'},svg);
+      const l2=el('line',{x1:D.x,y1:D.y,x2:D.x,y2:D.y,class:'crank'},svg);
+      const pB=el('circle',{r:3,class:'pinB'},svg);
+      const pC=el('circle',{r:3,class:'pinB'},svg);
+      const pP=el('circle',{r:3.5,class:'gearBody',style:'stroke:var(--amber);fill:color-mix(in srgb,var(--amber) 25%,transparent)'},svg);
+      const pts=[];
+      return function(t){
+        const th=t*1.0;
+        const B={x:A.x+r1*Math.cos(th),y:A.y-r1*Math.sin(th)};
+        const dx=B.x-D.x,dy=B.y-D.y,bd=Math.hypot(dx,dy);
+        let cosg=(bd*bd+r2*r2-r3*r3)/(2*bd*r2);
+        cosg=Math.max(-1,Math.min(1,cosg));
+        const g=Math.acos(cosg),psi=Math.atan2(dy,dx);
+        const C={x:D.x+r2*Math.cos(psi+g),y:D.y+r2*Math.sin(psi+g)};
+        setAttr(l1,{x2:B.x,y2:B.y});
+        setAttr(lc,{x1:B.x,y1:B.y,x2:C.x,y2:C.y});
+        setAttr(l2,{x2:C.x,y2:C.y});
+        setAttr(pB,{cx:B.x,cy:B.y});
+        setAttr(pC,{cx:C.x,cy:C.y});
+        const P={x:B.x+0.5*(C.x-B.x),y:B.y+0.5*(C.y-B.y)-16};
+        setAttr(pP,{cx:P.x,cy:P.y});
+        pts.push(P.x,P.y);
+        if(pts.length>420) pts.splice(0,2);
+        setAttr(trace,{points:pts.join(' ')});
+      };
+    }
+  },
+  'translating-cam': {
+    name:'移动凸轮机构', en:'TRANSLATING-CAM', cat:'凸轮机构', idx:'25',
+    desc:'凸轮板沿导轨往复移动，其轮廓推动从动件按预定规律升降。',
+    params:[['行程','轮廓幅值决定'],['运动规律','等速 / 简谐'],['特点','往复直线驱动'],['典型应用','直线进给 / 分度']],
+    build(svg){
+      const gy=112;
+      el('line',{x1:24,y1:gy,x2:176,y2:gy,class:'g'},svg);
+      el('line',{x1:104,y1:14,x2:104,y2:6,class:'g'},svg);
+      const rod=el('line',{x1:104,y1:14,x2:104,y2:0,class:'link rod'},svg);
+      const roller=el('circle',{cx:104,cy:0,r:5,class:'gearBody'},svg);
+      const cam=el('g',{},svg);
+      el('rect',{x:0,y:0,width:34,height:18,rx:2,class:'slider'},cam);
+      el('ellipse',{cx:10,cy:18,rx:8,ry:9,class:'camLobe'},cam);
+      return function(t){
+        const cx=44+80*(0.5+0.5*Math.sin(t*1.1));
+        cam.setAttribute('transform',`translate(${cx} ${gy-18})`);
+        const rel=104-cx;
+        let lift=0;
+        const dist=Math.abs(rel-10);
+        if(dist<9) lift=9*(1+Math.cos(Math.PI*dist/9))/2;
+        const top=gy-23-lift;
+        setAttr(rod,{y2:top});
+        setAttr(roller,{cy:top});
+      };
+    }
+  },
+  'groove-cam': {
+    name:'槽凸轮机构', en:'GROOVE-CAM', cat:'凸轮机构', idx:'26',
+    desc:'滚子嵌在凸轮的封闭槽内运动，实现确定的升程与回程规律。',
+    params:[['轨迹','封闭导槽'],['升程','0–10 mm'],['特点','强制约束无脱离'],['典型应用','自动送料 / 分度']],
+    build(svg){
+      const O={x:100,y:86};
+      const R=φ=>20+7*Math.cos(2*φ);
+      const pts=[];
+      for(let i=0;i<72;i++){const φ=i/72*2*Math.PI;pts.push((O.x+R(φ)*Math.cos(φ)).toFixed(1),(O.y+R(φ)*Math.sin(φ)).toFixed(1));}
+      el('circle',{cx:O.x,cy:O.y,r:30,class:'camBase'},svg);
+      el('path',{d:`M${pts[0]} ${pts[1]}L${pts.join(' ')}Z`,fill:'none',style:'stroke:var(--cyan);stroke-width:1.6;opacity:.9'},svg);
+      el('circle',{cx:O.x,cy:O.y,r:3,class:'pin'},svg);
+      const camline=el('line',{x1:O.x,y1:O.y,x2:O.x,y2:O.y,class:'crank'},svg);
+      const roller=el('circle',{cx:0,cy:0,r:5,class:'gearBody'},svg);
+      const rod=el('line',{x1:0,y1:0,x2:0,y2:0,class:'link rod'},svg);
+      return function(t){
+        const φ=t*1.2;
+        const r=R(φ);
+        const rx=O.x+r*Math.cos(φ), ry=O.y+r*Math.sin(φ);
+        setAttr(camline,{x2:O.x+30*Math.cos(φ),y2:O.y+30*Math.sin(φ)});
+        setAttr(roller,{cx:rx,cy:ry});
+        setAttr(rod,{x1:rx,y1:ry,x2:rx,y2:ry-34});
+      };
+    }
+  },
+  'cylindrical-cam': {
+    name:'圆柱凸轮机构', en:'CYLINDRICAL-CAM', cat:'凸轮机构', idx:'27',
+    desc:'圆柱表面上的槽推动从动件沿轴向运动，实现较长行程的驱动。',
+    params:[['类型','圆柱端面槽凸轮'],['行程','较大（圆柱展开）'],['特点','轴向输出'],['典型应用','自动换刀 / 送料']],
+    build(svg){
+      const cyl={x:100,y:88},w=88,h=44;
+      const g=el('g',{},svg);
+      el('rect',{x:cyl.x-w/2,y:cyl.y-h/2,width:w,height:h,rx:6,class:'gearBody'},g);
+      for(let i=0;i<7;i++) el('line',{x1:cyl.x-w/2+i*13,y1:cyl.y-h/2,x2:cyl.x-w/2+i*13+7,y2:cyl.y+h/2,class:'thread'},g);
+      const spin=el('line',{x1:cyl.x,y1:cyl.y-h/2,x2:cyl.x,y2:cyl.y+h/2,class:'crank'},g);
+      const head=el('rect',{x:cyl.x-14,y:cyl.y-h/2-30,width:28,height:10,rx:2,class:'slider'},svg);
+      const rod=el('line',{x1:cyl.x,y1:cyl.y-h/2-4,x2:cyl.x,y2:cyl.y-h/2-30,class:'link rod'},svg);
+      return function(t){
+        const rot=t*40;
+        g.setAttribute('transform',`rotate(${rot} ${cyl.x} ${cyl.y})`);
+        const lift=8+8*Math.sin(t*1.3);
+        setAttr(head,{y:cyl.y-h/2-30-lift});
+        setAttr(rod,{y1:cyl.y-h/2-4-lift,y2:cyl.y-h/2-30-lift});
+      };
+    }
+  },
+  'rack-pinion': {
+    name:'齿轮齿条机构', en:'RACK-PINION', cat:'齿轮机构', idx:'28',
+    desc:'齿轮旋转与齿条直线运动互相转换，是旋转-直线传动最常用的机构。',
+    params:[['传动关系','旋转 ↔ 直线'],['模数','1–8 mm'],['效率','90% – 97%'],['典型应用','机床工作台 / 输送']],
+    build(svg){
+      const O={x:84,y:86}, r=24;
+      const gear=el('g',{},svg);
+      drawGear(gear,O,r,12);
+      el('circle',{cx:O.x,cy:O.y,r:3,class:'pin'},svg);
+      const rack=el('g',{},svg);
+      el('rect',{x:-14,y:O.y-r-9,width:150,height:9,rx:1,class:'slider'},rack);
+      for(let i=0;i<13;i++) el('line',{x1:i*11,y1:O.y-r,y2:i*11+4,y2:O.y-r-9,class:'gearTeeth'},rack);
+      el('line',{x1:16,y1:O.y-r-9,x2:172,y2:O.y-r-9,class:'g'},svg);
+      return function(t){
+        const a=t*40;
+        gear.setAttribute('transform',`rotate(${a} ${O.x} ${O.y})`);
+        const dist=r*(a*Math.PI/180)%140;
+        rack.setAttribute('transform',`translate(${dist} 0)`);
+      };
+    }
+  },
+  'bevel-gear': {
+    name:'锥齿轮机构', en:'BEVEL-GEAR', cat:'齿轮机构', idx:'29',
+    desc:'两轴线相交的锥齿轮啮合传动，实现空间交叉轴之间的定比传动。',
+    params:[['轴夹角','90°（常用）'],['传动比','1:1 – 1:5'],['特点','空间相交轴'],['典型应用','差速器 / 转向机构']],
+    build(svg){
+      const c={x:100,y:80};
+      const g1=el('g',{},svg), g2=el('g',{},svg);
+      el('circle',{cx:c.x,cy:c.y,r:26,class:'gearBody'},g1);
+      for(let i=0;i<12;i++){const a=i/12*2*Math.PI;el('line',{x1:c.x+Math.cos(a)*26,y1:c.y+Math.sin(a)*26,x2:c.x+Math.cos(a)*33,y2:c.y+Math.sin(a)*33,class:'gearTeeth'},g1);}
+      el('ellipse',{cx:c.x+10,cy:c.y+4,rx:18,ry:30,class:'gearBody'},g2);
+      for(let i=0;i<8;i++){const a=i/8*2*Math.PI;el('line',{x1:c.x+10+Math.cos(a)*18,y1:c.y+4+Math.sin(a)*30,x2:c.x+10+Math.cos(a)*23,y2:c.y+4+Math.sin(a)*35,class:'gearTeeth'},g2);}
+      el('circle',{cx:c.x,cy:c.y,r:3,class:'pin'},svg);
+      return function(t){
+        g1.setAttribute('transform',`rotate(${t*40} ${c.x} ${c.y})`);
+        g2.setAttribute('transform',`rotate(${-t*40} ${c.x+10} ${c.y+4})`);
+      };
+    }
+  },
+  'sector-gear': {
+    name:'扇形齿轮机构', en:'SECTOR-GEAR', cat:'齿轮机构', idx:'30',
+    desc:'扇环形齿轮往复摆动，与齿条或齿轮啮合实现往复直线或摆动输出。',
+    params:[['摆动角','±60°'],['输出','齿条直线往复'],['特点','局部齿啮合'],['典型应用','定位 / 进给机构']],
+    build(svg){
+      const O={x:84,y:92}, r=26;
+      const sector=el('g',{},svg);
+      el('path',{d:`M${O.x} ${O.y} L${O.x+r} ${O.y} A${r} ${r} 0 0 1 ${(O.x-r*0.5).toFixed(1)} ${(O.y+r*0.866).toFixed(1)} Z`,class:'camBase'},sector);
+      el('circle',{cx:O.x,cy:O.y,r:3,class:'pin'},svg);
+      const rack=el('rect',{x:-40,y:O.y-r-9,width:170,height:9,rx:1,class:'slider'},svg);
+      el('line',{x1:14,y1:O.y-r-9,x2:178,y2:O.y-r-9,class:'g'},svg);
+      return function(t){
+        const a=(18+24*Math.sin(t*1.3))*Math.PI/180;
+        sector.setAttribute('transform',`rotate(${a*180/Math.PI} ${O.x} ${O.y})`);
+        rack.setAttribute('transform',`translate(${(-a*r)*0.6} 0)`);
+      };
+    }
+  },
+  'differential': {
+    name:'差速器机构', en:'DIFFERENTIAL-GEAR', cat:'齿轮机构', idx:'44',
+    desc:'行星锥齿轮差速器允许两输出轴转速不同，实现差速转向与驱动。',
+    params:[['结构','行星锥齿轮系'],['输出','两半轴可差速'],['典型应用','汽车驱动桥'],['特点','自动差速补偿']],
+    build(svg){
+      const c={x:100,y:84};
+      el('circle',{cx:c.x,cy:c.y,r:32,class:'ujRim',style:'stroke-dasharray:6 5;opacity:.5'},svg);
+      const carrier=el('line',{x1:c.x,y1:c.y,x2:c.x,y2:c.y,class:'crank'},svg);
+      const sL=el('line',{x1:14,y1:c.y,x2:c.x,y2:c.y,class:'link rod'},svg);
+      const sR=el('line',{x1:c.x,y1:c.y,x2:186,y2:c.y,class:'link rod'},svg);
+      const bL=el('circle',{r:9,class:'gearBody'},svg);
+      const bR=el('circle',{r:9,class:'gearBody'},svg);
+      el('circle',{cx:c.x,cy:c.y,r:5,class:'pin'},svg);
+      return function(t){
+        const a=t*30*Math.PI/180, ex=Math.cos(a)*20, ey=Math.sin(a)*20;
+        carrier.setAttribute('transform',`rotate(${a*180/Math.PI} ${c.x} ${c.y})`);
+        setAttr(bL,{cx:c.x-ex,cy:c.y-ey});
+        setAttr(bR,{cx:c.x+ex,cy:c.y+ey});
+      };
+    }
+  },
+  'incomplete-gear': {
+    name:'不完全齿轮机构', en:'INCOMPLETE-GEAR', cat:'间歇机构', idx:'31',
+    desc:'主动轮只有部分齿，驱动从动轮间歇转动，其余时间由锁止弧保持静止。',
+    params:[['齿缺','部分齿'],['间歇比','可设计'],['特点','间歇传动'],['典型应用','间歇进给 / 计数']],
+    build(svg){
+      const c1={x:70,y:84},c2={x:130,y:84},r1=26,r2=26;
+      const drv=el('g',{},svg);
+      el('circle',{cx:c1.x,cy:c1.y,r:r1,class:'gearBody'},drv);
+      for(let i=0;i<8;i++){const a=(i/8)*1.5*Math.PI-Math.PI*0.15;el('line',{x1:c1.x+Math.cos(a)*r1,y1:c1.y+Math.sin(a)*r1,x2:c1.x+Math.cos(a)*(r1+8),y2:c1.y+Math.sin(a)*(r1+8),class:'gearTeeth'},drv);}
+      el('circle',{cx:c1.x,cy:c1.y,r:3,class:'pin'},svg);
+      const drv2=el('g',{},svg);
+      drawGear(drv2,c2,r2,12);
+      el('circle',{cx:c2.x,cy:c2.y,r:3,class:'pin'},svg);
+      return function(t){
+        drv.setAttribute('transform',`rotate(${t*70} ${c1.x} ${c1.y})`);
+        const cyc=1.6, ft=(t%cyc)/cyc;
+        let ang=0;
+        if(ft>0.1&&ft<0.55) ang=(ft-0.1)/0.45*70;
+        const turns=Math.floor(t/cyc)*70;
+        drv2.setAttribute('transform',`rotate(${turns+ang} ${c2.x} ${c2.y})`);
+      };
+    }
+  },
+  'overrunning-clutch': {
+    name:'超越离合器机构', en:'OVERRUNNING-CLUTCH', cat:'间歇机构', idx:'32',
+    desc:'滚柱在外环与内环之间楔紧实现单向锁止，反向时滚柱脱开允许超越。',
+    params:[['单向锁止','具备'],['超越','反向自由转动'],['特点','自动接合/脱开'],['典型应用','单向传动 / 起动机']],
+    build(svg){
+      const c={x:100,y:84};
+      el('circle',{cx:c.x,cy:c.y,r:34,class:'ujRim',style:'stroke-dasharray:5 5'},svg);
+      const inner=el('g',{},svg);
+      el('circle',{cx:c.x,cy:c.y,r:20,class:'gearBody'},inner);
+      el('line',{x1:c.x,y1:c.y,x2:c.x+20,y2:c.y,class:'crank'},inner);
+      el('circle',{cx:c.x,cy:c.y,r:3,class:'pin'},svg);
+      const rollers=[0,1,2,3].map(i=>el('circle',{r:3.4,class:'pinB'},svg));
+      return function(t){
+        inner.setAttribute('transform',`rotate(${t*50} ${c.x} ${c.y})`);
+        rollers.forEach((rl,i)=>{
+          const a=i*Math.PI/2+t*0.5;
+          setAttr(rl,{cx:c.x+27*Math.cos(a),cy:c.y+27*Math.sin(a)});
+        });
+      };
+    }
+  },
+  'ball-screw': {
+    name:'滚珠丝杠机构', en:'BALL-SCREW', cat:'螺旋机构', idx:'33',
+    desc:'钢球在螺旋滚道中循环滚动，将旋转转化为直线运动，摩擦小、精度高。',
+    params:[['导程','5–40 mm'],['效率','90% – 96%'],['精度','C3–C7'],['典型应用','机床进给 / 直线模组']],
+    build(svg){
+      const y=88,x1=26,x2=174;
+      el('line',{x1:x1,y1:y,x2:x2,y2:y,class:'g'},svg);
+      const thr=el('g',{},svg);
+      for(let i=0;i<16;i++) el('line',{x1:x1+i*10,y1:y-12,x2:x1+i*10+6,y2:y+12,class:'thread'},thr);
+      const nut=el('rect',{x:0,y:y-17,width:34,height:34,rx:3,class:'slider'},svg);
+      const spin=el('line',{x1:0,y1:y-18,x2:0,y2:y+18,class:'crank'},svg);
+      const balls=[0,1,2,3].map(i=>el('circle',{r:3,class:'pinB'},svg));
+      return function(t){
+        const px=x1+((x2-x1-34))*(0.5+0.5*Math.sin(t*1.1));
+        setAttr(nut,{x:px,y:y-17});
+        spin.setAttribute('transform',`translate(${px+17},0) rotate(${t*200} 0 ${y})`);
+        balls.forEach((b,i)=>setAttr(b,{cx:px+7+i*8,cy:y+Math.sin((px*0.9+i)*1.2)*5}));
+      };
+    }
+  },
+  'screw-jack': {
+    name:'螺旋千斤顶机构', en:'SCREW-JACK', cat:'螺旋机构', idx:'34',
+    desc:'手柄驱动螺旋副，将旋转力矩放大为垂直顶升力，自锁可靠。',
+    params:[['顶升力','10–100 kN'],['自锁','具备'],['行程','100–500 mm'],['典型应用','顶升 / 支撑']],
+    build(svg){
+      const cx=100,y0=120;
+      el('line',{x1:56,y1:y0,x2:144,y2:y0,class:'g'},svg);
+      el('rect',{x:80,y:y0-22,width:40,height:22,rx:2,class:'gearBody'},svg);
+      const screw=el('g',{},svg);
+      for(let i=0;i<8;i++) el('line',{x1:cx-7,y1:y0-18-i*9,x2:cx+7,y2:y0-26-i*9,class:'thread'},screw);
+      const spin=el('line',{x1:cx,y1:y0-16,x2:cx,y2:y0-26,class:'crank'},svg);
+      const hdl=el('line',{x1:cx,y1:y0-16,x2:cx,y2:y0-16,class:'link rod'},svg);
+      const load=el('rect',{x:cx-24,y:0,width:48,height:14,rx:2,class:'slider'},svg);
+      return function(t){
+        const h=20+16*(0.5+0.5*Math.sin(t*0.9));
+        setAttr(load,{y:y0-20-h});
+        screw.setAttribute('transform',`rotate(${t*60} ${cx} ${y0-16})`);
+        setAttr(hdl,{x2:cx+30*Math.cos(t*0.9),y2:y0-16-30*Math.sin(t*0.9)});
+      };
+    }
+  },
+  'differential-screw': {
+    name:'差动螺旋机构', en:'DIFFERENTIAL-SCREW', cat:'螺旋机构', idx:'35',
+    desc:'同一螺杆上两段不同导程螺纹，旋转一圈获得极小的差动位移。',
+    params:[['导程差','0.5–2 mm'],['特点','微量进给'],['精度','极高'],['典型应用','微调机构']],
+    build(svg){
+      const y=90,x1=30,x2=170;
+      el('line',{x1:x1,y1:y,x2:x2,y2:y,class:'g'},svg);
+      const g=el('g',{},svg);
+      for(let i=0;i<10;i++) el('line',{x1:x1+i*7,y1:y-13,x2:x1+i*7+4,y2:y+13,class:'thread'},g);
+      for(let i=0;i<8;i++) el('line',{x1:x1+82+i*9,y1:y-13,x2:x1+82+i*9+5,y2:y+13,class:'thread'},g);
+      const spin=el('line',{x1:0,y1:y-18,x2:0,y2:y+18,class:'crank'},svg);
+      const nut=el('rect',{x:0,y:y-15,width:30,height:30,rx:2,class:'slider'},svg);
+      return function(t){
+        const px=x1+((x2-x1-30))*(0.5+0.5*Math.sin(t*0.8));
+        setAttr(nut,{x:px,y:y-15});
+        spin.setAttribute('transform',`translate(${px+15},0) rotate(${t*120} 0 ${y})`);
+      };
+    }
+  },
+  'toggle-clamp': {
+    name:'铰链夹紧机构', en:'TOGGLE-CLAMP', cat:'夹紧机构', idx:'36',
+    desc:'手柄推动连杆越过死点后自锁，将手柄力放大夹紧工件，快速省力。',
+    params:[['增力比','数倍–数十倍'],['自锁','过死点自锁'],['操作','快速开合'],['典型应用','焊接夹具 / 工装']],
+    build(svg){
+      const A={x:56,y:56},L=34;
+      el('polygon',{points:`${A.x-6},${A.y} ${A.x+6},${A.y} ${A.x},${A.y+14}`,class:'ground'},svg);
+      el('circle',{cx:A.x,cy:A.y,r:4,class:'pin'},svg);
+      const handle=el('line',{x1:A.x,y1:A.y,x2:A.x,y2:A.y,class:'crank'},svg);
+      const link=el('line',{class:'link'},svg);
+      const press=el('rect',{x:0,y:0,width:26,height:10,rx:2,class:'slider'},svg);
+      el('rect',{x:60,y:134,width:80,height:16,rx:2,class:'gearBody'},svg);
+      el('line',{x1:44,y1:150,x2:156,y2:150,class:'g'},svg);
+      return function(t){
+        const th=(32+26*Math.sin(t*1.4))*Math.PI/180;
+        const B={x:A.x+L*Math.cos(th),y:A.y-L*Math.sin(th)};
+        const pressY=102+30*(0.5+0.5*Math.sin(t*1.4));
+        setAttr(handle,{x2:B.x,y2:B.y});
+        setAttr(press,{x:B.x-13,y:pressY});
+        setAttr(link,{x1:B.x,y1:B.y,x2:B.x,y2:pressY});
+      };
+    }
+  },
+  'wedge-clamp': {
+    name:'楔块夹紧机构', en:'WEDGE-CLAMP', cat:'夹紧机构', idx:'37',
+    desc:'楔块沿斜面滑动，利用斜面增力作用将工件压紧，结构简单可靠。',
+    params:[['楔角','8°–15°'],['增力比','≥ 3'],['特点','自锁楔紧'],['典型应用','定位夹紧 / 压紧']],
+    build(svg){
+      el('line',{x1:40,y1:140,x2:172,y2:140,class:'g'},svg);
+      const wedge=el('polygon',{points:`0,0 0,26 26,0`,class:'slider'},svg);
+      const clamp=el('rect',{x:0,y:0,width:40,height:12,rx:2,class:'slider'},svg);
+      el('rect',{x:70,y:128,width:70,height:14,rx:2,class:'gearBody'},svg);
+      el('line',{x1:60,y1:0,x2:60,y2:140,class:'g'},svg);
+      return function(t){
+        const wx=40+70*(0.5+0.5*Math.sin(t*1.2));
+        wedge.setAttribute('transform',`translate(${wx} ${140-26})`);
+        const lift=(wx-40)/70*12;
+        setAttr(clamp,{x:wx+20,y:140-12-lift});
+      };
+    }
+  },
+  'screw-clamp': {
+    name:'螺旋夹紧机构', en:'SCREW-CLAMP', cat:'夹紧机构', idx:'38',
+    desc:'螺杆旋转驱动压块向下压紧工件，自锁性能好、夹紧力大。',
+    params:[['夹紧力','数 kN 级'],['自锁','具备'],['特点','行程大可调'],['典型应用','通用夹具 / 压板']],
+    build(svg){
+      const cx=100;
+      el('line',{x1:44,y1:40,x2:156,y2:40,class:'g'},svg);
+      const screw=el('g',{},svg);
+      for(let i=0;i<8;i++) el('line',{x1:cx-8,y1:46+i*10,x2:cx+8,y2:54+i*10,class:'thread'},screw);
+      const spin=el('line',{x1:cx,y1:44,x2:cx,y2:52,class:'crank'},svg);
+      const hdl=el('line',{x1:cx,y1:40,x2:cx,y2:40,class:'link rod'},svg);
+      const press=el('rect',{x:cx-18,y:0,width:36,height:10,rx:2,class:'slider'},svg);
+      el('rect',{x:60,y:128,width:80,height:16,rx:2,class:'gearBody'},svg);
+      el('line',{x1:44,y1:144,x2:156,y2:144,class:'g'},svg);
+      return function(t){
+        screw.setAttribute('transform',`rotate(${t*90} ${cx} 44)`);
+        setAttr(hdl,{x2:cx+30*Math.cos(t),y2:40+30*Math.sin(t)});
+        setAttr(press,{y:108+16*(0.5+0.5*Math.sin(t*1.0))});
+      };
+    }
+  },
+  'parallel-clamp': {
+    name:'联动夹紧机构', en:'PARALLEL-CLAMP', cat:'夹紧机构', idx:'39',
+    desc:'单点驱动通过连杆联动，使两侧压块同步对称夹紧工件。',
+    params:[['同步','两侧对称'],['驱动','单缸 / 单电机'],['特点','联动同步'],['典型应用','多件同时夹紧']],
+    build(svg){
+      const cy=92;
+      el('line',{x1:30,y1:cy,x2:172,y2:cy,class:'g'},svg);
+      const l=el('rect',{x:0,y:cy-11,width:26,height:22,rx:2,class:'slider'},svg);
+      const r=el('rect',{x:0,y:cy-11,width:26,height:22,rx:2,class:'slider'},svg);
+      el('rect',{x:86,y:cy-16,width:28,height:32,rx:2,class:'gearBody'},svg);
+      const rod=el('line',{x1:100,y1:cy-32,x2:100,y2:cy+44,class:'link rod'},svg);
+      return function(t){
+        const d=28+26*Math.sin(t*1.4);
+        setAttr(l,{x:30+d});
+        setAttr(r,{x:144-d});
+      };
+    }
+  },
+  'hydraulic-jack': {
+    name:'液压千斤顶机构', en:'HYDRAULIC-JACK', cat:'液压机构', idx:'40',
+    desc:'小柱塞泵油驱动大柱塞顶升，通过面积比放大作用力。',
+    params:[['增力比','面积比放大'],['顶升力','5–100 t'],['特点','机械+液压组合'],['典型应用','顶升 / 支撑']],
+    build(svg){
+      const pump={x:46,y:92,w:30,h:26}, lift={x:140,y:92,w:34,h:26};
+      el('rect',{x:pump.x,y:pump.y,width:pump.w,height:pump.h,rx:3,class:'gearBody'},svg);
+      el('rect',{x:lift.x,y:lift.y,width:lift.w,height:lift.h,rx:3,class:'gearBody'},svg);
+      el('line',{x1:pump.x+pump.w,y1:98,x2:lift.x,y2:98,class:'g'},svg);
+      const lever=el('line',{x1:pump.x+pump.w/2,y1:pump.y+pump.h,x2:pump.x+pump.w/2,y2:pump.y+pump.h,class:'link rod'},svg);
+      const ram=el('rect',{x:lift.x+lift.w/2-7,y:lift.y+2,width:14,height:lift.h-4,class:'slider'},svg);
+      const rod=el('line',{x1:lift.x+lift.w/2,y1:lift.y+2,x2:lift.x+lift.w/2,y2:lift.y-2,class:'link rod'},svg);
+      const load=el('rect',{x:lift.x-16,y:0,width:66,height:14,rx:2,class:'slider'},svg);
+      el('line',{x1:118,y1:118,x2:190,y2:118,class:'g'},svg);
+      return function(t){
+        const pumpY=18+12*Math.sin(t*1.2);
+        setAttr(lever,{y2:pump.y+pump.h+pumpY});
+        const h=14+18*(0.5+0.5*Math.sin(t*1.2));
+        const ramTop=lift.y-h;
+        setAttr(ram,{y:ramTop});
+        setAttr(rod,{y1:ramTop,y2:lift.y+lift.h});
+        setAttr(load,{y:ramTop-14});
+      };
+    }
+  },
+  'belt-drive': {
+    name:'带传动机构', en:'BELT-DRIVE', cat:'挠性传动', idx:'41',
+    desc:'挠性带套在两带轮上传递运动和动力，传动平稳、可缓冲吸振。',
+    params:[['传动比','≤ 5（多级更大）'],['效率','94% – 98%'],['特点','缓冲吸振'],['典型应用','电机传动 / 输送']],
+    build(svg){
+      const c1={x:66,y:84},c2={x:140,y:84},r1=24,r2=16;
+      const belt=el('path',{fill:'none',class:'ujRim',style:'stroke-width:4;opacity:.55;stroke-dasharray:10 8'},svg);
+      const g1=el('g',{},svg),g2=el('g',{},svg);
+      drawGear(g1,c1,r1,8);
+      drawGear(g2,c2,r2,6);
+      el('circle',{cx:c1.x,cy:c1.y,r:3,class:'pin'},svg);
+      el('circle',{cx:c2.x,cy:c2.y,r:3,class:'pin'},svg);
+      return function(t){
+        const d=`M${c1.x-r1} ${c1.y} L${c2.x-r2} ${c2.y} A${r2} ${r2} 0 0 1 ${c2.x+r2} ${c2.y} L${c1.x+r1} ${c1.y} A${r1} ${r1} 0 0 1 ${c1.x-r1} ${c1.y} Z`;
+        setAttr(belt,{d});
+        belt.style.strokeDashoffset=-t*46;
+        g1.setAttribute('transform',`rotate(${t*60} ${c1.x} ${c1.y})`);
+        g2.setAttribute('transform',`rotate(${t*60*(r1/r2)} ${c2.x} ${c2.y})`);
+      };
+    }
+  },
+  'chain-drive': {
+    name:'链传动机构', en:'CHAIN-DRIVE', cat:'挠性传动', idx:'42',
+    desc:'链条与链轮啮合传递运动和动力，传动比准确、承载能力大。',
+    params:[['传动比','准确（啮合）'],['效率','96% – 98%'],['特点','无弹性滑动'],['典型应用','输送 / 动力传递']],
+    build(svg){
+      const c1={x:64,y:84},c2={x:138,y:84},r1=22,r2=22;
+      const chain=el('path',{fill:'none',class:'trace',style:'stroke-width:4;opacity:.6;stroke-dasharray:5 6'},svg);
+      const g1=el('g',{},svg),g2=el('g',{},svg);
+      drawGear(g1,c1,r1,10);
+      drawGear(g2,c2,r2,10);
+      el('circle',{cx:c1.x,cy:c1.y,r:3,class:'pin'},svg);
+      el('circle',{cx:c2.x,cy:c2.y,r:3,class:'pin'},svg);
+      return function(t){
+        const d=`M${c1.x-r1} ${c1.y} L${c2.x-r2} ${c2.y} A${r2} ${r2} 0 0 1 ${c2.x+r2} ${c2.y} L${c1.x+r1} ${c1.y} A${r1} ${r1} 0 0 1 ${c1.x-r1} ${c1.y} Z`;
+        setAttr(chain,{d});
+        chain.style.strokeDashoffset=-t*40;
+        g1.setAttribute('transform',`rotate(${t*55} ${c1.x} ${c1.y})`);
+        g2.setAttribute('transform',`rotate(${t*55} ${c2.x} ${c2.y})`);
+      };
+    }
+  },
+  'friction-wheel': {
+    name:'摩擦轮传动机构', en:'FRICTION-WHEEL', cat:'挠性传动', idx:'43',
+    desc:'两摩擦轮直接接触，靠摩擦力传递运动和动力，可实现无级调速。',
+    params:[['速比','可无级调节'],['效率','85% – 95%'],['特点','无级变速'],['典型应用','无级变速器']],
+    build(svg){
+      const c1={x:78,y:84},c2={x:126,y:84},r1=20,r2=20;
+      const g1=el('g',{},svg),g2=el('g',{},svg);
+      el('circle',{cx:c1.x,cy:c1.y,r:r1,class:'gearBody',style:'fill:var(--cyan-faint)'},g1);
+      el('line',{x1:c1.x,y1:c1.y,x2:c1.x+r1,y2:c1.y,class:'crank'},g1);
+      el('circle',{cx:c2.x,cy:c2.y,r:r2,class:'gearBody',style:'fill:color-mix(in srgb,var(--amber) 18%,transparent);stroke:var(--amber)'},g2);
+      el('line',{x1:c2.x,y1:c2.y,x2:c2.x+r2,y2:c2.y,class:'crank',style:'stroke:var(--amber)'},g2);
+      el('circle',{cx:c1.x,cy:c1.y,r:3,class:'pin'},svg);
+      el('circle',{cx:c2.x,cy:c2.y,r:3,class:'pin'},svg);
+      el('circle',{cx:(c1.x+c2.x)/2,cy:c1.y,r:2.5,class:'pinB'},svg);
+      return function(t){
+        g1.setAttribute('transform',`rotate(${t*60} ${c1.x} ${c1.y})`);
+        g2.setAttribute('transform',`rotate(${-t*60} ${c2.x} ${c2.y})`);
+      };
+    }
+  },
+  'swinging-block': {
+    name:'曲柄摇块机构', en:'SWINGING-BLOCK', cat:'连杆机构', idx:'45',
+    desc:'曲柄驱动滑块沿摆动导杆滑动，导杆绕固定铰点摆动，为反置曲柄滑块。',
+    params:[['类型','反置曲柄滑块'],['运动','导杆摆动+滑块滑动'],['典型应用','装载机 / 摆动机构'],['自由度','F = 1']],
+    build(svg){
+      const O1={x:52,y:100}, O2={x:140,y:62}, R=22;
+      el('polygon',{points:`${O1.x-6},${O1.y} ${O1.x+6},${O1.y} ${O1.x},${O1.y+14}`,class:'ground'},svg);
+      el('polygon',{points:`${O2.x-6},${O2.y} ${O2.x+6},${O2.y} ${O2.x},${O2.y+14}`,class:'ground'},svg);
+      el('circle',{cx:O1.x,cy:O1.y,r:4,class:'pin'},svg);
+      el('circle',{cx:O2.x,cy:O2.y,r:4,class:'pin'},svg);
+      const crank=el('line',{x1:O1.x,y1:O1.y,x2:O1.x,y2:O1.y,class:'crank'},svg);
+      const rocker=el('line',{x1:O2.x,y1:O2.y,x2:O2.x,y2:O2.y,class:'link'},svg);
+      const block=el('rect',{x:0,y:0,width:16,height:16,class:'slider'},svg);
+      const pinB=el('circle',{r:3,class:'pinB'},svg);
+      return function(t){
+        const th=t*1.4;
+        const B={x:O1.x+R*Math.cos(th),y:O1.y-R*Math.sin(th)};
+        const phi=Math.atan2(B.y-O2.y,B.x-O2.x);
+        const rx=O2.x+Math.cos(phi)*86, ry=O2.y+Math.sin(phi)*86;
+        setAttr(crank,{x2:B.x,y2:B.y});
+        setAttr(rocker,{x2:rx,y2:ry});
+        setAttr(pinB,{cx:B.x,cy:B.y});
+        setAttr(block,{x:B.x-8,y:B.y-8});
+      };
+    }
+  },
+  'crank-press': {
+    name:'曲柄压力机机构', en:'CRANK-PRESS', cat:'连杆机构', idx:'46',
+    desc:'飞轮带动曲柄连杆驱动滑块往复冲压，是冲压与成形设备的核心传动。',
+    params:[['行程','2R（曲柄直径）'],['特点','大冲压力'],['典型应用','冲压机 / 成形机'],['自由度','F = 1']],
+    build(svg){
+      const O={x:96,y:58}, R=15, L=42;
+      el('circle',{cx:O.x,cy:O.y,r:30,class:'ujRim',style:'opacity:.5'},svg);
+      el('circle',{cx:O.x,cy:O.y,r:3,class:'pin'},svg);
+      const crank=el('line',{x1:O.x,y1:O.y,x2:O.x,y2:O.y,class:'crank'},svg);
+      const rod=el('line',{class:'link rod'},svg);
+      const pin=el('circle',{r:3,class:'pinB'},svg);
+      const ram=el('rect',{x:O.x-18,y:0,width:36,height:14,rx:2,class:'slider'},svg);
+      el('line',{x1:O.x-26,y1:116,x2:O.x-26,y2:54,class:'g'},svg);
+      el('line',{x1:O.x+26,y1:116,x2:O.x+26,y2:54,class:'g'},svg);
+      el('rect',{x:52,y:122,width:88,height:16,rx:2,class:'gearBody'},svg);
+      el('line',{x1:36,y1:138,x2:156,y2:138,class:'g'},svg);
+      return function(t){
+        const th=t*1.5;
+        const B={x:O.x+R*Math.cos(th),y:O.y+R*Math.sin(th)};
+        const ramTop=B.y+Math.sqrt(Math.max(0,L*L-(B.x-O.x)*(B.x-O.x)));
+        setAttr(crank,{x2:B.x,y2:B.y});
+        setAttr(rod,{x1:B.x,y1:B.y,x2:O.x,y2:ramTop});
+        setAttr(pin,{cx:B.x,cy:B.y});
+        setAttr(ram,{y:ramTop});
+      };
+    }
+  },
+  'v-engine': {
+    name:'V型发动机机构', en:'V-ENGINE', cat:'连杆机构', idx:'47',
+    desc:'两个气缸呈V形布置，共用曲轴驱动活塞交错往复，结构紧凑。',
+    params:[['气缸夹角','60°–90°'],['曲柄连杆','共用曲轴'],['特点','紧凑大功率'],['典型应用','内燃机 / 压缩机']],
+    build(svg){
+      const O={x:100,y:112}, R=14, L=44;
+      const v=38*Math.PI/180;
+      const ax1={x:-Math.sin(v),y:-Math.cos(v)}, ax2={x:Math.sin(v),y:-Math.cos(v)};
+      el('circle',{cx:O.x,cy:O.y,r:16,class:'gearBody'},svg);
+      el('circle',{cx:O.x,cy:O.y,r:3,class:'pin'},svg);
+      const crank=el('line',{x1:O.x,y1:O.y,x2:O.x,y2:O.y,class:'crank'},svg);
+      const pin=el('circle',{r:3,class:'pinB'},svg);
+      el('line',{x1:O.x+ax1.x*8,y1:O.y+ax1.y*8,x2:O.x+ax1.x*34,y2:O.y+ax1.y*34,class:'g'},svg);
+      el('line',{x1:O.x+ax2.x*8,y1:O.y+ax2.y*8,x2:O.x+ax2.x*34,y2:O.y+ax2.y*34,class:'g'},svg);
+      const rod1=el('line',{class:'link'},svg);
+      const rod2=el('line',{class:'link rod'},svg);
+      const p1=el('rect',{x:0,y:0,width:18,height:14,rx:2,class:'slider'},svg);
+      const p2=el('rect',{x:0,y:0,width:18,height:14,rx:2,class:'slider'},svg);
+      el('line',{x1:36,y1:140,x2:164,y2:140,class:'g'},svg);
+      return function(t){
+        const th=t*1.6;
+        const B={x:O.x+R*Math.cos(th),y:O.y+R*Math.sin(th)};
+        const proj1=(B.x-O.x)*ax1.x+(B.y-O.y)*ax1.y;
+        const P1={x:O.x+ax1.x*proj1,y:O.y+ax1.y*proj1};
+        const proj2=(B.x-O.x)*ax2.x+(B.y-O.y)*ax2.y;
+        const P2={x:O.x+ax2.x*proj2,y:O.y+ax2.y*proj2};
+        setAttr(crank,{x2:B.x,y2:B.y});
+        setAttr(pin,{cx:B.x,cy:B.y});
+        setAttr(rod1,{x1:B.x,y1:B.y,x2:P1.x,y2:P1.y});
+        setAttr(rod2,{x1:B.x,y1:B.y,x2:P2.x,y2:P2.y});
+        setAttr(p1,{x:P1.x-9,y:P1.y-7});
+        setAttr(p2,{x:P2.x-9,y:P2.y-7});
+      };
+    }
+  },
+  'windscreen-wiper': {
+    name:'雨刮机构', en:'WIPER-LINKAGE', cat:'连杆机构', idx:'48',
+    desc:'电机带动曲柄经连杆驱动刮臂往复摆动，实现挡风玻璃刮扫。',
+    params:[['摆动角','±70°'],['驱动','电机+连杆'],['特点','往复摆动'],['典型应用','汽车雨刮 / 清扫']],
+    build(svg){
+      const O={x:66,y:100}, D={x:140,y:100}, r1=20, r2=44, r3=30;
+      el('line',{x1:O.x,y1:O.y,x2:D.x,y2:D.y,class:'g'},svg);
+      el('circle',{cx:O.x,cy:O.y,r:3,class:'pin'},svg);
+      el('circle',{cx:D.x,cy:D.y,r:4,class:'pin'},svg);
+      const l1=el('line',{x1:O.x,y1:O.y,x2:O.x,y2:O.y,class:'crank'},svg);
+      const lc=el('line',{class:'link'},svg);
+      const blade=el('line',{x1:D.x,y1:D.y,x2:D.x,y2:D.y,class:'link rod'},svg);
+      const pB=el('circle',{r:3,class:'pinB'},svg);
+      const pC=el('circle',{r:3,class:'pinB'},svg);
+      el('path',{d:'M20 40 A112 112 0 0 1 180 40',fill:'none',class:'g',style:'stroke-dasharray:6 6'},svg);
+      return function(t){
+        const th=t*1.2;
+        const B={x:O.x+r1*Math.cos(th),y:O.y-r1*Math.sin(th)};
+        const dx=B.x-D.x,dy=B.y-D.y,bd=Math.hypot(dx,dy);
+        let cosg=(bd*bd+r3*r3-r2*r2)/(2*bd*r3);
+        cosg=Math.max(-1,Math.min(1,cosg));
+        const g=Math.acos(cosg),psi=Math.atan2(dy,dx);
+        const C={x:D.x+r3*Math.cos(psi+g),y:D.y+r3*Math.sin(psi+g)};
+        setAttr(l1,{x2:B.x,y2:B.y});
+        setAttr(lc,{x1:B.x,y1:B.y,x2:C.x,y2:C.y});
+        setAttr(pB,{cx:B.x,cy:B.y});
+        setAttr(pC,{cx:C.x,cy:C.y});
+        const ang=Math.atan2(C.y-D.y,C.x-D.x);
+        setAttr(blade,{x1:D.x,y1:D.y,x2:D.x+Math.cos(ang)*52,y2:D.y+Math.sin(ang)*52});
+      };
+    }
+  },
+  'internal-gear': {
+    name:'内啮合齿轮机构', en:'INTERNAL-GEAR', cat:'齿轮机构', idx:'49',
+    desc:'行星轮在内齿圈内部啮合滚动，同向转动，结构紧凑、速比大。',
+    params:[['啮合','内齿圈+行星轮'],['转向','同向转动'],['速比','大速比'],['典型应用','行星减速 / 传动']],
+    build(svg){
+      const C={x:100,y:82}, rp=13, R=30;
+      el('circle',{cx:C.x,cy:C.y,r:R+rp+4,class:'gearBody',style:'fill:none;stroke-dasharray:6 5;opacity:.6'},svg);
+      el('circle',{cx:C.x,cy:C.y,r:3,class:'pin'},svg);
+      const arm=el('line',{x1:C.x,y1:C.y,x2:C.x,y2:C.y,class:'crank'},svg);
+      const planet=el('g',{},svg);
+      drawGear(planet,{x:0,y:0},rp,8);
+      const pPin=el('circle',{r:2.6,class:'pinB'},svg);
+      const trace=el('polyline',{class:'trace',fill:'none'},svg);
+      const pts=[];
+      return function(t){
+        const th=t*1.1;
+        const Px=C.x+R*Math.cos(th), Py=C.y+R*Math.sin(th);
+        setAttr(arm,{x2:Px,y2:Py});
+        planet.setAttribute('transform',`translate(${Px} ${Py}) rotate(${th*180/Math.PI*(R/rp)} 0 0)`);
+        setAttr(pPin,{cx:Px,cy:Py});
+        const Q={x:Px+Math.cos(th*2)*9,y:Py+Math.sin(th*2)*9};
+        pts.push(Q.x,Q.y);
+        if(pts.length>500) pts.splice(0,2);
+        setAttr(trace,{points:pts.join(' ')});
+      };
+    }
+  },
+  'harmonic-drive': {
+    name:'谐波减速器机构', en:'HARMONIC-DRIVE', cat:'齿轮机构', idx:'50',
+    desc:'波发生器使柔轮产生周期性弹性变形，与刚轮啮合实现大速比减速。',
+    params:[['减速比','50–320'],['特点','小体积大速比'],['精度','极高'],['典型应用','机器人关节 / 精密传动']],
+    build(svg){
+      const C={x:100,y:84};
+      el('circle',{cx:C.x,cy:C.y,r:40,class:'ujRim',style:'opacity:.55;stroke-width:2'},svg);
+      const flex=el('ellipse',{cx:C.x,cy:C.y,rx:34,ry:30,class:'gearBody',style:'fill:none;stroke-width:2'},svg);
+      const wg=el('g',{},svg);
+      el('ellipse',{cx:C.x,cy:C.y,rx:22,ry:11,class:'camBase'},wg);
+      el('line',{x1:C.x,y1:C.y,x2:C.x+22,y2:C.y,class:'crank'},wg);
+      el('circle',{cx:C.x,cy:C.y,r:4,class:'pin'},svg);
+      return function(t){
+        const a=t*50;
+        wg.setAttribute('transform',`rotate(${a} ${C.x} ${C.y})`);
+        flex.setAttribute('transform',`rotate(${-a/100} ${C.x} ${C.y})`);
+      };
+    }
+  },
+  'cam-flat': {
+    name:'凸轮平底从动件机构', en:'CAM-FLAT-FOLLOWER', cat:'凸轮机构', idx:'51',
+    desc:'平底从动件与凸轮轮廓线接触，传动平稳、接触应力均匀。',
+    params:[['从动件','平底'],['升程','0–12 mm'],['特点','接触平稳'],['典型应用','内燃机气门 / 送料']],
+    build(svg){
+      const O={x:60,y:100};
+      const cam=el('g',{},svg);
+      el('circle',{cx:O.x,cy:O.y,r:15,class:'camBase'},cam);
+      el('ellipse',{cx:O.x+11,cy:O.y,rx:12,ry:8,class:'camLobe'},cam);
+      el('line',{x1:O.x,y1:O.y,x2:O.x+15,y2:O.y,class:'crank'},cam);
+      el('circle',{cx:O.x,cy:O.y,r:3,class:'pin'},svg);
+      const flat=el('rect',{x:O.x-14,y:0,width:28,height:10,rx:1,class:'slider'},svg);
+      el('line',{x1:O.x,y1:14,x2:O.x,y2:6,class:'g'},svg);
+      const rod=el('line',{x1:O.x,y1:14,x2:O.x,y2:40,class:'link rod'},svg);
+      return function(t){
+        const th=t*1.1;
+        cam.setAttribute('transform',`rotate(${th*180/Math.PI} ${O.x} ${O.y})`);
+        const lift=9*(1-Math.cos(th))/2;
+        const top=O.y-15-lift;
+        setAttr(flat,{y:top});
+        setAttr(rod,{y1:top,y2:top-26});
+      };
+    }
+  },
+  'escapement': {
+    name:'擒纵机构', en:'ESCAPEMENT', cat:'间歇机构', idx:'52',
+    desc:'擒纵叉交替阻挡与释放擒纵轮，将动力转化为规则的间歇摆动。',
+    params:[['特点','规则间歇摆动'],['周期','恒定'],['典型应用','机械钟表 / 计时'],['自由度','F = 1']],
+    build(svg){
+      const C={x:86,y:88}, r=24;
+      const wheel=el('g',{},svg);
+      el('circle',{cx:C.x,cy:C.y,r:r,class:'gearBody'},wheel);
+      for(let i=0;i<8;i++){const a=i/8*2*Math.PI+Math.PI/8;el('line',{x1:C.x+Math.cos(a)*r,y1:C.y+Math.sin(a)*r,x2:C.x+Math.cos(a)*(r+8),y2:C.y+Math.sin(a)*(r+8),class:'gearTeeth'},wheel);}
+      el('circle',{cx:C.x,cy:C.y,r:3,class:'pin'},svg);
+      const fork=el('line',{x1:150,y1:56,x2:150,y2:56,class:'link rod'},svg);
+      el('circle',{cx:150,cy:56,r:3.5,class:'pin'},svg);
+      return function(t){
+        const ang=Math.floor(t*6)%8*(360/8);
+        wheel.setAttribute('transform',`rotate(${ang} ${C.x} ${C.y})`);
+        const sw=(Math.sin(t*6)>0)?-13:14;
+        fork.setAttribute('transform',`rotate(${sw} 150 56)`);
+      };
+    }
+  },
+  'cam-indexer': {
+    name:'凸轮分度机构', en:'CAM-INDEXER', cat:'间歇机构', idx:'53',
+    desc:'滚子凸轮与分度盘槽啮合，实现高速平稳的间歇分度转位。',
+    params:[['分度数','4–12'],['特点','高速平稳'],['转位','间歇分度'],['典型应用','转盘机 / 分度台']],
+    build(svg){
+      const D={x:78,y:86}, G={x:138,y:86};
+      const drv=el('g',{},svg);
+      el('circle',{cx:D.x,cy:D.y,r:16,class:'gearBody'},drv);
+      const rollers=[0,1].map(i=>el('circle',{cx:D.x+16*Math.cos(i*Math.PI),cy:D.y+16*Math.sin(i*Math.PI),r:4,class:'pinB'},drv));
+      const idx=el('g',{},svg);
+      el('circle',{cx:G.x,cy:G.y,r:36,class:'gearBody'},idx);
+      for(let i=0;i<4;i++){const a=i*Math.PI/2+Math.PI/4;el('line',{x1:G.x,y1:G.y,x2:G.x+Math.cos(a)*30,y2:G.y+Math.sin(a)*30,class:'g'},idx);}
+      el('circle',{cx:G.x,cy:G.y,r:3,class:'pin'},svg);
+      return function(t){
+        drv.setAttribute('transform',`rotate(${t*90} ${D.x} ${D.y})`);
+        const turns=Math.floor(t),frac=t-turns;
+        let ang=turns*90;
+        if(frac>0.12&&frac<0.5) ang+=90*easeInOut((frac-0.12)/0.38);
+        idx.setAttribute('transform',`rotate(${ang} ${G.x} ${G.y})`);
+      };
+    }
+  },
+  'screw-conveyor': {
+    name:'螺旋输送机构', en:'SCREW-CONVEYOR', cat:'螺旋机构', idx:'54',
+    desc:'螺杆在料槽内旋转，推动物料沿轴向连续输送，密闭输送能力强。',
+    params:[['输送能力','体积流量可调'],['特点','密闭输送'],['典型应用','粉料/颗粒输送'],['螺距','P 可调']],
+    build(svg){
+      const y=92,x1=24,x2=176;
+      el('rect',{x:x1,y:y-12,width:x2-x1,height:24,rx:4,class:'gearBody',style:'fill:none'},svg);
+      el('line',{x1:x1,y1:y,x2:x2,y2:y,class:'g'},svg);
+      const screw=el('g',{},svg);
+      for(let i=0;i<18;i++) el('line',{x1:x1+i*8.5,y1:y-10,x2:x1+i*8.5+6,y2:y+10,class:'thread'},screw);
+      const mat=el('circle',{r:3.5,class:'pinB'},svg);
+      el('line',{x1:x1,y1:y+12,x2:x1,y2:y+26,class:'g'},svg);
+      el('line',{x1:x2,y1:y+12,x2:x2,y2:y+26,class:'g'},svg);
+      return function(t){
+        screw.setAttribute('transform',`rotate(${t*70} 100 ${y})`);
+        const mx=x2-10-((t*30)%140);
+        setAttr(mat,{cx:mx,cy:y+2});
+      };
+    }
+  },
+  'hydraulic-motor': {
+    name:'液压马达机构', en:'HYDRAULIC-MOTOR', cat:'液压机构', idx:'55',
+    desc:'压力油驱动转子与叶片连续回转，输出旋转运动和扭矩。',
+    params:[['排量','10–200 mL/r'],['压力','≤ 25 MPa'],['特点','大扭矩输出'],['典型应用','回转驱动 / 行走']],
+    build(svg){
+      const C={x:100,y:84};
+      el('ellipse',{cx:C.x,cy:C.y,rx:38,ry:28,class:'gearBody',style:'fill:none;stroke-width:2'},svg);
+      const rotor=el('g',{},svg);
+      el('circle',{cx:C.x,cy:C.y,r:14,class:'camBase'},rotor);
+      for(let i=0;i<5;i++){const a=i/5*2*Math.PI;el('line',{x1:C.x,y1:C.y,x2:C.x+Math.cos(a)*24,y2:C.y+Math.sin(a)*24,class:'crank'},rotor);}
+      el('circle',{cx:C.x,cy:C.y,r:3.5,class:'pin'},svg);
+      el('line',{x1:C.x-44,y1:56,x2:C.x-44,y2:38,class:'g'},svg);
+      el('line',{x1:C.x+44,y1:112,x2:C.x+44,y2:130,class:'g'},svg);
+      return function(t){
+        rotor.setAttribute('transform',`rotate(${t*55} ${C.x} ${C.y})`);
+      };
+    }
+  },
+  'pumpjack': {
+    name:'抽油机机构（游梁式）', en:'PUMPJACK', cat:'连杆机构', idx:'56',
+    desc:'曲柄经连杆驱动游梁摆动，梁前端通过抽油杆带动井下柱塞往复抽油。',
+    params:[['冲程','1–6 m'],['特点','低速大扭矩'],['典型应用','油田抽油'],['自由度','F = 1']],
+    build(svg){
+      const P={x:118,y:52}, O={x:150,y:120}, R=18, L=52;
+      el('line',{x1:94,y1:132,x2:180,y2:132,class:'g'},svg);
+      el('polygon',{points:`${P.x-14},${P.y+16} ${P.x+14},${P.y+16} ${P.x},${P.y+2}`,class:'ground'},svg);
+      el('circle',{cx:P.x,cy:P.y,r:4,class:'pin'},svg);
+      el('circle',{cx:O.x,cy:O.y,r:3,class:'pin'},svg);
+      const beam=el('line',{x1:P.x-66,y1:P.y,x2:P.x,y2:P.y,class:'link',style:'stroke-width:4'},svg);
+      const beam2=el('line',{x1:P.x,y1:P.y,x2:P.x+60,y2:P.y,class:'crank',style:'stroke-width:4'},svg);
+      const crank=el('line',{x1:O.x,y1:O.y,x2:O.x,y2:O.y,class:'crank'},svg);
+      const rod=el('line',{class:'link rod'},svg);
+      const pin=el('circle',{r:3,class:'pinB'},svg);
+      const pull=el('line',{x1:P.x-66,y1:P.y,x2:P.x-66,y2:P.y,class:'link rod'},svg);
+      const pump=el('rect',{x:P.x-74,y:0,width:16,height:26,rx:2,class:'slider'},svg);
+      return function(t){
+        const th=t*1.2;
+        const B={x:O.x+R*Math.cos(th),y:O.y+R*Math.sin(th)};
+        const d={x:B.x-P.x,y:B.y-P.y}, dl=Math.hypot(d.x,d.y);
+        let cosg=(dl*dl+60*60-L*L)/(2*dl*60);
+        cosg=Math.max(-1,Math.min(1,cosg));
+        const g=Math.acos(cosg), base=Math.atan2(d.y,d.x), a=base-g;
+        const Rear={x:P.x+60*Math.cos(a),y:P.y+60*Math.sin(a)};
+        beam.setAttribute('transform',`rotate(${a*180/Math.PI} ${P.x} ${P.y})`);
+        beam2.setAttribute('transform',`rotate(${a*180/Math.PI} ${P.x} ${P.y})`);
+        setAttr(crank,{x2:B.x,y2:B.y});
+        setAttr(rod,{x1:B.x,y1:B.y,x2:Rear.x,y2:Rear.y});
+        setAttr(pin,{cx:B.x,cy:B.y});
+        const fx=P.x-66*Math.cos(a), fy=P.y-66*Math.sin(a);
+        const lift=Math.sin(a*2)*14;
+        setAttr(pull,{x1:fx,y1:fy,x2:fx,y2:fy+26});
+        setAttr(pump,{x:fx-8,y:fy+28+lift});
+      };
+    }
+  },
+  'jaw-crusher': {
+    name:'颚式破碎机机构', en:'JAW-CRUSHER', cat:'连杆机构', idx:'57',
+    desc:'偏心轴带动动颚往复摆动，与定颚配合挤压破碎物料。',
+    params:[['进料口','大块物料'],['特点','高破碎比'],['典型应用','矿山破碎'],['自由度','F = 1']],
+    build(svg){
+      const O={x:96,y:120};
+      el('line',{x1:120,y1:40,x2:120,y2:122,class:'link',style:'stroke-width:3'},svg);
+      const jaw=el('line',{x1:88,y1:40,x2:88,y2:40,class:'link rod',style:'stroke-width:3'},svg);
+      el('circle',{cx:88,cy:40,r:3.5,class:'pin'},svg);
+      el('circle',{cx:O.x,cy:O.y,r:3,class:'pin'},svg);
+      const ecc=el('g',{},svg);
+      el('circle',{cx:O.x,cy:O.y,r:14,class:'camBase'},ecc);
+      const toggle=el('line',{x1:O.x,y1:O.y,x2:O.x,y2:O.y,class:'crank'},svg);
+      const pin=el('circle',{r:3,class:'pinB'},svg);
+      el('line',{x1:60,y1:132,x2:170,y2:132,class:'g'},svg);
+      return function(t){
+        const th=t*1.3;
+        const B={x:O.x+14*Math.cos(th),y:O.y+14*Math.sin(th)};
+        const jx=96-11*Math.cos(th);
+        ecc.setAttribute('transform',`rotate(${th*180/Math.PI} ${O.x} ${O.y})`);
+        setAttr(jaw,{x2:jx,y2:116});
+        setAttr(toggle,{x2:B.x,y2:B.y});
+        setAttr(pin,{cx:B.x,cy:B.y});
+      };
+    }
+  },
+  'inline-engine': {
+    name:'内燃机直列机构', en:'INLINE-ENGINE', cat:'连杆机构', idx:'58',
+    desc:'活塞在气缸内往复运动，经连杆驱动曲轴旋转输出动力。',
+    params:[['冲程','4 冲程'],['转速','可达数千 r/min'],['典型应用','汽油机/柴油机'],['自由度','F = 1']],
+    build(svg){
+      const O={x:96,y:118}, R=16, L=44;
+      el('circle',{cx:O.x,cy:O.y,r:26,class:'ujRim',style:'opacity:.5'},svg);
+      el('circle',{cx:O.x,cy:O.y,r:3,class:'pin'},svg);
+      const crank=el('line',{x1:O.x,y1:O.y,x2:O.x,y2:O.y,class:'crank'},svg);
+      const rod=el('line',{class:'link rod'},svg);
+      const pin=el('circle',{r:3,class:'pinB'},svg);
+      el('rect',{x:O.x-26,y:20,width:52,height:36,rx:2,class:'gearBody',style:'fill:none'},svg);
+      const piston=el('rect',{x:O.x-12,y:0,width:24,height:18,rx:2,class:'slider'},svg);
+      el('line',{x1:O.x-32,y1:118,x2:O.x-32,y2:34,class:'g'},svg);
+      el('line',{x1:O.x+32,y1:118,x2:O.x+32,y2:34,class:'g'},svg);
+      el('line',{x1:70,y1:142,x2:122,y2:142,class:'g'},svg);
+      return function(t){
+        const th=t*1.8;
+        const B={x:O.x+R*Math.cos(th),y:O.y-R*Math.sin(th)};
+        const top=B.y-Math.sqrt(Math.max(0,L*L-(B.x-O.x)*(B.x-O.x)));
+        setAttr(crank,{x2:B.x,y2:B.y});
+        setAttr(rod,{x1:B.x,y1:B.y,x2:O.x,y2:top});
+        setAttr(pin,{cx:B.x,cy:B.y});
+        setAttr(piston,{y:top});
+      };
+    }
+  },
+  'opposed-piston': {
+    name:'对置活塞机构', en:'OPPOSED-PISTON', cat:'连杆机构', idx:'59',
+    desc:'两个活塞对置布置，共用曲轴反向运动，结构平衡好。',
+    params:[['活塞','对置双活塞'],['特点','平衡性好'],['典型应用','对置发动机'],['自由度','F = 1']],
+    build(svg){
+      const O={x:96,y:80}, R=14, L=40;
+      el('circle',{cx:O.x,cy:O.y,r:16,class:'gearBody'},svg);
+      el('circle',{cx:O.x,cy:O.y,r:3,class:'pin'},svg);
+      const crank=el('line',{x1:O.x,y1:O.y,x2:O.x,y2:O.y,class:'crank'},svg);
+      const pin=el('circle',{r:3,class:'pinB'},svg);
+      const rodU=el('line',{class:'link'},svg);
+      const rodD=el('line',{class:'link rod'},svg);
+      const pU=el('rect',{x:O.x-12,y:0,width:24,height:14,rx:2,class:'slider'},svg);
+      const pD=el('rect',{x:O.x-12,y:0,width:24,height:14,rx:2,class:'slider'},svg);
+      el('line',{x1:O.x-30,y1:16,x2:O.x-30,y2:144,class:'g'},svg);
+      el('line',{x1:O.x+30,y1:16,x2:O.x+30,y2:144,class:'g'},svg);
+      return function(t){
+        const th=t*1.6;
+        const B={x:O.x+R*Math.cos(th),y:O.y+R*Math.sin(th)};
+        const dd=Math.sqrt(Math.max(0,L*L-(B.x-O.x)*(B.x-O.x)));
+        const top=O.y-R-dd, bot=O.y+R+dd;
+        setAttr(crank,{x2:B.x,y2:B.y});
+        setAttr(pin,{cx:B.x,cy:B.y});
+        setAttr(rodU,{x1:B.x,y1:B.y,x2:O.x,y2:top});
+        setAttr(rodD,{x1:B.x,y1:B.y,x2:O.x,y2:bot});
+        setAttr(pU,{y:top});
+        setAttr(pD,{y:bot-14});
+      };
+    }
+  },
+  'wankel-engine': {
+    name:'转子发动机机构', en:'WANKEL-ENGINE', cat:'连杆机构', idx:'60',
+    desc:'三角转子在特殊形线缸体内做行星回转，直接输出旋转动力。',
+    params:[['转子','三角转子'],['特点','高速平稳'],['典型应用','转子发动机'],['工作','4冲程旋转']],
+    build(svg){
+      const C={x:100,y:84};
+      el('path',{d:'M144 84 a46 34 0 1 0 0.1 0 Z',fill:'none',class:'ujRim',style:'opacity:.5;stroke-width:2'},svg);
+      const rotor=el('polygon',{points:`${C.x},${C.y-22} ${C.x+19},${C.y+11} ${C.x-19},${C.y+11}`,class:'camBase'},svg);
+      const apex=[0,1,2].map(i=>el('circle',{r:3,class:'pinB'},svg));
+      el('circle',{cx:C.x,cy:C.y,r:4,class:'pin'},svg);
+      return function(t){
+        const a=t*40;
+        rotor.setAttribute('transform',`rotate(${a} ${C.x} ${C.y})`);
+        [0,1,2].forEach((_,i)=>{
+          const ang=a*Math.PI/180+i*2*Math.PI/3;
+          setAttr(apex[i],{cx:C.x+Math.cos(ang)*24,cy:C.y+Math.sin(ang)*21});
+        });
+      };
+    }
+  },
+  'parallel-lift': {
+    name:'平行举升机构', en:'PARALLEL-LIFT', cat:'连杆机构', idx:'61',
+    desc:'平行四连杆保证平台始终水平，实现垂直举升或平移。',
+    params:[['特点','平台水平保持'],['类型','平行四边形'],['典型应用','举升台 / 平移'],['自由度','F = 1']],
+    build(svg){
+      const A={x:46,y:122}, D={x:150,y:122}, r=34;
+      el('line',{x1:26,y1:122,x2:172,y2:122,class:'g'},svg);
+      el('polygon',{points:`${A.x-7},${A.y} ${A.x+7},${A.y} ${A.x},${A.y+14}`,class:'ground'},svg);
+      el('polygon',{points:`${D.x-7},${A.y} ${D.x+7},${A.y} ${D.x},${A.y+14}`,class:'ground'},svg);
+      el('circle',{cx:A.x,cy:A.y,r:4,class:'pin'},svg);
+      el('circle',{cx:D.x,cy:D.y,r:4,class:'pin'},svg);
+      const c1=el('line',{x1:A.x,y1:A.y,x2:A.x,y2:A.y,class:'crank'},svg);
+      const c2=el('line',{x1:D.x,y1:D.y,x2:D.x,y2:D.y,class:'crank'},svg);
+      const plat=el('rect',{x:0,y:0,width:104,height:12,rx:2,class:'slider'},svg);
+      const p1=el('circle',{r:3,class:'pinB'},svg);
+      const p2=el('circle',{r:3,class:'pinB'},svg);
+      return function(t){
+        const th=(20+38*(0.5+0.5*Math.sin(t*1.1)))*Math.PI/180;
+        const B={x:A.x+r*Math.cos(th),y:A.y-r*Math.sin(th)};
+        const C={x:D.x+r*Math.cos(th),y:D.y-r*Math.sin(th)};
+        setAttr(c1,{x2:B.x,y2:B.y});
+        setAttr(c2,{x2:C.x,y2:C.y});
+        setAttr(p1,{cx:B.x,cy:B.y});
+        setAttr(p2,{cx:C.x,cy:C.y});
+        setAttr(plat,{x:B.x-3,y:B.y-14});
+      };
+    }
+  },
+  'roberts-linkage': {
+    name:'罗伯茨近似直线机构', en:'ROBERTS-LINKAGE', cat:'连杆机构', idx:'62',
+    desc:'特定杆长下连杆点近似作直线，用于近似直线导向。',
+    params:[['轨迹','近似直线段'],['特点','直线导向'],['典型应用','导向机构'],['自由度','F = 1']],
+    build(svg){
+      const A={x:44,y:104},D={x:152,y:104},r1=20,r2=24,r3=50;
+      el('line',{x1:22,y1:A.y,x2:178,y2:A.y,class:'g'},svg);
+      el('polygon',{points:`${A.x-7},${A.y} ${A.x+7},${A.y} ${A.x},${A.y+15}`,class:'ground'},svg);
+      el('polygon',{points:`${D.x-7},${A.y} ${D.x+7},${A.y} ${D.x},${A.y+15}`,class:'ground'},svg);
+      el('circle',{cx:A.x,cy:A.y,r:4,class:'pin'},svg);
+      el('circle',{cx:D.x,cy:D.y,r:4,class:'pin'},svg);
+      const trace=el('polyline',{class:'trace',fill:'none'},svg);
+      const l1=el('line',{x1:A.x,y1:A.y,x2:A.x,y2:A.y,class:'crank'},svg);
+      const lc=el('line',{class:'link'},svg);
+      const l2=el('line',{x1:D.x,y1:D.y,x2:D.x,y2:D.y,class:'crank'},svg);
+      const pB=el('circle',{r:3,class:'pinB'},svg);
+      const pC=el('circle',{r:3,class:'pinB'},svg);
+      const pts=[];
+      return function(t){
+        const th=t*1.0;
+        const B={x:A.x+r1*Math.cos(th),y:A.y-r1*Math.sin(th)};
+        const dx=B.x-D.x,dy=B.y-D.y,bd=Math.hypot(dx,dy);
+        let cosg=(bd*bd+r2*r2-r3*r3)/(2*bd*r2);
+        cosg=Math.max(-1,Math.min(1,cosg));
+        const g=Math.acos(cosg),psi=Math.atan2(dy,dx);
+        const C={x:D.x+r2*Math.cos(psi+g),y:D.y+r2*Math.sin(psi+g)};
+        setAttr(l1,{x2:B.x,y2:B.y});
+        setAttr(lc,{x1:B.x,y1:B.y,x2:C.x,y2:C.y});
+        setAttr(l2,{x2:C.x,y2:C.y});
+        setAttr(pB,{cx:B.x,cy:B.y});
+        setAttr(pC,{cx:C.x,cy:C.y});
+        const P={x:B.x+0.45*(C.x-B.x),y:B.y+0.45*(C.y-B.y)-14};
+        pts.push(P.x,P.y);
+        if(pts.length>420) pts.splice(0,2);
+        setAttr(trace,{points:pts.join(' ')});
+      };
+    }
+  },
+  'robot-arm': {
+    name:'机械手关节臂', en:'ROBOT-ARM', cat:'连杆机构', idx:'63',
+    desc:'两旋转关节联动，末端执行器可到达工作空间内的目标位姿。',
+    params:[['关节','2 旋转关节'],['工作空间','二维平面'],['典型应用','搬运 / 装配'],['自由度','F = 2']],
+    build(svg){
+      const O={x:60,y:110}, L1=48, L2=40;
+      el('circle',{cx:O.x,cy:O.y,r:4,class:'pin'},svg);
+      const link1=el('line',{x1:O.x,y1:O.y,x2:O.x,y2:O.y,class:'crank',style:'stroke-width:4'},svg);
+      const link2=el('line',{x1:0,y1:0,x2:0,y2:0,class:'link rod',style:'stroke-width:4'},svg);
+      const p1=el('circle',{r:3.5,class:'pinB'},svg);
+      const end=el('circle',{r:3.5,class:'gearBody',style:'stroke:var(--amber)'},svg);
+      const trace=el('polyline',{class:'trace',fill:'none'},svg);
+      const pts=[];
+      return function(t){
+        const a1=(-1.2+0.8*Math.sin(t*0.8));
+        const a2=(1.6+1.2*Math.sin(t*1.3+1.5));
+        const J1={x:O.x+Math.cos(a1)*L1,y:O.y-Math.sin(a1)*L1};
+        const E={x:J1.x+Math.cos(a1+a2)*L2,y:J1.y-Math.sin(a1+a2)*L2};
+        setAttr(link1,{x2:J1.x,y2:J1.y});
+        setAttr(link2,{x1:J1.x,y1:J1.y,x2:E.x,y2:E.y});
+        setAttr(p1,{cx:J1.x,cy:J1.y});
+        setAttr(end,{cx:E.x,cy:E.y});
+        pts.push(E.x,E.y);
+        if(pts.length>600) pts.splice(0,2);
+        setAttr(trace,{points:pts.join(' ')});
+      };
+    }
+  },
+  'six-bar': {
+    name:'六杆增力机构', en:'SIX-BAR', cat:'连杆机构', idx:'64',
+    desc:'多杆串联实现末端大行程或大增力输出。',
+    params:[['特点','增力/放大行程'],['类型','多杆串联'],['典型应用','冲床 / 夹具'],['自由度','F = 1']],
+    build(svg){
+      const O={x:56,y:98}, R=16;
+      el('polygon',{points:`${O.x-6},${O.y} ${O.x+6},${O.y} ${O.x},${O.y+14}`,class:'ground'},svg);
+      el('circle',{cx:O.x,cy:O.y,r:3.5,class:'pin'},svg);
+      const crank=el('line',{x1:O.x,y1:O.y,x2:O.x,y2:O.y,class:'crank'},svg);
+      const l1=el('line',{class:'link'},svg);
+      const l2=el('line',{class:'link rod'},svg);
+      const slider=el('rect',{x:0,y:O.y-9,width:24,height:18,rx:2,class:'slider'},svg);
+      el('line',{x1:30,y1:O.y,x2:180,y2:O.y,class:'g'},svg);
+      const pB=el('circle',{r:3,class:'pinB'},svg);
+      const pC=el('circle',{r:3,class:'pinB'},svg);
+      return function(t){
+        const th=t*1.3;
+        const B={x:O.x+R*Math.cos(th),y:O.y+R*Math.sin(th)};
+        const C={x:O.x+R*Math.cos(th)+34,y:O.y+12*Math.sin(th*2)};
+        const Dx=C.x+Math.sqrt(Math.max(0,42*42-(C.y-O.y)*(C.y-O.y)));
+        setAttr(crank,{x2:B.x,y2:B.y});
+        setAttr(l1,{x1:B.x,y1:B.y,x2:C.x,y2:C.y});
+        setAttr(l2,{x1:C.x,y1:C.y,x2:Dx,y2:O.y});
+        setAttr(pB,{cx:B.x,cy:B.y});
+        setAttr(pC,{cx:C.x,cy:C.y});
+        setAttr(slider,{x:Dx-12,y:O.y-9});
+      };
+    }
+  },
+  'grab-bucket': {
+    name:'抓斗机构', en:'GRAB-BUCKET', cat:'连杆机构', idx:'65',
+    desc:'两颚板通过连杆联动开闭，抓取散料后闭合提升。',
+    params:[['开闭','连杆联动'],['抓取','散料/矿石'],['典型应用','装卸/挖泥'],['自由度','F = 1']],
+    build(svg){
+      const cx=100, top=56;
+      el('line',{x1:58,y1:top,x2:142,y2:top,class:'g'},svg);
+      const rod=el('line',{x1:cx,y1:top,x2:cx,y2:top+30,class:'link rod'},svg);
+      const jL=el('line',{x1:cx,y1:top+30,x2:cx,y2:top+30,class:'crank'},svg);
+      const jR=el('line',{x1:cx,y1:top+30,x2:cx,y2:top+30,class:'crank'},svg);
+      const lL=el('line',{x1:cx-16,y1:top+26,x2:cx-16,y2:top+26,class:'link'},svg);
+      const lR=el('line',{x1:cx+16,y1:top+26,x2:cx+16,y2:top+26,class:'link'},svg);
+      const tipL=el('circle',{r:3,class:'pinB'},svg);
+      const tipR=el('circle',{r:3,class:'pinB'},svg);
+      return function(t){
+        const open=10+9*Math.sin(t*1.3);
+        setAttr(jL,{x2:cx-16-open,y2:top+64});
+        setAttr(jR,{x2:cx+16+open,y2:top+64});
+        setAttr(lL,{x1:cx-12,y1:top+26,x2:cx-16-open,y2:top+64});
+        setAttr(lR,{x1:cx+12,y1:top+26,x2:cx+16+open,y2:top+64});
+        setAttr(tipL,{cx:cx-16-open,cy:top+64});
+        setAttr(tipR,{cx:cx+16+open,cy:top+64});
+      };
+    }
+  },
+  'folding': {
+    name:'折叠机构', en:'FOLDING', cat:'连杆机构', idx:'66',
+    desc:'多节连杆折叠展开，实现大行程伸展或紧凑收纳。',
+    params:[['展开比','大行程'],['特点','折叠紧凑'],['典型应用','雨伞/天幕'],['自由度','F = 1']],
+    build(svg){
+      const cx=100, y0=120;
+      const L=[0,1,2,3].map(i=>el('line',{class:'link',style:'stroke-width:3'},svg));
+      el('line',{x1:40,y1:y0,x2:160,y2:y0,class:'g'},svg);
+      const top=el('rect',{x:cx-16,y:0,width:32,height:9,rx:2,class:'slider'},svg);
+      return function(t){
+        const a=(30+25*(0.5+0.5*Math.sin(t*1.2)))*Math.PI/180;
+        const seg=44;
+        const H=seg*Math.cos(a), W=seg*Math.sin(a);
+        const xA=cx-W, xB=cx+W;
+        setAttr(L[0],{x1:xA,y1:y0,x2:xB,y2:y0-H});
+        setAttr(L[1],{x1:xB,y1:y0-H,x2:xA,y2:y0-2*H});
+        setAttr(L[2],{x1:xA,y1:y0-2*H,x2:xB,y2:y0-3*H});
+        setAttr(L[3],{x1:xB,y1:y0-3*H,x2:xA,y2:y0-4*H});
+        setAttr(top,{x:cx-16,y:y0-4*H-9});
+      };
+    }
+  },
+  'compressor': {
+    name:'曲柄连杆压缩机机构', en:'COMPRESSOR', cat:'连杆机构', idx:'67',
+    desc:'曲柄连杆驱动活塞压缩气体，完成吸气-压缩循环。',
+    params:[['型式','往复活塞式'],['压力','≤ 3 MPa'],['典型应用','空压机/制冷'],['自由度','F = 1']],
+    build(svg){
+      const O={x:74,y:116}, R=15, L=40;
+      el('circle',{cx:O.x,cy:O.y,r:24,class:'ujRim',style:'opacity:.5'},svg);
+      el('circle',{cx:O.x,cy:O.y,r:3,class:'pin'},svg);
+      const crank=el('line',{x1:O.x,y1:O.y,x2:O.x,y2:O.y,class:'crank'},svg);
+      const rod=el('line',{class:'link rod'},svg);
+      const pin=el('circle',{r:3,class:'pinB'},svg);
+      el('rect',{x:O.x-22,y:24,width:44,height:30,rx:2,class:'gearBody',style:'fill:none'},svg);
+      const piston=el('rect',{x:O.x-12,y:0,width:24,height:16,rx:2,class:'slider'},svg);
+      el('line',{x1:O.x-28,y1:116,x2:O.x-28,y2:30,class:'g'},svg);
+      el('line',{x1:O.x+28,y1:116,x2:O.x+28,y2:30,class:'g'},svg);
+      el('line',{x1:56,y1:140,x2:92,y2:140,class:'g'},svg);
+      return function(t){
+        const th=t*1.5;
+        const B={x:O.x+R*Math.cos(th),y:O.y-R*Math.sin(th)};
+        const top=B.y-Math.sqrt(Math.max(0,L*L-(B.x-O.x)*(B.x-O.x)));
+        setAttr(crank,{x2:B.x,y2:B.y});
+        setAttr(rod,{x1:B.x,y1:B.y,x2:O.x,y2:top});
+        setAttr(pin,{cx:B.x,cy:B.y});
+        setAttr(piston,{y:top});
+      };
+    }
+  },
+  'face-cam': {
+    name:'端面凸轮机构', en:'FACE-CAM', cat:'凸轮机构', idx:'68',
+    desc:'端面曲线槽驱动从动件沿径向或轴向运动。',
+    params:[['从动件','槽内滚子'],['行程','曲线决定'],['特点','端面驱动'],['典型应用','分度/进给']],
+    build(svg){
+      const O={x:74,y:86};
+      el('circle',{cx:O.x,cy:O.y,r:30,class:'camBase'},svg);
+      el('circle',{cx:O.x,cy:O.y,r:24,class:'ujRim',style:'opacity:.6'},svg);
+      el('circle',{cx:O.x,cy:O.y,r:3,class:'pin'},svg);
+      const roller=el('circle',{r:4.5,class:'gearBody'},svg);
+      const slider=el('rect',{x:0,y:O.y-8,width:20,height:16,rx:2,class:'slider'},svg);
+      el('line',{x1:20,y1:O.y,x2:172,y2:O.y,class:'g'},svg);
+      return function(t){
+        const φ=t*1.3;
+        const r=16+8*Math.cos(φ);
+        const rx=O.x+r*Math.cos(φ), ry=O.y+r*Math.sin(φ);
+        setAttr(roller,{cx:rx,cy:ry});
+        setAttr(slider,{x:O.x+8*Math.cos(φ)-2});
+      };
+    }
+  },
+  'internal-cam': {
+    name:'内凸轮机构', en:'INTERNAL-CAM', cat:'凸轮机构', idx:'69',
+    desc:'滚子从动件在凸轮内孔廓线上运动，实现紧凑的内置驱动。',
+    params:[['从动件','内滚子'],['升程','内廓决定'],['特点','内置紧凑'],['典型应用','内置进给']],
+    build(svg){
+      const O={x:88,y:86};
+      el('circle',{cx:O.x,cy:O.y,r:30,class:'camBase'},svg);
+      el('circle',{cx:O.x,cy:O.y,r:26,class:'ujRim',style:'opacity:.8'},svg);
+      el('circle',{cx:O.x,cy:O.y,r:3,class:'pin'},svg);
+      const roller=el('circle',{r:5,class:'gearBody'},svg);
+      const arm=el('line',{x1:150,y1:O.y,x2:150,y2:O.y,class:'link rod'},svg);
+      return function(t){
+        const φ=t*1.2;
+        const r=26-4*Math.cos(φ);
+        const rx=O.x+r*Math.cos(φ), ry=O.y+r*Math.sin(φ);
+        setAttr(roller,{cx:rx,cy:ry});
+        setAttr(arm,{x2:rx,y2:ry});
+      };
+    }
+  },
+  'eccentric-cam': {
+    name:'偏心凸轮机构', en:'ECCENTRIC-CAM', cat:'凸轮机构', idx:'70',
+    desc:'偏心圆盘绕固定轴回转，推动从动件往复运动，结构最简单。',
+    params:[['偏心距','e 可调'],['升程','2e'],['特点','结构简单'],['典型应用','间歇顶推']],
+    build(svg){
+      const O={x:70,y:96};
+      const cam=el('g',{},svg);
+      el('circle',{cx:O.x+10,cy:O.y,r:16,class:'camBase'},cam);
+      el('line',{x1:O.x,y1:O.y,x2:O.x+10,y2:O.y,class:'crank'},cam);
+      el('circle',{cx:O.x,cy:O.y,r:3,class:'pin'},svg);
+      const rod=el('line',{x1:O.x,y1:16,x2:O.x,y2:40,class:'link rod'},svg);
+      const head=el('rect',{x:O.x-16,y:0,width:32,height:9,rx:2,class:'slider'},svg);
+      el('line',{x1:O.x,y1:16,x2:O.x,y2:8,class:'g'},svg);
+      return function(t){
+        cam.setAttribute('transform',`rotate(${t*70} ${O.x} ${O.y})`);
+        const lift=12*Math.sin(t*0.7)*Math.cos(t*0.7);
+        const top=O.y-28-lift;
+        setAttr(rod,{y2:top});
+        setAttr(head,{y:top});
+      };
+    }
+  },
+  'twin-cam': {
+    name:'双凸轮机构', en:'TWIN-CAM', cat:'凸轮机构', idx:'71',
+    desc:'双凸轮相位错开，实现交替或叠加驱动。',
+    params:[['相位差','可调'],['特点','双路驱动'],['典型应用','双路进给'],['自由度','F = 1']],
+    build(svg){
+      const O1={x:58,y:98}, O2={x:138,y:98};
+      const c1=el('g',{},svg), c2=el('g',{},svg);
+      el('circle',{cx:O1.x,cy:O1.y,r:15,class:'camBase'},c1);
+      el('ellipse',{cx:O1.x+11,cy:O1.y,rx:12,ry:8,class:'camLobe'},c1);
+      el('circle',{cx:O2.x,cy:O2.y,r:15,class:'camBase'},c2);
+      el('ellipse',{cx:O2.x+11,cy:O2.y,rx:12,ry:8,class:'camLobe'},c2);
+      el('circle',{cx:O1.x,cy:O1.y,r:3,class:'pin'},svg);
+      el('circle',{cx:O2.x,cy:O2.y,r:3,class:'pin'},svg);
+      const r1=el('line',{x1:O1.x,y1:30,x2:O1.x,y2:46,class:'link rod'},svg);
+      const r2=el('line',{x1:O2.x,y1:30,x2:O2.x,y2:46,class:'link rod'},svg);
+      const beam=el('rect',{x:O1.x-16,y:0,width:O2.x-O1.x+32,height:9,rx:2,class:'slider'},svg);
+      return function(t){
+        c1.setAttribute('transform',`rotate(${t*80} ${O1.x} ${O1.y})`);
+        c2.setAttribute('transform',`rotate(${t*80} ${O2.x} ${O2.y})`);
+        const l1=8*(1-Math.cos(t*1.4))/2, l2=8*(1-Math.cos(t*1.4+Math.PI))/2;
+        setAttr(r1,{y1:30-l1,y2:46-l1});
+        setAttr(r2,{y1:30-l2,y2:46-l2});
+        setAttr(beam,{y:20-l1-l2});
+      };
+    }
+  },
+  'cam-reverser': {
+    name:'凸轮换向机构', en:'CAM-REVERSER', cat:'凸轮机构', idx:'72',
+    desc:'凸轮轮廓使输出产生正反交替运动，实现自动换向。',
+    params:[['换向','轮廓控制'],['特点','自动往复'],['典型应用','往复输送'],['自由度','F = 1']],
+    build(svg){
+      const O={x:80,y:96};
+      const cam=el('g',{},svg);
+      el('circle',{cx:O.x,cy:O.y,r:15,class:'camBase'},cam);
+      el('ellipse',{cx:O.x+11,cy:O.y,rx:12,ry:8,class:'camLobe'},cam);
+      el('circle',{cx:O.x,cy:O.y,r:3,class:'pin'},svg);
+      const sl=el('rect',{x:0,y:O.y-9,width:22,height:18,rx:2,class:'slider'},svg);
+      el('line',{x1:20,y1:O.y,x2:176,y2:O.y,class:'g'},svg);
+      const rod=el('line',{x1:O.x,y1:O.y,x2:O.x,y2:O.y,class:'link rod'},svg);
+      return function(t){
+        cam.setAttribute('transform',`rotate(${t*60} ${O.x} ${O.y})`);
+        const s=Math.sin(t*1.2)*26;
+        setAttr(sl,{x:O.x-11+s});
+        setAttr(rod,{x2:O.x+18*Math.cos(t*1.2),y2:O.y+18*Math.sin(t*1.2)});
+      };
+    }
+  },
+  'helical-gear': {
+    name:'斜齿轮机构', en:'HELICAL-GEAR', cat:'齿轮机构', idx:'73',
+    desc:'齿线倾斜的斜齿轮啮合更平稳、承载更大，噪声更低。',
+    params:[['螺旋角','8°–30°'],['特点','啮合平稳'],['典型应用','高速传动'],['效率','96% – 98%']],
+    build(svg){
+      const c1={x:66,y:82}, c2={x:132,y:82}, r1=26, r2=26;
+      const g1=el('g',{},svg), g2=el('g',{},svg);
+      el('circle',{cx:c1.x,cy:c1.y,r:r1,class:'gearBody'},g1);
+      for(let i=0;i<12;i++){const a=i/12*2*Math.PI;el('line',{x1:c1.x+Math.cos(a)*r1,y1:c1.y+Math.sin(a)*r1,x2:c1.x+Math.cos(a)*(r1+7),y2:c1.y+Math.sin(a)*(r1+7),class:'gearTeeth'},g1);}
+      el('circle',{cx:c2.x,cy:c2.y,r:r2,class:'gearBody'},g2);
+      for(let i=0;i<12;i++){const a=i/12*2*Math.PI+0.26;el('line',{x1:c2.x+Math.cos(a)*r2,y1:c2.y+Math.sin(a)*r2,x2:c2.x+Math.cos(a)*(r2+7),y2:c2.y+Math.sin(a)*(r2+7),class:'gearTeeth'},g2);}
+      el('circle',{cx:c1.x,cy:c1.y,r:3,class:'pin'},svg);
+      el('circle',{cx:c2.x,cy:c2.y,r:3,class:'pin'},svg);
+      return function(t){
+        g1.setAttribute('transform',`rotate(${t*40} ${c1.x} ${c1.y})`);
+        g2.setAttribute('transform',`rotate(${-t*40} ${c2.x} ${c2.y})`);
+      };
+    }
+  },
+  'epicyclic': {
+    name:'周转轮系机构', en:'EPICYCLIC', cat:'齿轮机构', idx:'74',
+    desc:'行星轮绕太阳轮周转，可实现大范围变速与差动。',
+    params:[['结构','太阳+双行星'],['变速','连续可调'],['典型应用','变速器'],['效率','85% – 95%']],
+    build(svg){
+      const S={x:100,y:80}, R=28, rs=12, rp=10;
+      el('circle',{cx:S.x,cy:S.y,r:rs,class:'gearBody'},svg);
+      el('circle',{cx:S.x,cy:S.y,r:3,class:'pin'},svg);
+      const arm=el('line',{x1:S.x,y1:S.y,x2:S.x,y2:S.y,class:'crank'},svg);
+      const p1=el('g',{},svg), p2=el('g',{},svg);
+      drawGear(p1,{x:0,y:0},rp,7);
+      drawGear(p2,{x:0,y:0},rp,7);
+      return function(t){
+        const th=t*1.3;
+        const P1={x:S.x+R*Math.cos(th),y:S.y+R*Math.sin(th)};
+        const P2={x:S.x+R*Math.cos(th+Math.PI),y:S.y+R*Math.sin(th+Math.PI)};
+        setAttr(arm,{x2:P1.x,y2:P1.y});
+        p1.setAttribute('transform',`translate(${P1.x} ${P1.y}) rotate(${-th*180/Math.PI*(R/rp)} 0 0)`);
+        p2.setAttribute('transform',`translate(${P2.x} ${P2.y}) rotate(${-th*180/Math.PI*(R/rp)} 0 0)`);
+      };
+    }
+  },
+  'cycloidal-drive': {
+    name:'摆线针轮减速机构', en:'CYCLOIDAL-DRIVE', cat:'齿轮机构', idx:'75',
+    desc:'摆线齿廓与针齿啮合，实现大速比、高刚度减速。',
+    params:[['减速比','10–100'],['刚度','高'],['特点','抗冲击'],['典型应用','精密减速机']],
+    build(svg){
+      const C={x:100,y:84};
+      el('circle',{cx:C.x,cy:C.y,r:36,class:'ujRim',style:'opacity:.5'},svg);
+      const pins=[];
+      for(let i=0;i<8;i++){const a=i/8*2*Math.PI;pins.push(el('circle',{cx:C.x+Math.cos(a)*32,cy:C.y+Math.sin(a)*32,r:3,class:'pinB'},svg));}
+      const wheel=el('g',{},svg);
+      el('circle',{cx:C.x,cy:C.y,r:24,class:'gearBody'},wheel);
+      for(let i=0;i<6;i++){const a=i/6*2*Math.PI;el('circle',{cx:C.x+Math.cos(a)*20,cy:C.y+Math.sin(a)*20,r:5,class:'camBase'},wheel);}
+      el('circle',{cx:C.x,cy:C.y,r:3,class:'pin'},svg);
+      return function(t){
+        wheel.setAttribute('transform',`rotate(${t*40} ${C.x} ${C.y})`);
+      };
+    }
+  },
+  'gear-linkage': {
+    name:'齿轮连杆组合机构', en:'GEAR-LINKAGE', cat:'齿轮机构', idx:'76',
+    desc:'齿轮与连杆组合，实现复杂运动规律输出。',
+    params:[['组合','齿轮+连杆'],['特点','复杂轨迹'],['典型应用','特殊运动'],['自由度','F = 1']],
+    build(svg){
+      const O={x:70,y:96}, r=20;
+      const g=el('g',{},svg);
+      drawGear(g,O,r,10);
+      el('circle',{cx:O.x,cy:O.y,r:3,class:'pin'},svg);
+      const link=el('line',{x1:O.x,y1:O.y,x2:O.x,y2:O.y,class:'crank'},svg);
+      const link2=el('line',{class:'link rod'},svg);
+      const trace=el('polyline',{class:'trace',fill:'none'},svg);
+      const pts=[];
+      return function(t){
+        const th=t*1.3;
+        const B={x:O.x+r*Math.cos(th),y:O.y+r*Math.sin(th)};
+        const C={x:B.x+20*Math.cos(th*2),y:B.y+20*Math.sin(th*2)};
+        g.setAttribute('transform',`rotate(${th*180/Math.PI} ${O.x} ${O.y})`);
+        setAttr(link,{x2:B.x,y2:B.y});
+        setAttr(link2,{x1:B.x,y1:B.y,x2:C.x,y2:C.y});
+        pts.push(C.x,C.y);
+        if(pts.length>600) pts.splice(0,2);
+        setAttr(trace,{points:pts.join(' ')});
+      };
+    }
+  },
+  'rack-vertical': {
+    name:'垂直齿条传动', en:'RACK-VERTICAL', cat:'齿轮机构', idx:'77',
+    desc:'齿轮旋转驱动竖直齿条上下移动，实现升降与定位。',
+    params:[['运动','旋转→垂直直线'],['特点','精准升降'],['典型应用','升降台/电缸'],['效率','90% – 97%']],
+    build(svg){
+      const O={x:104,y:118}, r=22;
+      const gear=el('g',{},svg);
+      drawGear(gear,O,r,12);
+      el('circle',{cx:O.x,cy:O.y,r:3,class:'pin'},svg);
+      const rack=el('g',{},svg);
+      el('rect',{x:O.x-9,y:0,width:18,height:56,rx:1,class:'slider'},rack);
+      for(let i=0;i<6;i++) el('line',{x1:O.x-9,y1:O.y-i*9,x2:O.x+9,y2:O.y-i*9,class:'g'},rack);
+      const plat=el('rect',{x:O.x-24,y:0,width:48,height:10,rx:2,class:'slider'},svg);
+      return function(t){
+        const a=t*40;
+        gear.setAttribute('transform',`rotate(${a} ${O.x} ${O.y})`);
+        const lift=r*(a*Math.PI/180)%60;
+        rack.setAttribute('transform',`translate(0 ${-lift})`);
+        setAttr(plat,{y:O.y-58-lift});
+      };
+    }
+  },
+  'gear-train': {
+    name:'三轮齿轮系', en:'GEAR-TRAIN', cat:'齿轮机构', idx:'78',
+    desc:'多级齿轮串联实现大传动比降速。',
+    params:[['级数','3 级'],['传动比','大速比'],['典型应用','减速器'],['效率','93% – 97%']],
+    build(svg){
+      const cs=[{x:58,y:84,r:20},{x:104,y:84,r:14},{x:142,y:84,r:10}];
+      const gs=cs.map(c=>{const g=el('g',{},svg);drawGear(g,c,c.r,10);return g;});
+      cs.forEach(c=>el('circle',{cx:c.x,cy:c.y,r:3,class:'pin'},svg));
+      return function(t){
+        const w1=t*40;
+        gs[0].setAttribute('transform',`rotate(${w1} ${cs[0].x} ${cs[0].y})`);
+        gs[1].setAttribute('transform',`rotate(${-w1*(cs[0].r/cs[1].r)} ${cs[1].x} ${cs[1].y})`);
+        gs[2].setAttribute('transform',`rotate(${w1*(cs[0].r/cs[1].r)*(cs[1].r/cs[2].r)} ${cs[2].x} ${cs[2].y})`);
+      };
+    }
+  },
+  'double-planet': {
+    name:'双行星齿轮机构', en:'DOUBLE-PLANET', cat:'齿轮机构', idx:'79',
+    desc:'双行星轮并联分担载荷，提高承载能力与平稳性。',
+    params:[['行星','双行星并联'],['载荷','均匀分担'],['典型应用','重载减速'],['效率','85% – 95%']],
+    build(svg){
+      const S={x:100,y:80}, R=30, rp=11;
+      el('circle',{cx:S.x,cy:S.y,r:R+rp+6,class:'ujRim',style:'stroke-dasharray:6 5;opacity:.4'},svg);
+      el('circle',{cx:S.x,cy:S.y,r:3,class:'pin'},svg);
+      const arm=el('line',{x1:S.x,y1:S.y,x2:S.x,y2:S.y,class:'crank'},svg);
+      const p1=el('g',{},svg),p2=el('g',{},svg);
+      drawGear(p1,{x:0,y:0},rp,8); drawGear(p2,{x:0,y:0},rp,8);
+      return function(t){
+        const th=t*1.1;
+        const P1={x:S.x+R*Math.cos(th),y:S.y+R*Math.sin(th)};
+        const P2={x:S.x+R*Math.cos(th+Math.PI/3),y:S.y+R*Math.sin(th+Math.PI/3)};
+        setAttr(arm,{x2:P1.x,y2:P1.y});
+        p1.setAttribute('transform',`translate(${P1.x} ${P1.y}) rotate(${-th*180/Math.PI*(R/rp)} 0 0)`);
+        p2.setAttribute('transform',`translate(${P2.x} ${P2.y}) rotate(${-th*180/Math.PI*(R/rp)} 0 0)`);
+      };
+    }
+  },
+  'ratchet-feed': {
+    name:'棘轮进给机构', en:'RATCHET-FEED', cat:'间歇机构', idx:'80',
+    desc:'棘轮驱动丝杠微量进给，实现步进送料。',
+    params:[['进给','步进微量'],['典型应用','机床进给'],['特点','单向步进'],['自由度','F = 1']],
+    build(svg){
+      const O={x:76,y:86}, r=22, n=8;
+      const wheel=el('g',{},svg);
+      el('circle',{cx:O.x,cy:O.y,r:r,class:'gearBody'},wheel);
+      for(let i=0;i<n;i++){const a=i*2*Math.PI/n,ang=a-0.3;el('line',{x1:O.x+Math.cos(a)*r,y1:O.y+Math.sin(a)*r,x2:O.x+Math.cos(ang)*(r+8),y2:O.y+Math.sin(ang)*(r+8),class:'gearTeeth'},wheel);}
+      el('circle',{cx:O.x,cy:O.y,r:3,class:'pin'},svg);
+      const pawl=el('line',{x1:118,y1:52,x2:94,y2:74,class:'crank'},svg);
+      el('circle',{cx:118,cy:52,r:3,class:'pin'},svg);
+      const screw=el('g',{},svg);
+      for(let i=0;i<8;i++) el('line',{x1:128+i*7,y1:80,x2:128+i*7+4,y2:92,class:'thread'},screw);
+      const nut=el('rect',{x:132,y:72,width:18,height:26,rx:2,class:'slider'},svg);
+      return function(t){
+        const step=360/n, ang=Math.floor(t*7)%n*step;
+        wheel.setAttribute('transform',`rotate(${ang} ${O.x} ${O.y})`);
+        setAttr(pawl,{y2:76+Math.sin(t*7)*4});
+        setAttr(nut,{x:132+((t*4)%28)});
+      };
+    }
+  },
+  'pentageneva': {
+    name:'五星槽轮机构', en:'STAR-GENEVA', cat:'间歇机构', idx:'81',
+    desc:'五星槽轮实现72°间歇分度转位。',
+    params:[['槽数','5'],['转位角','72°'],['特点','间歇分度'],['典型应用','五工位转盘']],
+    build(svg){
+      const D={x:76,y:86}, G={x:138,y:86};
+      const drv=el('g',{},svg);
+      el('circle',{cx:D.x,cy:D.y,r:18,class:'gearBody'},drv);
+      const pin=el('circle',{cx:D.x+18,cy:D.y,r:3.5,class:'pinB'},drv);
+      const gw=el('g',{},svg);
+      el('circle',{cx:G.x,cy:G.y,r:36,class:'gearBody'},gw);
+      for(let i=0;i<5;i++){const a=i*2*Math.PI/5+Math.PI/5;el('line',{x1:G.x,y1:G.y,x2:G.x+Math.cos(a)*30,y2:G.y+Math.sin(a)*30,class:'g'},gw);}
+      el('circle',{cx:G.x,cy:G.y,r:3,class:'pin'},svg);
+      return function(t){
+        drv.setAttribute('transform',`rotate(${t*85} ${D.x} ${D.y})`);
+        const turns=Math.floor(t),frac=t-turns;
+        let ang=turns*72;
+        if(frac>0.12&&frac<0.5) ang+=72*easeInOut((frac-0.12)/0.38);
+        gw.setAttribute('transform',`rotate(${ang} ${G.x} ${G.y})`);
+      };
+    }
+  },
+  'double-ratchet': {
+    name:'双棘轮机构', en:'DOUBLE-RATCHET', cat:'间歇机构', idx:'82',
+    desc:'双棘爪交替啮合，减小回程间隙、提高定位精度。',
+    params:[['棘爪','双棘爪'],['特点','低回差'],['典型应用','精密进给'],['自由度','F = 1']],
+    build(svg){
+      const O={x:76,y:86}, r=22, n=8;
+      const wheel=el('g',{},svg);
+      el('circle',{cx:O.x,cy:O.y,r:r,class:'gearBody'},wheel);
+      for(let i=0;i<n;i++){const a=i*2*Math.PI/n,ang=a-0.3;el('line',{x1:O.x+Math.cos(a)*r,y1:O.y+Math.sin(a)*r,x2:O.x+Math.cos(ang)*(r+8),y2:O.y+Math.sin(ang)*(r+8),class:'gearTeeth'},wheel);}
+      el('circle',{cx:O.x,cy:O.y,r:3,class:'pin'},svg);
+      const p1=el('line',{x1:122,y1:50,x2:94,y2:70,class:'crank'},svg);
+      const p2=el('line',{x1:126,y1:70,x2:94,y2:70,class:'link rod'},svg);
+      el('circle',{cx:122,cy:50,r:3,class:'pin'},svg);
+      el('circle',{cx:126,cy:70,r:3,class:'pin'},svg);
+      return function(t){
+        const step=360/n, ang=Math.floor(t*6)%n*step;
+        wheel.setAttribute('transform',`rotate(${ang} ${O.x} ${O.y})`);
+        const o=Math.sin(t*6)*4;
+        setAttr(p1,{y2:72+o});
+        setAttr(p2,{y2:72-o});
+      };
+    }
+  },
+  'cam-intermittent': {
+    name:'间歇凸轮机构', en:'CAM-INTERMITTENT', cat:'间歇机构', idx:'83',
+    desc:'凸轮轮廓控制输出间歇运动，配合锁止实现准确定位。',
+    params:[['间歇比','可设计'],['定位','锁止定位'],['典型应用','间歇输送'],['自由度','F = 1']],
+    build(svg){
+      const O={x:84,y:88};
+      const cam=el('g',{},svg);
+      el('circle',{cx:O.x,cy:O.y,r:16,class:'camBase'},cam);
+      el('ellipse',{cx:O.x+12,cy:O.y,rx:12,ry:7,class:'camLobe'},cam);
+      el('circle',{cx:O.x,cy:O.y,r:3,class:'pin'},svg);
+      const sl=el('rect',{x:0,y:O.y-9,width:22,height:18,rx:2,class:'slider'},svg);
+      el('line',{x1:24,y1:O.y,x2:176,y2:O.y,class:'g'},svg);
+      return function(t){
+        cam.setAttribute('transform',`rotate(${t*70} ${O.x} ${O.y})`);
+        const th=(t*70)%360;
+        const hold=Math.floor(th/60)%6;
+        setAttr(sl,{x:O.x-11+hold*14});
+      };
+    }
+  },
+  'star-wheel': {
+    name:'星形间歇机构', en:'STAR-WHEEL', cat:'间歇机构', idx:'84',
+    desc:'星形轮间歇啮合，实现等分角度的步进转动。',
+    params:[['星角','等分'],['特点','步进转动'],['典型应用','分度装置'],['自由度','F = 1']],
+    build(svg){
+      const O={x:100,y:86};
+      const wheel=el('g',{},svg);
+      el('circle',{cx:O.x,cy:O.y,r:26,class:'gearBody'},wheel);
+      for(let i=0;i<6;i++){const a=i/6*2*Math.PI;el('line',{x1:O.x,y1:O.y,x2:O.x+Math.cos(a)*26,y2:O.y+Math.sin(a)*26,class:'gearTeeth'},wheel);}
+      el('circle',{cx:O.x,cy:O.y,r:3,class:'pin'},svg);
+      const idx=el('circle',{cx:O.x+34,cy:O.y,r:8,class:'camBase'},svg);
+      return function(t){
+        const step=60, ang=Math.floor(t*4)%6*step;
+        wheel.setAttribute('transform',`rotate(${ang} ${O.x} ${O.y})`);
+      };
+    }
+  },
+  'screw-lift': {
+    name:'螺旋升降机构', en:'SCREW-LIFT', cat:'螺旋机构', idx:'85',
+    desc:'螺杆旋转驱动平台垂直升降，传动平稳、自锁可靠。',
+    params:[['行程','200–2000 mm'],['自锁','具备'],['典型应用','升降台'],['效率','50% – 80%']],
+    build(svg){
+      const cx=100, y0=118;
+      el('line',{x1:56,y1:y0,x2:144,y2:y0,class:'g'},svg);
+      el('rect',{x:86,y:y0-16,width:28,height:16,rx:2,class:'gearBody'},svg);
+      const screw=el('g',{},svg);
+      for(let i=0;i<9;i++) el('line',{x1:cx-7,y1:y0-14-i*9,x2:cx+7,y2:y0-22-i*9,class:'thread'},screw);
+      const spin=el('line',{x1:cx,y1:y0-12,x2:cx,y2:y0-20,class:'crank'},svg);
+      const plat=el('rect',{x:cx-26,y:0,width:52,height:12,rx:2,class:'slider'},svg);
+      return function(t){
+        const h=22+20*(0.5+0.5*Math.sin(t*1.0));
+        screw.setAttribute('transform',`rotate(${t*60} ${cx} ${y0-12})`);
+        setAttr(plat,{y:y0-16-h});
+      };
+    }
+  },
+  'screw-index': {
+    name:'螺旋分度机构', en:'SCREW-INDEX', cat:'螺旋机构', idx:'86',
+    desc:'螺杆驱动分度螺母微量移动，实现精密分度定位。',
+    params:[['分度','微量精确'],['特点','高精度'],['典型应用','精密分度台'],['导程','细牙']],
+    build(svg){
+      const y=88,x1=28,x2=172;
+      el('line',{x1:x1,y1:y,x2:x2,y2:y,class:'g'},svg);
+      const g=el('g',{},svg);
+      for(let i=0;i<16;i++) el('line',{x1:x1+i*9,y1:y-13,x2:x1+i*9+5,y2:y+13,class:'thread'},g);
+      const nut=el('rect',{x:0,y:y-15,width:26,height:30,rx:2,class:'slider'},svg);
+      const spin=el('line',{x1:0,y1:y-18,x2:0,y2:y+18,class:'crank'},svg);
+      const tick=el('line',{x1:30,y1:y-26,x2:30,y2:y+26,class:'g'},svg);
+      return function(t){
+        const px=x1+((x2-x1-26))*(0.5+0.5*Math.sin(t*0.9));
+        setAttr(nut,{x:px,y:y-15});
+        spin.setAttribute('transform',`translate(${px+13},0) rotate(${t*110} 0 ${y})`);
+      };
+    }
+  },
+  'pneumatic-gripper': {
+    name:'气动夹爪机构', en:'PNEUMATIC-GRIPPER', cat:'夹紧机构', idx:'87',
+    desc:'气缸推动连杆，驱动两指对称夹紧工件。',
+    params:[['驱动','气缸'],['夹紧','对称两指'],['典型应用','上下料'],['特点','快速夹持']],
+    build(svg){
+      const cx=100, cy=60;
+      el('rect',{x:cx-14,y:cy,width:28,height:16,rx:3,class:'gearBody'},svg);
+      const rod=el('line',{x1:cx,y1:cy+8,x2:cx,y2:cy+8,class:'link rod'},svg);
+      const jawL=el('line',{x1:cx,y1:cy+10,x2:cx,y2:cy+10,class:'crank'},svg);
+      const jawR=el('line',{x1:cx,y1:cy+10,x2:cx,y2:cy+10,class:'crank'},svg);
+      el('line',{x1:60,y1:cy+24,x2:140,y2:cy+24,class:'g'},svg);
+      el('rect',{x:86,y:cy+32,width:28,height:16,rx:2,class:'gearBody'},svg);
+      return function(t){
+        const ext=10+14*Math.sin(t*1.3);
+        setAttr(rod,{y2:cy+8+ext});
+        const w=10+8*Math.sin(t*1.3);
+        setAttr(jawL,{x2:cx-w-6,y2:cy+24});
+        setAttr(jawR,{x2:cx+w+6,y2:cy+24});
+      };
+    }
+  },
+  'lever-clamp': {
+    name:'杠杆夹紧机构', en:'LEVER-CLAMP', cat:'夹紧机构', idx:'88',
+    desc:'杠杆将驱动力放大压紧工件，增力比大。',
+    params:[['增力比','3–10'],['特点','杠杆放大'],['典型应用','压板夹具'],['自由度','F = 1']],
+    build(svg){
+      const P={x:110,y:56};
+      el('polygon',{points:`${P.x-5},${P.y} ${P.x+5},${P.y} ${P.x},${P.y+12}`,class:'ground'},svg);
+      el('circle',{cx:P.x,cy:P.y,r:3.5,class:'pin'},svg);
+      const lever=el('line',{x1:P.x,y1:P.y,x2:P.x,y2:P.y,class:'crank',style:'stroke-width:3'},svg);
+      const press=el('rect',{x:P.x-30,y:0,width:36,height:10,rx:2,class:'slider'},svg);
+      el('rect',{x:56,y:128,width:88,height:16,rx:2,class:'gearBody'},svg);
+      el('line',{x1:40,y1:144,x2:160,y2:144,class:'g'},svg);
+      return function(t){
+        const a=(28+20*Math.sin(t*1.3))*Math.PI/180;
+        setAttr(lever,{x2:P.x-64*Math.cos(a),y2:P.y+64*Math.sin(a)});
+        const py=120-16*(0.5+0.5*Math.sin(t*1.3));
+        setAttr(press,{x:P.x-30,y:py});
+      };
+    }
+  },
+  'cam-clamp': {
+    name:'凸轮夹紧机构', en:'CAM-CLAMP', cat:'夹紧机构', idx:'89',
+    desc:'凸轮回转驱动压块压紧工件，可快速实现夹紧与松开。',
+    params:[['驱动','凸轮'],['自锁','凸轮自锁'],['典型应用','快速夹具'],['特点','快速夹紧']],
+    build(svg){
+      const O={x:70,y:86};
+      const cam=el('g',{},svg);
+      el('circle',{cx:O.x,cy:O.y,r:15,class:'camBase'},cam);
+      el('ellipse',{cx:O.x+11,cy:O.y,rx:12,ry:8,class:'camLobe'},cam);
+      el('circle',{cx:O.x,cy:O.y,r:3,class:'pin'},svg);
+      const press=el('rect',{x:O.x-20,y:0,width:40,height:11,rx:2,class:'slider'},svg);
+      el('rect',{x:46,y:126,width:90,height:16,rx:2,class:'gearBody'},svg);
+      el('line',{x1:30,y1:142,x2:150,y2:142,class:'g'},svg);
+      return function(t){
+        cam.setAttribute('transform',`rotate(${t*60} ${O.x} ${O.y})`);
+        const lift=9*(1-Math.cos(t*1.1))/2;
+        setAttr(press,{y:112+lift});
+      };
+    }
+  },
+  'sync-cylinder': {
+    name:'液压同步缸机构', en:'SYNC-CYLINDER', cat:'液压机构', idx:'90',
+    desc:'两缸通过油路串联实现同步运动，保证平台水平升降。',
+    params:[['同步','双缸联动'],['特点','同步升降'],['典型应用','水平顶升'],['自由度','F = 1']],
+    build(svg){
+      const c1={x:52,y:72,w:50,h:24}, c2={x:120,y:72,w:50,h:24};
+      el('rect',{x:c1.x,y:c1.y,width:c1.w,height:c1.h,rx:3,class:'gearBody'},svg);
+      el('rect',{x:c2.x,y:c2.y,width:c2.w,height:c2.h,rx:3,class:'gearBody'},svg);
+      el('line',{x1:c1.x+c1.w,y1:c1.y+c1.h/2,x2:c2.x,y2:c2.y+c2.h/2,class:'g'},svg);
+      const r1=el('line',{x1:c1.x+c1.w-4,y1:c1.y+c1.h/2,x2:0,y2:c1.y+c1.h/2,class:'link rod'},svg);
+      const r2=el('line',{x1:c2.x+c2.w-4,y1:c2.y+c2.h/2,x2:0,y2:c2.y+c2.h/2,class:'link rod'},svg);
+      const l1=el('rect',{x:0,y:c1.y-6,width:20,height:36,rx:2,class:'slider'},svg);
+      const l2=el('rect',{x:0,y:c2.y-6,width:20,height:36,rx:2,class:'slider'},svg);
+      return function(t){
+        const e=26+22*Math.sin(t*1.2);
+        const x1=c1.x+c1.w+e, x2=c2.x+c2.w+e;
+        setAttr(r1,{x2:x1,y2:c1.y+c1.h/2});
+        setAttr(r2,{x2:x2,y2:c2.y+c2.h/2});
+        setAttr(l1,{x:x1-2,y:c1.y-6});
+        setAttr(l2,{x:x2-2,y:c2.y-6});
+      };
+    }
+  },
+  'oscillating-cyl': {
+    name:'液压摆动缸机构', en:'OSCILLATING-CYL', cat:'液压机构', idx:'91',
+    desc:'液压摆动缸将直线运动转化为摆动，驱动摇臂往复。',
+    params:[['摆动角','±90°'],['扭矩','大'],['典型应用','摆动驱动'],['特点','直接摆动']],
+    build(svg){
+      const O={x:120,y:96};
+      el('rect',{x:30,y:78,width:52,height:30,rx:3,class:'gearBody'},svg);
+      el('circle',{cx:O.x,cy:O.y,r:4,class:'pin'},svg);
+      const rod=el('line',{x1:82,y1:93,x2:O.x,y2:O.y,class:'link rod'},svg);
+      const arm=el('line',{x1:O.x,y1:O.y,x2:O.x,y2:O.y,class:'crank',style:'stroke-width:3'},svg);
+      return function(t){
+        const ext=24+16*Math.sin(t*1.2);
+        const tip={x:82+ext,y:93};
+        const a=Math.atan2(tip.y-O.y,tip.x-O.x);
+        setAttr(rod,{x2:tip.x,y2:tip.y});
+        setAttr(arm,{x2:O.x+Math.cos(a)*52,y2:O.y-Math.sin(a)*52});
+      };
+    }
+  },
+  'double-cardan': {
+    name:'双万向节机构', en:'DOUBLE-CARDAN', cat:'万向传动', idx:'92',
+    desc:'双万向节串联可近似等角速传动，消除单个万向节的速度波动。',
+    params:[['等角速','近似实现'],['夹角','更大'],['典型应用','传动轴'],['特点','速度平稳']],
+    build(svg){
+      const c={x:100,y:80};
+      const g=el('g',{},svg);
+      el('ellipse',{cx:c.x,cy:c.y,rx:36,ry:10,class:'ujRim'},g);
+      el('ellipse',{cx:c.x+40,cy:c.y,rx:12,ry:34,class:'ujRim2'},g);
+      el('line',{x1:c.x-42,y1:c.y,x2:c.x+42,y2:c.y,class:'crank'},g);
+      el('line',{x1:c.x+40,y1:c.y-36,x2:c.x+40,y2:c.y+36,class:'crank'},g);
+      el('circle',{cx:c.x,cy:c.y,r:3.5,class:'pin'},svg);
+      el('circle',{cx:c.x+40,cy:c.y,r:3.5,class:'pin'},svg);
+      return function(t){
+        g.setAttribute('transform',`rotate(${t*30} ${c.x} ${c.y})`);
+      };
+    }
+  },
+  'cv-joint': {
+    name:'球笼万向节机构', en:'CV-JOINT', cat:'万向传动', idx:'93',
+    desc:'球笼式等速万向节可实现大夹角下等角速传动。',
+    params:[['等角速','等速'],['最大夹角','≥40°'],['典型应用','驱动半轴'],['特点','大角度等速']],
+    build(svg){
+      const c={x:100,y:82};
+      el('circle',{cx:c.x,cy:c.y,r:32,class:'ujRim',style:'opacity:.5'},svg);
+      const g=el('g',{},svg);
+      el('circle',{cx:c.x,cy:c.y,r:20,class:'gearBody'},g);
+      for(let i=0;i<6;i++){const a=i/6*2*Math.PI;el('circle',{cx:c.x+Math.cos(a)*14,cy:c.y+Math.sin(a)*14,r:3.5,class:'pinB'},g);}
+      el('circle',{cx:c.x,cy:c.y,r:3.5,class:'pin'},svg);
+      return function(t){
+        g.setAttribute('transform',`rotate(${t*45} ${c.x} ${c.y})`);
+      };
+    }
+  },
+  'flex-coupling': {
+    name:'柔性联轴器机构', en:'FLEX-COUPLING', cat:'万向传动', idx:'94',
+    desc:'弹性元件连接两轴，补偿同轴度误差并缓冲冲击。',
+    params:[['补偿','同轴偏差'],['特点','缓冲减振'],['典型应用','电机-负载连接'],['自由度','F = 1']],
+    build(svg){
+      const L={x:52,y:84}, R={x:148,y:84};
+      const hub1=el('g',{},svg), hub2=el('g',{},svg);
+      el('circle',{cx:L.x,cy:L.y,r:20,class:'gearBody'},hub1);
+      el('circle',{cx:R.x,cy:R.y,r:20,class:'gearBody'},hub2);
+      const el1=el('line',{x1:L.x,y1:L.y,x2:R.x,y2:R.y,class:'crank'},svg);
+      const el2=el('line',{x1:L.x,y1:L.y,x2:R.x,y2:R.y,class:'crank'},svg);
+      el('circle',{cx:L.x,cy:L.y,r:3,class:'pin'},svg);
+      el('circle',{cx:R.x,cy:R.y,r:3,class:'pin'},svg);
+      return function(t){
+        const a=t*30;
+        hub1.setAttribute('transform',`rotate(${a} ${L.x} ${L.y})`);
+        hub2.setAttribute('transform',`rotate(${a} ${R.x} ${R.y})`);
+        const dx=6*Math.sin(t*1.3);
+        setAttr(el1,{x2:R.x+dx,y2:R.y});
+        setAttr(el2,{x2:R.x+dx,y2:R.y});
+      };
+    }
+  },
+  'timing-belt': {
+    name:'同步带传动机构', en:'TIMING-BELT', cat:'挠性传动', idx:'95',
+    desc:'带齿同步带与带轮啮合，无滑动、传动比准确。',
+    params:[['传动比','准确'],['特点','无滑动'],['典型应用','数控进给'],['效率','96% – 98%']],
+    build(svg){
+      const c1={x:66,y:84},c2={x:140,y:84},r1=22,r2=22;
+      const belt=el('path',{fill:'none',class:'trace',style:'stroke-width:4;opacity:.6;stroke-dasharray:6 8'},svg);
+      const g1=el('g',{},svg),g2=el('g',{},svg);
+      drawGear(g1,c1,r1,12); drawGear(g2,c2,r2,12);
+      el('circle',{cx:c1.x,cy:c1.y,r:3,class:'pin'},svg);
+      el('circle',{cx:c2.x,cy:c2.y,r:3,class:'pin'},svg);
+      return function(t){
+        const d=`M${c1.x-r1} ${c1.y} L${c2.x-r2} ${c2.y} A${r2} ${r2} 0 0 1 ${c2.x+r2} ${c2.y} L${c1.x+r1} ${c1.y} A${r1} ${r1} 0 0 1 ${c1.x-r1} ${c1.y} Z`;
+        setAttr(belt,{d});
+        belt.style.strokeDashoffset=-t*40;
+        g1.setAttribute('transform',`rotate(${t*55} ${c1.x} ${c1.y})`);
+        g2.setAttribute('transform',`rotate(${t*55} ${c2.x} ${c2.y})`);
+      };
+    }
+  },
+  'winch': {
+    name:'绳索绞盘机构', en:'WINCH', cat:'挠性传动', idx:'96',
+    desc:'卷筒缠绕绳索提升重物，通过卷绕实现大行程牵引。',
+    params:[['提升力','大'],['特点','卷绕牵引'],['典型应用','绞车/吊装'],['自由度','F = 1']],
+    build(svg){
+      const O={x:64,y:84};
+      el('circle',{cx:O.x,cy:O.y,r:22,class:'gearBody'},svg);
+      el('circle',{cx:O.x,cy:O.y,r:3,class:'pin'},svg);
+      const rope=el('line',{x1:O.x,y1:O.y+22,x2:O.x,y2:O.y+22,class:'link rod'},svg);
+      const hook=el('rect',{x:O.x-9,y:0,width:18,height:16,rx:2,class:'slider'},svg);
+      el('line',{x1:20,y1:O.y,x2:20,y2:132,class:'g'},svg);
+      return function(t){
+        const a=t*55;
+        const rOff=8+5*Math.sin(t*2);
+        const tipx=O.x+(22+rOff)*Math.cos(a*Math.PI/180+Math.PI/2);
+        const tipy=O.y+(22+rOff)*Math.sin(a*Math.PI/180+Math.PI/2);
+        setAttr(rope,{x2:tipx,y2:tipy});
+        const h=26+24*Math.sin(t*1.1);
+        setAttr(hook,{y:O.y+h});
+      };
+    }
+  },
+  'friction-disk': {
+    name:'摩擦盘变速机构', en:'FRICTION-DISK', cat:'挠性传动', idx:'97',
+    desc:'摩擦盘径向移动改变接触半径，实现无级变速。',
+    params:[['变速','无级'],['原理','变径摩擦'],['典型应用','无级变速器'],['特点','连续调速']],
+    build(svg){
+      const d1={x:64,y:84}, d2={x:128,y:84};
+      const g1=el('g',{},svg), g2=el('g',{},svg);
+      el('circle',{cx:d1.x,cy:d1.y,r:24,class:'gearBody'},g1);
+      el('line',{x1:d1.x,y1:d1.y,x2:d1.x+24,y2:d1.y,class:'crank'},g1);
+      el('circle',{cx:d2.x,cy:d2.y,r:14,class:'gearBody',style:'stroke:var(--amber)'},g2);
+      el('line',{x1:d2.x,y1:d2.y,x2:d2.x+14,y2:d2.y,class:'crank',style:'stroke:var(--amber)'},g2);
+      el('circle',{cx:d1.x,cy:d1.y,r:3,class:'pin'},svg);
+      el('circle',{cx:d2.x,cy:d2.y,r:3,class:'pin'},svg);
+      return function(t){
+        g1.setAttribute('transform',`rotate(${t*45} ${d1.x} ${d1.y})`);
+        const dy=12*Math.sin(t*1.1);
+        g2.setAttribute('transform',`rotate(${-t*45*(24/14)} ${d2.x} ${d2.y+dy})`);
+      };
+    }
+  },
+  'slat-conveyor': {
+    name:'链板输送机构', en:'SLAT-CONVEYOR', cat:'挠性传动', idx:'98',
+    desc:'链板连续回转输送物料，承载大、运行平稳。',
+    params:[['承载','大'],['特点','连续输送'],['典型应用','产线输送'],['速度','可调']],
+    build(svg){
+      const y=104, x1=30, x2=170;
+      el('line',{x1:x1,y1:y,x2:x2,y2:y,class:'g'},svg);
+      el('line',{x1:x1,y1:y,x2:x2,y2:y+16,class:'g'},svg);
+      const plates=el('g',{},svg);
+      for(let i=0;i<14;i++) el('rect',{x:x1+i*10,y:y,width:9,height:16,rx:1,class:'slider'},plates);
+      const item=el('rect',{x:0,y:y-14,width:22,height:12,rx:2,class:'gearBody'},svg);
+      return function(t){
+        const dx=(t*30)%140;
+        plates.setAttribute('transform',`translate(${-dx} 0)`);
+        setAttr(item,{x:x1+30+((t*20)%90)});
+      };
+    }
+  },
+  'belt-tensioner': {
+    name:'皮带张紧机构', en:'BELT-TENSIONER', cat:'挠性传动', idx:'99',
+    desc:'张紧轮自动调节皮带松紧，防止打滑、补偿磨损。',
+    params:[['张紧','自动'],['作用','防打滑'],['典型应用','皮带传动'],['特点','自适应']],
+    build(svg){
+      const c1={x:60,y:84},c2={x:150,y:84},r1=20,r2=20;
+      const belt=el('path',{fill:'none',class:'trace',style:'stroke-width:3;opacity:.5'},svg);
+      const g1=el('g',{},svg),g2=el('g',{},svg),ten=el('g',{},svg);
+      drawGear(g1,c1,r1,8); drawGear(g2,c2,r2,8);
+      el('circle',{cx:c1.x,cy:c1.y,r:3,class:'pin'},svg);
+      el('circle',{cx:c2.x,cy:c2.y,r:3,class:'pin'},svg);
+      el('circle',{cx:105,cy:52,r:8,class:'gearBody'},ten);
+      el('line',{x1:105,y1:52,x2:105,y2:62,class:'g'},svg);
+      return function(t){
+        const a=t*40;
+        g1.setAttribute('transform',`rotate(${a} ${c1.x} ${c1.y})`);
+        g2.setAttribute('transform',`rotate(${a} ${c2.x} ${c2.y})`);
+        const dy=6*Math.sin(t*1.2);
+        ten.setAttribute('transform',`translate(0 ${dy})`);
+        const d=`M${c1.x-r1} ${c1.y} L${c2.x-r2} ${c2.y} A${r2} ${r2} 0 0 1 ${c2.x+r2} ${c2.y} L${c1.x+r1} ${c1.y} A${r1} ${r1} 0 0 1 ${c1.x-r1} ${c1.y} Z`;
+        setAttr(belt,{d});
+      };
+    }
+  },
+  'screw-pump': {
+    name:'螺杆泵机构', en:'SCREW-PUMP', cat:'螺旋机构', idx:'100',
+    desc:'螺杆在定子内偏心回转，连续输送高粘度介质。',
+    params:[['输送','高粘度'],['特点','连续无脉动'],['典型应用','油品输送'],['流量','可调']],
+    build(svg){
+      const y=92,x1=34,x2=166;
+      el('rect',{x:x1,y:y-12,width:x2-x1,height:24,rx:6,class:'gearBody',style:'fill:none'},svg);
+      const screw=el('g',{},svg);
+      for(let i=0;i<16;i++) el('line',{x1:x1+i*8.5,y1:y-10,x2:x1+i*8.5+5,y2:y+10,class:'thread'},screw);
+      const dot=el('circle',{r:3.5,class:'pinB'},svg);
+      el('line',{x1:x1,y1:y+12,x2:x1,y2:y+26,class:'g'},svg);
+      el('line',{x1:x2,y1:y+12,x2:x2,y2:y+26,class:'g'},svg);
+      return function(t){
+        screw.setAttribute('transform',`rotate(${t*70} 100 ${y})`);
+        setAttr(dot,{cx:x2-8-((t*28)%120),cy:y+4});
+      };
+    }
   }
 };
 function drawGear(parent,c,r,n){
@@ -1013,16 +3046,20 @@ requestAnimationFrame(loop);
 
 /* ================= 机构卡片 ================= */
 const grid=document.getElementById('grid');
-const CATS=['连杆机构','凸轮机构','齿轮机构','间歇机构','螺旋机构','夹紧机构','液压机构','万向传动'];
+const CATS=['连杆机构','凸轮机构','齿轮机构','间歇机构','螺旋机构','夹紧机构','液压机构','万向传动','挠性传动'];
 const filters=document.getElementById('filters');
 let activeCat='全部';
+let searchTerm='';
+const PAGE_SIZE=12;
+let currentPage=1;
+const pagination=document.getElementById('pagination');
 
 const fBtn=[];
 ['全部',...CATS].forEach(c=>{
   const b=document.createElement('button');
   b.className='filter'+(c==='全部'?' on':'');
   b.textContent=c;
-  b.onclick=()=>{ activeCat=c; fBtn.forEach(x=>x.classList.remove('on')); b.classList.add('on'); renderGrid(); };
+  b.onclick=()=>{ activeCat=c; currentPage=1; fBtn.forEach(x=>x.classList.remove('on')); b.classList.add('on'); renderGrid(); };
   fBtn.push(b); filters.appendChild(b);
 });
 
@@ -1032,10 +3069,43 @@ function cardSvg(builder){
   animations.push(upd);
   return svg;
 }
+function renderPagination(totalPages){
+  pagination.innerHTML='';
+  if(totalPages<=1){ return; }
+  const mk=(label,fn,cls,disabled)=>{
+    const b=document.createElement('button');
+    b.className='page-btn '+(cls||'');
+    b.innerHTML=label;
+    if(disabled) b.disabled=true; else b.onclick=fn;
+    pagination.appendChild(b);
+  };
+  mk('« 上一页',()=>{currentPage--;renderGrid();},'page-nav',currentPage<=1);
+  const start=Math.max(1,currentPage-3);
+  const end=Math.min(totalPages,start+6);
+  for(let p=start;p<=end;p++){
+    const b=document.createElement('button');
+    b.className='page-btn'+(p===currentPage?' on':'');
+    b.textContent=p;
+    b.onclick=()=>{currentPage=p;renderGrid();};
+    pagination.appendChild(b);
+  }
+  mk('下一页 »',()=>{currentPage++;renderGrid();},'page-nav',currentPage>=totalPages);
+  const info=document.createElement('span');
+  info.className='page-info';
+  info.innerHTML=`第 <b>${currentPage}</b> / ${totalPages} 页 · 每页 ${PAGE_SIZE} 项`;
+  pagination.appendChild(info);
+}
 function renderGrid(){
   grid.innerHTML='';
-  const list=Object.entries(MECHANISMS).filter(([,m])=>activeCat==='全部'||m.cat===activeCat);
-  list.forEach(([key,m])=>{
+  const q=searchTerm.trim().toLowerCase();
+  let list=Object.entries(MECHANISMS).filter(([,m])=>(activeCat==='全部'||m.cat===activeCat));
+  if(q) list=list.filter(([,m])=>m.name.toLowerCase().includes(q)||m.en.toLowerCase().includes(q)||m.cat.toLowerCase().includes(q)||m.desc.toLowerCase().includes(q));
+  const countEl=document.getElementById('searchCount');
+  if(countEl) countEl.innerHTML = q||activeCat!=='全部' ? `<b>${list.length}</b> / ${Object.keys(MECHANISMS).length} 项` : `<b>${list.length}</b> 项机构`;
+  const totalPages=Math.max(1,Math.ceil(list.length/PAGE_SIZE));
+  if(currentPage>totalPages) currentPage=totalPages;
+  const pageList=list.slice((currentPage-1)*PAGE_SIZE, currentPage*PAGE_SIZE);
+  pageList.forEach(([key,m])=>{
     const card=document.createElement('article');
     card.className='mech-card';
     card.style.animationDelay='0s';
@@ -1057,8 +3127,29 @@ function renderGrid(){
     card.onclick=()=>openModal(key,m);
     grid.appendChild(card);
   });
+  renderPagination(totalPages);
 }
 renderGrid();
+
+/* ================= 搜索联动 ================= */
+const searchInput=document.getElementById('searchInput');
+const searchClear=document.getElementById('searchClear');
+searchInput.addEventListener('input',()=>{ searchTerm=searchInput.value; currentPage=1; renderGrid(); });
+searchClear.addEventListener('click',()=>{ searchInput.value=''; searchTerm=''; currentPage=1; renderGrid(); searchInput.focus(); });
+
+/* ================= 主题切换 ================= */
+const themeBtns=Array.from(document.querySelectorAll('.ts-btn'));
+function applyTheme(name){
+  document.documentElement.setAttribute('data-theme',name);
+  themeBtns.forEach(b=>b.classList.toggle('on',b.dataset.theme===name));
+  try{ localStorage.setItem('mech-theme',name); }catch(e){}
+}
+themeBtns.forEach(b=>b.addEventListener('click',()=>applyTheme(b.dataset.theme)));
+(function initTheme(){
+  let t='dark';
+  try{ t=localStorage.getItem('mech-theme')||'dark'; }catch(e){}
+  applyTheme(t);
+})();
 
 /* ================= 模态框 ================= */
 const modal=document.getElementById('modal');
@@ -1159,9 +3250,9 @@ document.addEventListener('keydown',e=>{ if(e.key==='Escape') closeModal(); });
   animations.push(step);
 })();
 
-/* ================= 跑马灯 ================= */
+/* ================= 跑马灯（由机构库自动生成） ================= */
 (function mq(){
-  const items=['曲柄滑块','四连杆机构','凸轮机构','齿轮传动','棘轮机构','槽轮机构','螺旋传动','万向联轴节','导杆急回','平行四连杆','剪叉升降','机械手夹持','偏心夹紧','行星齿轮','蜗轮蜗杆','齿轮泵','液压缸','摆动凸轮'];
+  const items=Object.keys(MECHANISMS).map(k=>MECHANISMS[k].name);
   const track=document.getElementById('mqTrack');
   const html=items.map(x=>`<span class="mq-item">${x}</span>`).join('');
   track.innerHTML=html+html; // 双份用于无缝循环
