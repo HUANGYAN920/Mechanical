@@ -389,6 +389,17 @@ header{
 .mech-inputs .input-value{font-family:'Orbitron',sans-serif;font-size:13px;color:var(--cyan);font-weight:600;min-width:42px;text-align:right}
 .mech-inputs .input-row{display:flex;align-items:center;gap:8px}
 .mech-inputs:empty{margin-bottom:0}
+/* ---- 时间轴 scrub + 工具条（交互增强 / 工程导出） ---- */
+.modal-timeline{display:flex;align-items:center;gap:10px;margin-top:14px;padding-top:12px;border-top:1px solid var(--line)}
+.modal-timeline .tl-btn{flex:0 0 auto;width:34px;height:34px;border-radius:8px;border:1px solid var(--line);background:color-mix(in srgb,var(--cyan) 10%,transparent);color:var(--cyan);font-size:14px;cursor:pointer;transition:.18s}
+.modal-timeline .tl-btn:hover{background:color-mix(in srgb,var(--cyan) 20%,transparent)}
+.modal-timeline input[type=range]{flex:1;accent-color:var(--cyan);cursor:pointer}
+.modal-timeline .tl-val{font-family:'Orbitron',sans-serif;font-size:12px;color:var(--muted2);min-width:44px;text-align:right}
+.modal-tools{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin:14px 0}
+.modal-tools .tools-label{font-size:12px;color:var(--muted2);letter-spacing:.06em}
+.modal-tools button,.modal-tools .preset-sel{border:1px solid var(--line);background:color-mix(in srgb,var(--cyan) 8%,transparent);color:var(--cyan);font-size:12px;padding:6px 12px;border-radius:7px;cursor:pointer;transition:.18s;font-family:'Rajdhani',sans-serif;letter-spacing:.04em}
+.modal-tools button:hover,.modal-tools .preset-sel:hover{background:color-mix(in srgb,var(--cyan) 18%,transparent)}
+.modal-tools button:active{transform:translateY(1px)}
 
 /* ===== 数据带 ===== */
 .data-band{padding:0 0 96px}
@@ -663,12 +674,27 @@ footer{border-top:1px solid var(--line);padding:44px 0 36px;background:var(--foo
   <div class="modal-panel">
     <button class="modal-close" id="modalClose" aria-label="关闭">✕</button>
     <div class="modal-grid">
-      <div class="modal-visual"><svg id="modalMech" viewBox="0 0 200 150" width="200" height="150"></svg></div>
+      <div class="modal-visual">
+        <svg id="modalMech" viewBox="0 0 200 150" width="200" height="150"></svg>
+        <div class="modal-timeline">
+          <button class="tl-btn" id="playBtn" aria-label="播放/暂停">⏸</button>
+          <input type="range" id="tSlider" min="0" max="1000" value="0" aria-label="时间轴">
+          <span class="tl-val" id="tVal">0.0s</span>
+        </div>
+      </div>
       <div class="modal-info">
         <span class="modal-en" id="mEn">MECHANISM</span>
         <h3 id="mName">机构名称</h3>
         <p id="mDesc">机构描述</p>
         <div class="mech-inputs" id="mInputs"></div>
+        <div class="modal-tools">
+          <span class="tools-label">导出 / 分享：</span>
+          <button id="expSvg">SVG</button>
+          <button id="expPng">PNG</button>
+          <button id="expJson">JSON</button>
+          <button id="shareBtn">复制分享链接</button>
+          <select id="presetSel" class="preset-sel" style="display:none"></select>
+        </div>
         <table class="param-table" id="mTable"></table>
       </div>
     </div>
@@ -696,6 +722,12 @@ const MECHANISMS = {
       {key:'R',label:'曲柄半径 r',min:10,max:30,step:1,value:24},
       {key:'L',label:'连杆长度 L',min:52,max:80,step:1,value:52},
       {key:'e',label:'偏置 e',min:-18,max:18,step:1,value:0}
+    ],
+    presets:[
+      {name:'标准曲柄滑块',params:{R:24,L:52,e:0}},
+      {name:'偏置急回',params:{R:24,L:52,e:14}},
+      {name:'长连杆',params:{R:20,L:78,e:0}},
+      {name:'短曲柄偏置',params:{R:14,L:60,e:-6}}
     ],
     build(svg, p={}){
       const R=p.R ?? 24, L=p.L ?? 52, e=p.e ?? 0, speed=1.6;
@@ -5963,7 +5995,16 @@ function drawGear(parent,c,r,n){
 
 /* ================= 渲染主循环 ================= */
 const animations=[];
-function loop(){ const t=performance.now()/1000; for(const a of animations) a(t); requestAnimationFrame(loop); }
+let paused=false, manualT=0; const CYC=10;
+function loop(){
+  const t=performance.now()/1000;
+  for(const a of animations) a(t);
+  if(modal.classList.contains('open') && !paused){
+    const ts=document.getElementById('tSlider');
+    if(ts){ ts.value=(t%CYC)/CYC*1000; const tv=document.getElementById('tVal'); if(tv) tv.textContent=(t%CYC).toFixed(1)+'s'; }
+  }
+  requestAnimationFrame(loop);
+}
 requestAnimationFrame(loop);
 
 /* ================= 机构卡片 ================= */
@@ -6077,9 +6118,10 @@ themeBtns.forEach(b=>b.addEventListener('click',()=>applyTheme(b.dataset.theme))
 const modal=document.getElementById('modal');
 const modalSvg=document.getElementById('modalMech');
 let modalUpd=null;
-function openModal(key,m){
+function openModal(key,m,init){
   modalSvg.innerHTML='';
   if(modalUpd){ animations.splice(animations.indexOf(modalUpd),1); modalUpd=null; }
+  paused=false; manualT=0;
   const g=el('g',{},modalSvg);
   const custom=m.inputs||[];
   // 通用参数：所有机构均支持实时调节
@@ -6089,12 +6131,13 @@ function openModal(key,m){
   ];
   const all=[...custom,...uni];
   const state={}; all.forEach(i=>state[i.key]=i.value);
+  if(init) for(const k in init){ if(k in state) state[k]=init[k]; }
   function rebuild(){
     g.innerHTML='';
     if(modalUpd){ animations.splice(animations.indexOf(modalUpd),1); }
     const cp={}; custom.forEach(i=>cp[i.key]=state[i.key]);
     const upd=m.build(g,cp);
-    modalUpd=(t)=>upd(t*state.speed);
+    modalUpd=(t)=>{ const tt=paused?manualT:t*state.speed; upd(tt); };
     animations.push(modalUpd);
     const s=state.scale;
     g.setAttribute('transform',`translate(100 75) scale(${s}) translate(-100 -75)`);
@@ -6105,7 +6148,7 @@ function openModal(key,m){
   const mInputs=document.getElementById('mInputs');
   const mTable=document.getElementById('mTable');
   mTable.innerHTML=m.params.map(([k,v])=>`<tr><td>${k}</td><td>${v}</td></tr>`).join('');
-  mInputs.innerHTML=all.map(i=>`<label>${i.label}<div class="input-row"><input type="range" data-key="${i.key}" min="${i.min}" max="${i.max}" step="${i.step}" value="${i.value}"><span class="input-value">${i.value}</span></div></label>`).join('');
+  mInputs.innerHTML=all.map(i=>`<label>${i.label}<div class="input-row"><input type="range" data-key="${i.key}" min="${i.min}" max="${i.max}" step="${i.step}" value="${state[i.key]}"><span class="input-value">${state[i.key]}</span></div></label>`).join('');
   mInputs.querySelectorAll('input[data-key]').forEach(input=>{
     input.oninput=()=>{
       input.parentElement.querySelector('.input-value').textContent=input.value;
@@ -6113,6 +6156,54 @@ function openModal(key,m){
       rebuild();
     };
   });
+  // ===== 时间轴 scrub =====
+  const playBtn=document.getElementById('playBtn');
+  const tSlider=document.getElementById('tSlider');
+  const tVal=document.getElementById('tVal');
+  playBtn.textContent='⏸';
+  playBtn.onclick=()=>{ paused=!paused; playBtn.textContent=paused?'▶':'⏸'; };
+  tSlider.value=0; if(tVal) tVal.textContent='0.0s';
+  tSlider.oninput=()=>{ paused=true; playBtn.textContent='▶'; manualT=(+tSlider.value/1000)*CYC; if(tVal) tVal.textContent=manualT.toFixed(1)+'s'; };
+  // ===== 预设 =====
+  const presetSel=document.getElementById('presetSel');
+  if(m.presets && m.presets.length){
+    presetSel.style.display='';
+    presetSel.innerHTML='<option value="">预设…</option>'+m.presets.map((p,i)=>`<option value="${i}">${p.name}</option>`).join('');
+    presetSel.onchange=()=>{
+      const p=m.presets[+presetSel.value]; if(!p) return;
+      for(const k in p.params){ if(k in state){ state[k]=p.params[k]; const inp=mInputs.querySelector(`input[data-key="${k}"]`); if(inp){ inp.value=p.params[k]; inp.parentElement.querySelector('.input-value').textContent=p.params[k]; } } }
+      rebuild();
+    };
+  } else { presetSel.style.display='none'; presetSel.onchange=null; }
+  // ===== 导出 / 分享 =====
+  const expSvg=document.getElementById('expSvg');
+  const expPng=document.getElementById('expPng');
+  const expJson=document.getElementById('expJson');
+  const shareBtn=document.getElementById('shareBtn');
+  const styleTxt=()=>[...document.querySelectorAll('style')].map(s=>s.textContent).join('\n');
+  function downloadBlob(blob,name){ const a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download=name; document.body.appendChild(a); a.click(); a.remove(); }
+  expSvg.onclick=()=>{
+    const inner=modalSvg.innerHTML;
+    const svgStr='<?xml version="1.0" encoding="UTF-8"?>\n<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 150" width="600" height="450"><style>'+styleTxt()+'</style>'+inner+'</svg>';
+    downloadBlob(new Blob([svgStr],{type:'image/svg+xml'}),m.name+'.svg');
+  };
+  expPng.onclick=()=>{
+    const inner=modalSvg.innerHTML;
+    const svgStr='<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 150" width="600" height="450"><style>'+styleTxt()+'</style>'+inner+'</svg>';
+    const img=new Image();
+    const url=URL.createObjectURL(new Blob([svgStr],{type:'image/svg+xml'}));
+    img.onload=()=>{ const c=document.createElement('canvas'); c.width=600;c.height=450; const ctx=c.getContext('2d'); ctx.fillStyle=getComputedStyle(document.body).backgroundColor||'#0b1622'; ctx.fillRect(0,0,600,450); ctx.drawImage(img,0,0); c.toBlob(b=>{ downloadBlob(b,m.name+'.png'); URL.revokeObjectURL(url); }); };
+    img.src=url;
+  };
+  expJson.onclick=()=>{
+    const data={ key, name:m.name, en:m.en, cat:m.cat, idx:m.idx, params:state, custom:custom.map(i=>({key:i.key,label:i.label,value:state[i.key]})) };
+    downloadBlob(new Blob([JSON.stringify(data,null,2)],{type:'application/json'}),m.name+'.json');
+  };
+  shareBtn.onclick=()=>{
+    const url=location.origin+location.pathname+'#m='+encodeURIComponent(key)+'&p='+encodeURIComponent(JSON.stringify(state));
+    if(navigator.clipboard&&navigator.clipboard.writeText){ navigator.clipboard.writeText(url).then(()=>{ shareBtn.textContent='已复制 ✓'; setTimeout(()=>shareBtn.textContent='复制分享链接',1500); }).catch(()=>{ window.prompt('复制此链接：',url); }); }
+    else { window.prompt('复制此链接：',url); }
+  };
   rebuild();
   modal.classList.add('open');
 }
@@ -6249,6 +6340,19 @@ function onScrollFire(){
 }
 window.addEventListener('scroll',onScrollFire,{passive:true});
 onScrollFire();
+
+/* ================= 分享链接还原 ================= */
+(function restoreFromHash(){
+  const h=location.hash||''; if(!h) return;
+  const mm=h.match(/[#&]m=([^&]+)/), pp=h.match(/[#&]p=([^&]+)/);
+  if(!mm) return;
+  const key=decodeURIComponent(mm[1]); const m=MECHANISMS[key];
+  if(!m) return;
+  let init={};
+  if(pp){ try{ init=JSON.parse(decodeURIComponent(pp[1])); }catch(e){ init={}; } }
+  // 等首屏渲染完成再打开
+  setTimeout(()=>openModal(key,m,init),300);
+})();
 </script>
 </body>
 </html>
