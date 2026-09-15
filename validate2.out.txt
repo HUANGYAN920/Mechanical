@@ -1,0 +1,69 @@
+   DBG four-bar t=0.0 pinB=[[70,104],[118,104]]
+   DBG four-bar t=0.5 pinB=[[63,121.7],[118.7,110.6]]
+   DBG four-bar t=1.0 pinB=[[45.8,129.9],[119,112.1]]
+   DBG four-bar t=1.5 pinB=[[27.7,124.2],[118.4,109.5]]
+   DBG four-bar t=2.0 pinB=[[18.3,107.7],[118,104.9]]
+
+=== four-bar ===
+  pins: {"pin":[[44,104],[152,104]],"pinB":[[18.3,107.7],[118,104.9]]}
+  kin: ci=1 di=0 maxAmp=57.29 period=76 amps=[21.7,57.29,11.17,11.17,0.07,7.7]
+  deadV: len=76 minima(复算)=0
+  perf曲线绘制(lineTo次数): 228 OK
+  约束面板死点条目: 1 处
+
+=== crank-rocker ===
+  pins: {"pin":[[44,104],[152,104]],"pinB":[[18,102.5],[118,103.6]]}
+  kin: ci=1 di=0 maxAmp=57.29 period=76 amps=[21.7,57.29,11.17,11.17,0.07,7.7]
+  deadV: len=76 minima(复算)=0
+  perf曲线绘制(lineTo次数): 228 OK
+  约束面板死点条目: 1 处
+
+=== gear ===
+  pins: {"pin":[[66,82],[132,82]],"pinB":[]}
+  kin: ci=0 di=0 maxAmp=0 period=undefined amps=[0,0]
+  deadV: len=0 minima(复算)=-1
+  perf曲线绘制(lineTo次数): 0 NONE(纯回转·正常)
+  约束面板死点条目: 0 处(OK)
+
+=== slider-crank ===
+  pins: {"pin":[[48,92]],"pinB":[[24.3,95.5]]}
+  kin: ci=1 di=0 maxAmp=56.62 period=48 amps=[24.38,56.62,56.62,2.29,49.58]
+  deadV: len=48 minima(复算)=1
+  perf曲线绘制(lineTo次数): 144 OK
+  约束面板死点条目: 2 处
+
+=== cam ===
+  pins: {"pin":[[56,98]],"pinB":[]}
+  kin: ci=5 di=5 maxAmp=4.59 period=37 amps=[0,0,0,0,0,4.59]
+  deadV: len=37 minima(复算)=-1
+  perf曲线绘制(lineTo次数): 111 OK
+  约束面板死点条目: 0 处(OK)
+   DBG robot-2r t=0.0 pinB=[[142,118]]
+   DBG robot-2r t=0.5 pinB=[[136.9,97.9]]
+   DBG robot-2r t=1.0 pinB=[[122.7,82.7]]
+   DBG robot-2r t=1.5 pinB=[[103,76.1]]
+   DBG robot-2r t=2.0 pinB=[[82.5,79.8]]
+
+=== robot-2r ===
+  pins: {"pin":[[100,118],[60.3,105.5]],"pinB":[[82.5,79.8]]}
+  kin: ci=1 di=0 maxAmp=76.98 period=113 amps=[42.86,76.98,76.98,6.6]
+  deadV: len=113 minima(复算)=0
+  perf曲线绘制(lineTo次数): 339 OK
+  约束面板死点条目: 1 处
+
+=== klann-linkage ===
+  pins: {"pin":[[44,104],[152,104]],"pinB":[[18.9,97.2],[118,102.3],[143.9,67.3]]}
+  kin: ci=1 di=0 maxAmp=53.68 period=54 amps=[22.98,53.68,7.73,7.73,39.49,39.49,5.22,8.15,26.23]
+  deadV: len=54 minima(复算)=1
+  perf曲线绘制(lineTo次数): 162 OK
+  约束面板死点条目: 2 处
+
+=== bionic-flapping ===
+  pins: {"pin":[[100,100],[66,70],[134,70]],"pinB":[]}
+  kin: ci=2 di=1 maxAmp=38.82 period=37 amps=[0,12.35,38.82,38.82,34.92,34.92,36.43,29.59,27.66,28.84]
+  deadV: len=37 minima(复算)=-1
+  perf曲线绘制(lineTo次数): 111 OK
+  约束面板死点条目: 0 处(OK)
+
+SAMPLE_FAIL 0
+RESULT: PASS

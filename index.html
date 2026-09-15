@@ -206,6 +206,11 @@ header{
 }
 .ts-btn:hover{color:var(--cyan)}
 .ts-btn.on{color:var(--bar-text);background:var(--btn-grad);font-weight:700}
+/* 语言切换 */
+.lang-switch{display:flex;gap:4px;border:1px solid var(--line);padding:3px;background:var(--search-bg);margin-right:8px}
+.ls-btn{font-family:'Rajdhani','Noto Sans SC',sans-serif;font-size:13px;letter-spacing:.06em;color:var(--muted);background:transparent;border:none;padding:4px 9px;cursor:pointer;transition:.2s;border-radius:5px}
+.ls-btn:hover{color:var(--cyan)}
+.ls-btn.on{color:var(--bar-text);background:var(--btn-grad);font-weight:700}
 .ts-dot{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:6px;vertical-align:0;box-shadow:0 0 6px currentColor}
 
 /* ===== 搜索栏 ===== */
@@ -399,7 +404,22 @@ header{
 .modal-tools .tools-label{font-size:12px;color:var(--muted2);letter-spacing:.06em}
 .modal-tools button,.modal-tools .preset-sel{border:1px solid var(--line);background:color-mix(in srgb,var(--cyan) 8%,transparent);color:var(--cyan);font-size:12px;padding:6px 12px;border-radius:7px;cursor:pointer;transition:.18s;font-family:'Rajdhani',sans-serif;letter-spacing:.04em}
 .modal-tools button:hover,.modal-tools .preset-sel:hover{background:color-mix(in srgb,var(--cyan) 18%,transparent)}
+.modal-tools button.on{background:color-mix(in srgb,var(--amber) 22%,transparent);color:var(--amber);border-color:color-mix(in srgb,var(--amber) 45%,transparent)}
 .modal-tools button:active{transform:translateY(1px)}
+.modal-analysis{margin-top:14px;border-top:1px solid var(--line);padding-top:12px}
+.modal-analysis .ana-title{font-size:13px;font-weight:600;color:var(--cyan);letter-spacing:.05em;margin:10px 0 8px;font-family:'Rajdhani',sans-serif}
+.modal-analysis .ana-title:first-child{margin-top:0}
+#perfCanvas{width:100%;max-width:520px;height:auto;background:color-mix(in srgb,var(--bg2) 55%,transparent);border:1px solid var(--line);border-radius:8px;display:block}
+.constraint-box{display:flex;flex-direction:column;gap:8px}
+.c-item{display:flex;align-items:flex-start;gap:8px;font-size:12.5px;line-height:1.5}
+.c-badge{flex:0 0 auto;font-size:11px;font-weight:700;padding:2px 8px;border-radius:20px;letter-spacing:.03em;font-family:'Rajdhani',sans-serif;margin-top:1px}
+.c-ok{background:color-mix(in srgb,var(--cyan) 22%,transparent);color:var(--cyan);border:1px solid color-mix(in srgb,var(--cyan) 40%,transparent)}
+.c-warn{background:color-mix(in srgb,var(--amber) 22%,transparent);color:var(--amber);border:1px solid color-mix(in srgb,var(--amber) 45%,transparent)}
+.c-bad{background:color-mix(in srgb,#ff5b6e 22%,transparent);color:#ff8a96;border:1px solid color-mix(in srgb,#ff5b6e 45%,transparent)}
+.c-info{background:color-mix(in srgb,var(--muted2) 30%,transparent);color:var(--muted2);border:1px solid var(--line)}
+.c-body{flex:1}
+.c-body b{color:var(--fg);font-weight:600}
+.c-body .sub{color:var(--muted2);font-size:11.5px;margin-top:2px}
 
 /* ===== 数据带 ===== */
 .data-band{padding:0 0 96px}
@@ -511,11 +531,15 @@ footer{border-top:1px solid var(--line);padding:44px 0 36px;background:var(--foo
       </div>
     </div>
     <nav class="nav-links">
-      <a href="#library">机构库</a>
-      <a href="#featured">明星机构</a>
-      <a href="#data">数据</a>
-      <a href="#contact">合作</a>
+      <a href="#library" data-i18n="nav.library">机构库</a>
+      <a href="#featured" data-i18n="nav.featured">明星机构</a>
+      <a href="#data" data-i18n="nav.data">数据</a>
+      <a href="#contact" data-i18n="nav.contact">合作</a>
     </nav>
+    <div class="lang-switch" id="langSwitch" title="语言切换">
+      <button class="ls-btn on" data-lang="zh">中</button>
+      <button class="ls-btn" data-lang="en">EN</button>
+    </div>
     <div class="theme-switch" id="themeSwitch" title="主题切换">
       <button class="ts-btn on" data-theme="dark" title="极夜 · 深空"><span class="ts-dot"></span>极夜</button>
       <button class="ts-btn" data-theme="light" title="曜白 · 明亮"><span class="ts-dot"></span>曜白</button>
@@ -531,19 +555,19 @@ footer{border-top:1px solid var(--line);padding:44px 0 36px;background:var(--foo
     <div class="hero-txt">
       <div class="hero-kicker reveal in">MECHANISM DESIGN LIBRARY</div>
       <h1 class="reveal in">
-        <span class="line">机构示例库</span>
-        <span class="line glow">运动 · 驱动 · 传动</span>
+        <span class="line" data-i18n="hero.title1">机构示例库</span>
+        <span class="line glow" data-i18n="hero.title2">运动 · 驱动 · 传动</span>
       </h1>
-      <p class="hero-desc reveal in">面向机械设计工程师的 <b>传动机构参考库</b>，收录连杆、凸轮、齿轮、间歇与螺旋等经典机构的<b>结构与运动示意</b>。页面内置<b>实时运动学仿真</b>，辅助选型与方案构思。</p>
+      <p class="hero-desc reveal in" data-i18n="hero.desc">面向机械设计工程师的 <b>传动机构参考库</b>，收录连杆、凸轮、齿轮、间歇与螺旋等经典机构的<b>结构与运动示意</b>。页面内置<b>实时运动学仿真</b>，辅助选型与方案构思。</p>
       <div class="hero-btns reveal in">
-        <a href="#library" class="btn-primary">浏览机构库</a>
-        <a href="#featured" class="btn-ghost">查看仿真 ▸</a>
+        <a href="#library" class="btn-primary" data-i18n="hero.browse">浏览机构库</a>
+        <a href="#featured" class="btn-ghost" data-i18n="hero.view">查看仿真 ▸</a>
       </div>
       <div class="hero-stats reveal in">
-        <div class="hstat"><b>100<em>+</em></b><span>机构类型</span></div>
-        <div class="hstat"><b>12<em>+</em></b><span>覆盖行业</span></div>
-        <div class="hstat"><b>98<em>%</em></b><span>最高传动效率</span></div>
-        <div class="hstat"><b>36<em>+</em></b><span>标准体系 GB·ISO</span></div>
+        <div class="hstat"><b>100<em>+</em></b><span data-i18n="stat.types">机构类型</span></div>
+        <div class="hstat"><b>12<em>+</em></b><span data-i18n="stat.industries">覆盖行业</span></div>
+        <div class="hstat"><b>98<em>%</em></b><span data-i18n="stat.eff">最高传动效率</span></div>
+        <div class="hstat"><b>36<em>+</em></b><span data-i18n="stat.standards">标准体系 GB·ISO</span></div>
       </div>
     </div>
     <div class="hero-canvas reveal in">
@@ -567,13 +591,13 @@ footer{border-top:1px solid var(--line);padding:44px 0 36px;background:var(--foo
   <div class="container">
     <div class="reveal">
       <div class="sec-label">01 / MECHANISM LIBRARY</div>
-      <h2 class="sec-title">常用传动<em>机构示例</em></h2>
-      <p class="sec-sub">点击任意卡片查看机构示意、关键参数与典型应用场景，右上角实时仿真持续运转。</p>
+      <h2 class="sec-title" data-i18n="lib.title">常用传动<em>机构示例</em></h2>
+      <p class="sec-sub" data-i18n="lib.sub">点击任意卡片查看机构示意、关键参数与典型应用场景，右上角实时仿真持续运转。</p>
     </div>
     <div class="search-row reveal" id="searchRow">
       <div class="search-box">
         <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><circle cx="11" cy="11" r="7"/><line x1="16.5" y1="16.5" x2="21" y2="21"/></svg>
-        <input type="text" id="searchInput" placeholder="搜索机构：名称 / 分类 / 英文名，如「齿轮」「cam」「夹紧」" autocomplete="off" />
+        <input type="text" id="searchInput" data-i18n="search.ph" placeholder="搜索机构：名称 / 分类 / 英文名，如「齿轮」「cam」「夹紧」" autocomplete="off" />
         <button class="search-clear" id="searchClear" title="清空" aria-label="清空搜索">✕</button>
       </div>
       <span class="search-count" id="searchCount"></span>
@@ -589,24 +613,24 @@ footer{border-top:1px solid var(--line);padding:44px 0 36px;background:var(--foo
   <div class="container">
     <div class="reveal">
       <div class="sec-label">02 / FEATURED MECHANISM</div>
-      <h2 class="sec-title">明星机构 · <em>曲柄滑块</em></h2>
-      <p class="sec-sub">旋转运动转化为直线往复运动的经典代表，广泛应用于冲压、压缩与动力机械。</p>
+      <h2 class="sec-title" data-i18n="feat.title">明星机构 · <em>曲柄滑块</em></h2>
+      <p class="sec-sub" data-i18n="feat.sub">旋转运动转化为直线往复运动的经典代表，广泛应用于冲压、压缩与动力机械。</p>
     </div>
     <div class="feat-panel reveal">
       <div class="feat-visual">
         <svg id="featMech" viewBox="0 0 460 300" width="460" height="300" aria-label="曲柄滑块机构仿真"></svg>
       </div>
       <div class="feat-info">
-        <span class="feat-idx">SLIDER-CRANK · 连杆机构</span>
-        <h3>曲柄滑块机构</h3>
+        <span class="feat-idx" data-i18n="feat.idx">SLIDER-CRANK · 连杆机构</span>
+        <h3 data-i18n="feat.name">曲柄滑块机构</h3>
         <span class="en">RECIPROCATING MOTION CONVERTER</span>
-        <p>曲柄连续回转，经连杆带动滑块沿导路做往复直线运动。结构紧凑、承载能力强，是曲柄连杆运动体系的基石。</p>
+        <p data-i18n="feat.desc">曲柄连续回转，经连杆带动滑块沿导路做往复直线运动。结构紧凑、承载能力强，是曲柄连杆运动体系的基石。</p>
         <table class="param-table">
-          <tr><td>行程</td><td>2r（曲柄直径，可参数化）</td></tr>
-          <tr><td>急回特性</td><td>具备，行程速比系数 K&gt;1</td></tr>
-          <tr><td>传动效率</td><td>85% – 92%</td></tr>
-          <tr><td>典型应用</td><td>冲压机 / 往复泵 / 空压机</td></tr>
-          <tr><td>自由度</td><td>F = 1（单自由度）</td></tr>
+          <tr><td data-i18n="feat.p1">行程</td><td>2r（曲柄直径，可参数化）</td></tr>
+          <tr><td data-i18n="feat.p2">急回特性</td><td>具备，行程速比系数 K&gt;1</td></tr>
+          <tr><td data-i18n="feat.p3">传动效率</td><td>85% – 92%</td></tr>
+          <tr><td data-i18n="feat.p4">典型应用</td><td>冲压机 / 往复泵 / 空压机</td></tr>
+          <tr><td data-i18n="feat.p5">自由度</td><td>F = 1（单自由度）</td></tr>
         </table>
       </div>
     </div>
@@ -616,10 +640,10 @@ footer{border-top:1px solid var(--line);padding:44px 0 36px;background:var(--foo
 <!-- 数据带 -->
 <section class="data-band" id="data">
   <div class="container">
-    <div class="data-cell reveal"><b data-count="100">0</b><span>机构类型收录</span></div>
-    <div class="data-cell reveal"><b data-count="12">0</b><span>覆盖工业领域</span></div>
-    <div class="data-cell reveal"><b data-count="98">0<em>%</em></b><span>最高传动效率</span></div>
-    <div class="data-cell reveal"><b data-count="36">0<em>+</em></b><span>标准体系条目</span></div>
+    <div class="data-cell reveal"><b data-count="100">0</b><span data-i18n="data.types">机构类型收录</span></div>
+    <div class="data-cell reveal"><b data-count="12">0</b><span data-i18n="data.industries">覆盖工业领域</span></div>
+    <div class="data-cell reveal"><b data-count="98">0<em>%</em></b><span data-i18n="data.eff">最高传动效率</span></div>
+    <div class="data-cell reveal"><b data-count="36">0<em>+</em></b><span data-i18n="data.standards">标准体系条目</span></div>
   </div>
 </section>
 
@@ -627,9 +651,9 @@ footer{border-top:1px solid var(--line);padding:44px 0 36px;background:var(--foo
 <section class="cta" id="contact">
   <div class="container">
     <div class="cta-panel reveal">
-      <h3>需要<em>机构选型</em>或<em>参数化方案</em>？</h3>
-      <p>支持 SolidWorks 参数化建模、运动仿真校核与选型计算，让每个机构都以数据说话。</p>
-      <a href="#" class="btn-primary" onclick="return false">联系工程师 ▸</a>
+      <h3 data-i18n="cta.title">需要<em>机构选型</em>或<em>参数化方案</em>？</h3>
+      <p data-i18n="cta.desc">支持 SolidWorks 参数化建模、运动仿真校核与选型计算，让每个机构都以数据说话。</p>
+      <a href="#" class="btn-primary" onclick="return false" data-i18n="cta.btn">联系工程师 ▸</a>
     </div>
   </div>
 </section>
@@ -640,23 +664,23 @@ footer{border-top:1px solid var(--line);padding:44px 0 36px;background:var(--foo
     <div class="foot-grid">
       <div class="foot-brand">
         <b>机构<i>引擎</i> MECH</b>
-        <p>机械传动机构设计参考库 · 实时运动学仿真演示，服务于机械设计与自动化工程选型。</p>
+        <p data-i18n="foot.brand">机械传动机构设计参考库 · 实时运动学仿真演示，服务于机械设计与自动化工程选型。</p>
       </div>
       <div class="foot-col">
-        <h5>机构分类</h5>
+        <h5 data-i18n="foot.cat">机构分类</h5>
         <a href="#library">连杆机构</a>
         <a href="#library">凸轮机构</a>
         <a href="#library">齿轮机构</a>
         <a href="#library">间歇机构</a>
       </div>
       <div class="foot-col">
-        <h5>资源</h5>
+        <h5 data-i18n="foot.res">资源</h5>
         <a href="#featured">明星机构</a>
         <a href="#data">数据看板</a>
         <a href="#library">参数速查</a>
       </div>
       <div class="foot-col">
-        <h5>标准</h5>
+        <h5 data-i18n="foot.std">标准</h5>
         <a href="#">GB/T 标准体系</a>
         <a href="#">ISO 国际标准</a>
       </div>
@@ -688,11 +712,12 @@ footer{border-top:1px solid var(--line);padding:44px 0 36px;background:var(--foo
         <p id="mDesc">机构描述</p>
         <div class="mech-inputs" id="mInputs"></div>
         <div class="modal-tools">
-          <span class="tools-label">导出 / 分享：</span>
+          <button id="velBtn" data-i18n="modal.vel" title="按运动速度热力着色（青→琥珀→玫红）">速度着色</button>
+          <span class="tools-label" data-i18n="modal.tools">导出 / 分享：</span>
           <button id="expSvg">SVG</button>
           <button id="expPng">PNG</button>
           <button id="expJson">JSON</button>
-          <button id="shareBtn">复制分享链接</button>
+          <button id="shareBtn" data-i18n="modal.share">复制分享链接</button>
           <select id="presetSel" class="preset-sel" style="display:none"></select>
         </div>
         <table class="param-table" id="mTable"></table>
@@ -702,6 +727,88 @@ footer{border-top:1px solid var(--line);padding:44px 0 36px;background:var(--foo
 </div>
 
 <script>
+/* ================= 多语言 i18n ================= */
+/* ================= 多语言 i18n ================= */
+let LANG = (function(){ try{ return localStorage.getItem('mech-lang')||'zh'; }catch(e){ return 'zh'; } })();
+let curMech = null;
+const I18N = {
+  zh:{
+    'nav.library':'机构库','nav.featured':'明星机构','nav.data':'数据','nav.contact':'合作',
+    'hero.title1':'机构示例库','hero.title2':'运动 · 驱动 · 传动',
+    'hero.desc':'面向机械设计工程师的 <b>传动机构参考库</b>，收录连杆、凸轮、齿轮、间歇与螺旋等经典机构的<b>结构与运动示意</b>。页面内置<b>实时运动学仿真</b>，辅助选型与方案构思。',
+    'hero.browse':'浏览机构库','hero.view':'查看仿真 ▸',
+    'stat.types':'机构类型','stat.industries':'覆盖行业','stat.eff':'最高传动效率','stat.standards':'标准体系 GB·ISO',
+    'lib.title':'常用传动<em>机构示例</em>','lib.sub':'点击任意卡片查看机构示意、关键参数与典型应用场景，右上角实时仿真持续运转。',
+    'search.ph':'搜索机构：名称 / 分类 / 英文名，如「齿轮」「cam」「夹紧」',
+    'feat.title':'明星机构 · <em>曲柄滑块</em>','feat.sub':'旋转运动转化为直线往复运动的经典代表，广泛应用于冲压、压缩与动力机械。',
+    'feat.idx':'SLIDER-CRANK · 连杆机构','feat.name':'曲柄滑块机构',
+    'feat.desc':'曲柄连续回转，经连杆带动滑块沿导路做往复直线运动。结构紧凑、承载能力强，是曲柄连杆运动体系的基石。',
+    'feat.p1':'行程','feat.p2':'急回特性','feat.p3':'传动效率','feat.p4':'典型应用','feat.p5':'自由度',
+    'data.types':'机构类型收录','data.industries':'覆盖工业领域','data.eff':'最高传动效率','data.standards':'标准体系条目',
+    'cta.title':'需要<em>机构选型</em>或<em>参数化方案</em>？','cta.desc':'支持 SolidWorks 参数化建模、运动仿真校核与选型计算，让每个机构都以数据说话。','cta.btn':'联系工程师 ▸',
+    'foot.brand':'机械传动机构设计参考库 · 实时运动学仿真演示，服务于机械设计与自动化工程选型。',
+    'foot.cat':'机构分类','foot.res':'资源','foot.std':'标准',
+    'modal.tools':'导出 / 分享：','modal.share':'复制分享链接','modal.vel':'速度着色','preset':'预设…',
+    'cat.all':'全部',
+    'cat.连杆机构':'LINKAGE','cat.凸轮机构':'CAM','cat.齿轮机构':'GEAR','cat.间歇机构':'INTERMITTENT','cat.螺旋机构':'SCREW','cat.夹紧机构':'CLAMP','cat.液压机构':'HYDRAULIC','cat.万向传动':'UNIVERSAL','cat.挠性传动':'FLEXIBLE','cat.机器人机构':'ROBOT','cat.仿生机构':'BIONIC',
+    'unit.item':'项','unit.mech':'项机构'
+  },
+  en:{
+    'nav.library':'LIBRARY','nav.featured':'FEATURED','nav.data':'DATA','nav.contact':'CONTACT',
+    'hero.title1':'MECH LIBRARY','hero.title2':'MOTION · DRIVE · TRANSMISSION',
+    'hero.desc':'A <b>transmission mechanism reference</b> for mechanical design engineers, covering classic linkages, cams, gears, indexing and screw mechanisms with <b>structure and motion illustrations</b>. Built-in <b>real-time kinematics simulation</b> assists selection and concept design.',
+    'hero.browse':'BROWSE LIBRARY','hero.view':'VIEW SIM ▸',
+    'stat.types':'MECH TYPES','stat.industries':'INDUSTRIES','stat.eff':'MAX EFFICIENCY','stat.standards':'STANDARDS GB·ISO',
+    'lib.title':'COMMON <em>MECHANISMS</em>','lib.sub':'Click any card to view the schematic, key parameters and typical applications; the live simulation keeps running at the top-right.',
+    'search.ph':'Search mechanisms: name / category / EN, e.g. "gear" "cam" "clamp"',
+    'feat.title':'FEATURED · <em>SLIDER-CRANK</em>','feat.sub':'A classic that converts rotary motion into linear reciprocation, widely used in stamping, compression and power machinery.',
+    'feat.idx':'SLIDER-CRANK · LINKAGE','feat.name':'SLIDER-CRANK',
+    'feat.desc':'The crank rotates continuously, driving the slider along the guide via the connecting rod. Compact and high-load, it is the cornerstone of the slider-crank family.',
+    'feat.p1':'STROKE','feat.p2':'DWELL RETURN','feat.p3':'EFFICIENCY','feat.p4':'APPLICATION','feat.p5':'DOF',
+    'data.types':'MECH TYPES','data.industries':'INDUSTRIES','data.eff':'MAX EFFICIENCY','data.standards':'STANDARDS',
+    'cta.title':'NEED <em>MECH SELECTION</em> OR <em>PARAMETRIC SOLUTION</em>?','cta.desc':'SolidWorks parametric modeling, motion simulation verification and selection calculation — let every mechanism speak with data.','cta.btn':'CONTACT ENGINEER ▸',
+    'foot.brand':'Mechanical transmission mechanism design reference · real-time kinematics simulation demo, serving mechanical design and automation engineering selection.',
+    'foot.cat':'CATEGORIES','foot.res':'RESOURCES','foot.std':'STANDARDS',
+    'modal.tools':'EXPORT / SHARE:','modal.share':'COPY LINK','modal.vel':'VELOCITY','preset':'PRESET…',
+    'cat.all':'ALL',
+    'cat.连杆机构':'LINKAGE','cat.凸轮机构':'CAM','cat.齿轮机构':'GEAR','cat.间歇机构':'INTERMITTENT','cat.螺旋机构':'SCREW','cat.夹紧机构':'CLAMP','cat.液压机构':'HYDRAULIC','cat.万向传动':'UNIVERSAL','cat.挠性传动':'FLEXIBLE','cat.机器人机构':'ROBOT','cat.仿生机构':'BIONIC',
+    'unit.item':'ITEMS','unit.mech':'MECHANISMS'
+  }
+};
+function _(k, fallback){
+  const v = I18N[LANG] && I18N[LANG][k];
+  if(v!=null) return v;
+  if(I18N.zh[k]!=null) return I18N.zh[k];
+  if(fallback!=null) return fallback;
+  return k;
+}
+function applyLang(){
+  document.querySelectorAll('[data-i18n]').forEach(function(el){
+    const k=el.getAttribute('data-i18n');
+    const v=_(k);
+    if(v==null) return;
+    if(el.tagName==='INPUT'||el.tagName==='TEXTAREA'){ el.placeholder=v; }
+    else if(v.indexOf('<')>=0){ el.innerHTML=v; }
+    else { el.textContent=v; }
+  });
+  document.documentElement.setAttribute('lang', LANG==='zh'?'zh-CN':'en');
+  document.querySelectorAll('.ls-btn').forEach(function(b){ b.classList.toggle('on', b.dataset.lang===LANG); });
+}
+function setLang(l){
+  LANG=l;
+  try{ localStorage.setItem('mech-lang', l); }catch(e){}
+  applyLang();
+  if(typeof renderFilters==='function') renderFilters();
+  if(typeof renderGrid==='function') renderGrid();
+  if(typeof renderMarquee==='function') renderMarquee();
+  if(typeof modal!=='undefined' && modal.classList.contains('open') && curMech){
+    document.getElementById('mName').textContent = LANG==='zh'?curMech.name:curMech.en;
+    document.getElementById('mEn').textContent = curMech.en+' · '+_( 'cat.'+curMech.cat, curMech.cat );
+    if(typeof window.__rebuildModal==='function') window.__rebuildModal();
+  }
+}
+document.querySelectorAll('.ls-btn').forEach(function(b){ b.addEventListener('click', function(){ setLang(b.dataset.lang); }); });
+applyLang();
 /* ================= 工具函数 ================= */
 function setAttr(el, attrs){ for(const k in attrs) el.setAttribute(k, attrs[k]); }
 function el(tag, attrs, parent){
@@ -5983,6 +6090,526 @@ const MECHANISMS = {
       };
     }
   },
+  'robot-2r':{
+    name:'二自由度平面机械臂', en:'PLANAR-2R', cat:'机器人机构', idx:'246',
+    desc:'两个回转关节串联构成的平面机械臂，按正运动学实时解算末端位姿，末端在可达工作空间内描绘闭合轨迹。',
+    params:[['自由度','2（回转 + 回转）'],['工作空间','环形：|L1−L2| ~ L1+L2'],['正运动学','P = Σ Li·(cosθi, sinθi)'],['典型应用','上下料 / 搬运 / 弧焊'],['特点','结构紧凑、重复定位精度高']],
+    inputs:[
+      {key:'L1',label:'大臂长 L1',min:28,max:56,step:1,value:42},
+      {key:'L2',label:'小臂长 L2',min:24,max:50,step:1,value:34},
+      {key:'k',label:'关节2转速比',min:1,max:3,step:1,value:2}
+    ],
+    drag:{type:'arm2', O:[100,118], keys:['L1','L2']},
+    build(svg,p={}){
+      const L1=p.L1??42, L2=p.L2??34, k=Math.round(p.k??2);
+      const O={x:100,y:118};
+      el('line',{x1:64,y1:O.y,x2:136,y2:O.y,class:'g'},svg);
+      el('polygon',{points:`${O.x-11},${O.y} ${O.x+11},${O.y} ${O.x},${O.y+17}`,class:'ground'},svg);
+      let tsp='';
+      for(let i=0;i<=360;i++){
+        const a=i/360*2*Math.PI;
+        tsp+=(i?' ':'')+(O.x+L1*Math.cos(a)+L2*Math.cos(k*a)).toFixed(1)+','+(O.y-L1*Math.sin(a)-L2*Math.sin(k*a)).toFixed(1);
+      }
+      el('polyline',{points:tsp,class:'trace',fill:'none'},svg);
+      const l1=el('line',{x1:O.x,y1:O.y,x2:O.x,y2:O.y,class:'crank'},svg);
+      const l2=el('line',{x1:0,y1:0,x2:0,y2:0,class:'link rod'},svg);
+      el('circle',{cx:O.x,cy:O.y,r:4,class:'pin'},svg);
+      const j2=el('circle',{cx:O.x,cy:O.y,r:3,class:'pinB'},svg);
+      const ef=el('circle',{cx:O.x,cy:O.y,r:4,class:'pin'},svg);
+      return function(t){
+        let a1=t, a2=k*t;
+        if(p.__pose){ a1=p.__pose.a1; a2=p.__pose.a2; }
+        const P1={x:O.x+L1*Math.cos(a1), y:O.y-L1*Math.sin(a1)};
+        const P2={x:P1.x+L2*Math.cos(a2), y:P1.y-L2*Math.sin(a2)};
+        setAttr(l1,{x2:P1.x,y2:P1.y});
+        setAttr(l2,{x1:P1.x,y1:P1.y,x2:P2.x,y2:P2.y});
+        setAttr(j2,{cx:P1.x,cy:P1.y});
+        setAttr(ef,{cx:P2.x,cy:P2.y});
+      };
+    }
+  },
+  'robot-scara':{
+    name:'SCARA 机械臂', en:'SCARA-ARM', cat:'机器人机构', idx:'247',
+    desc:'水平两回转关节 + 垂直 Z 轴的装配机器人，演示取放（Pick & Place）循环：两关节联动平移，末端主轴按节拍升降完成抓取与放置。',
+    params:[['构型','2×回转 + 1×移动（RRP）'],['自由度','3（平面 X/Y + Z 升降）'],['节拍','取料→提升→转运→下料'],['重复定位','±0.01 – 0.05 mm'],['典型应用','电子装配 / 精密上下料']],
+    inputs:[
+      {key:'L1',label:'大臂长 L1',min:30,max:50,step:1,value:40},
+      {key:'L2',label:'小臂长 L2',min:24,max:44,step:1,value:32},
+      {key:'zs',label:'Z 轴行程',min:6,max:22,step:1,value:14}
+    ],
+    drag:{type:'arm2', O:[100,112], keys:['L1','L2']},
+    build(svg,p={}){
+      const L1=p.L1??40, L2=p.L2??32, zs=p.zs??14;
+      const O={x:100,y:112};
+      const a1A=35*Math.PI/180, a2A=-40*Math.PI/180;
+      const a1B=145*Math.PI/180, a2B=-140*Math.PI/180;
+      function pose(s){
+        const a1=a1A+(a1B-a1A)*s, a2=a2A+(a2B-a2A)*s;
+        const P1={x:O.x+L1*Math.cos(a1), y:O.y-L1*Math.sin(a1)};
+        return {P1,P2:{x:P1.x+L2*Math.cos(a2), y:P1.y-L2*Math.sin(a2)}};
+      }
+      let tsp='';
+      for(let i=0;i<=120;i++){ const q=pose(i/120); tsp+=(i?' ':'')+q.P2.x.toFixed(1)+','+q.P2.y.toFixed(1); }
+      el('polyline',{points:tsp,class:'trace',fill:'none'},svg);
+      el('line',{x1:70,y1:O.y,x2:130,y2:O.y,class:'g'},svg);
+      el('polygon',{points:`${O.x-10},${O.y} ${O.x+10},${O.y} ${O.x},${O.y+15}`,class:'ground'},svg);
+      const l1=el('line',{x1:O.x,y1:O.y,x2:0,y2:0,class:'crank'},svg);
+      const l2=el('line',{x1:0,y1:0,x2:0,y2:0,class:'link rod'},svg);
+      el('circle',{cx:O.x,cy:O.y,r:4,class:'pin'},svg);
+      const j2=el('circle',{r:3,class:'pinB'},svg);
+      const ef=el('circle',{r:4,class:'pin'},svg);
+      el('line',{x1:184,y1:60,x2:184,y2:110,class:'g'},svg);
+      const zmark=el('line',{x1:179,y1:62,x2:189,y2:62,class:'slider'},svg);
+      return function(t){
+        let q, ym;
+        if(p.__pose){
+          const a1=p.__pose.a1, a2=p.__pose.a2;
+          q={P1:{x:O.x+L1*Math.cos(a1), y:O.y-L1*Math.sin(a1)}, P2:{x:O.x+L1*Math.cos(a1)+L2*Math.cos(a2), y:O.y-L1*Math.sin(a1)-L2*Math.sin(a2)}};
+          ym=62;
+        } else {
+          const u=(t*0.2)%1;
+          const s=0.5-0.5*Math.cos(2*Math.PI*u);
+          q=pose(s);
+          ym=62+(1-Math.sin(Math.PI*s))*46;
+        }
+        setAttr(l1,{x2:q.P1.x,y2:q.P1.y});
+        setAttr(l2,{x1:q.P1.x,y1:q.P1.y,x2:q.P2.x,y2:q.P2.y});
+        setAttr(j2,{cx:q.P1.x,cy:q.P1.y});
+        setAttr(ef,{cx:q.P2.x,cy:q.P2.y});
+        setAttr(zmark,{y1:ym,y2:ym});
+      };
+    }
+  },
+  'robot-delta':{
+    name:'Delta 并联机器人', en:'DELTA-PARALLEL', cat:'机器人机构', idx:'248',
+    desc:'两条主动臂由伺服驱动，经从动支链共同牵引动平台；由圆-圆交点实时求解平台位姿，惯量小、刚度高，适合高速分拣。',
+    params:[['构型','并联 2–3 自由度'],['求解','两圆交点（距离约束）'],['特点','惯量小 / 刚度高 / 高速'],['节拍','可达 200 次/分'],['典型应用','食品与药品高速分拣']],
+    inputs:[
+      {key:'Lu',label:'主动臂长 Lu',min:22,max:38,step:1,value:30},
+      {key:'Lf',label:'从动臂长 Lf',min:30,max:48,step:1,value:38},
+      {key:'A',label:'主动臂摆幅 (°)',min:10,max:30,step:1,value:26}
+    ],
+    drag:{type:'delta', BL:[74,34], BR:[126,34], keys:['Lu','Lf']},
+    build(svg,p={}){
+      const Lu=p.Lu??30, Lf=p.Lf??38, Ad=p.A??26;
+      const BL={x:74,y:34}, BR={x:126,y:34};
+      const PH0=32*Math.PI/180, Ar=Ad*Math.PI/180, PH=2.0, w=1.2;
+      function solve(tt, pose){
+        const pL = pose? pose.pL : PH0+Ar*Math.sin(w*tt);
+        const pR = pose? pose.pR : PH0+Ar*Math.sin(w*tt+PH);
+        const thL=Math.PI/2-pL, thR=Math.PI/2+pR;
+        const EL={x:BL.x+Lu*Math.cos(thL), y:BL.y+Lu*Math.sin(thL)};
+        const ER={x:BR.x+Lu*Math.cos(thR), y:BR.y+Lu*Math.sin(thR)};
+        const dx=ER.x-EL.x, dy=ER.y-EL.y, d=Math.max(1e-6,Math.hypot(dx,dy));
+        const h=Math.sqrt(Math.max(0,Lf*Lf-(d/2)*(d/2)));
+        const M={x:(EL.x+ER.x)/2, y:(EL.y+ER.y)/2};
+        return {EL,ER,P:{x:M.x-dy/d*h, y:M.y+dx/d*h}};
+      }
+      const T=2*Math.PI/w;
+      let tsp='';
+      for(let i=0;i<=180;i++){ const q=solve(i/180*T); tsp+=(i?' ':'')+q.P.x.toFixed(1)+','+q.P.y.toFixed(1); }
+      el('polyline',{points:tsp,class:'trace',fill:'none'},svg);
+      el('line',{x1:58,y1:BL.y,x2:142,y2:BL.y,class:'g'},svg);
+      el('polygon',{points:`${BL.x-6},${BL.y} ${BL.x+6},${BL.y} ${BL.x},${BL.y-10}`,class:'ground'},svg);
+      el('polygon',{points:`${BR.x-6},${BR.y} ${BR.x+6},${BR.y} ${BR.x},${BR.y-10}`,class:'ground'},svg);
+      const aL=el('line',{x1:BL.x,y1:BL.y,x2:0,y2:0,class:'crank'},svg);
+      const aR=el('line',{x1:BR.x,y1:BR.y,x2:0,y2:0,class:'crank'},svg);
+      const fL=el('line',{x1:0,y1:0,x2:0,y2:0,class:'link'},svg);
+      const fR=el('line',{x1:0,y1:0,x2:0,y2:0,class:'link'},svg);
+      el('circle',{cx:BL.x,cy:BL.y,r:3,class:'pin'},svg);
+      el('circle',{cx:BR.x,cy:BR.y,r:3,class:'pin'},svg);
+      const eL=el('circle',{r:2.5,class:'pinB'},svg);
+      const eR=el('circle',{r:2.5,class:'pinB'},svg);
+      const plat=el('rect',{x:0,y:0,width:18,height:6,rx:2,class:'slider'},svg);
+      return function(t){
+        const q=solve(t, p.__pose);
+        setAttr(aL,{x2:q.EL.x,y2:q.EL.y});
+        setAttr(aR,{x2:q.ER.x,y2:q.ER.y});
+        setAttr(fL,{x1:q.EL.x,y1:q.EL.y,x2:q.P.x,y2:q.P.y});
+        setAttr(fR,{x1:q.ER.x,y1:q.ER.y,x2:q.P.x,y2:q.P.y});
+        setAttr(eL,{cx:q.EL.x,cy:q.EL.y});
+        setAttr(eR,{cx:q.ER.x,cy:q.ER.y});
+        setAttr(plat,{x:q.P.x-9,y:q.P.y-3});
+      };
+    }
+  },
+  'robot-cartesian':{
+    name:'直角坐标龙门机器人', en:'CARTESIAN-GANTRY', cat:'机器人机构', idx:'249',
+    desc:'X / Y 两个互相垂直的移动轴构成龙门框架，末端在矩形工作空间内按李萨如轨迹运行，刚性好、承载大、定位精度高。',
+    params:[['构型','3×移动（PPP 直角坐标）'],['自由度','3（X / Y / Z）'],['工作空间','矩形，各轴独立解耦'],['定位精度','±0.02 – 0.1 mm'],['典型应用','大型工件加工 / 码垛 / 点胶']],
+    inputs:[
+      {key:'Ax',label:'X 轴行程',min:24,max:64,step:1,value:48},
+      {key:'Ay',label:'Y 轴行程',min:16,max:40,step:1,value:28}
+    ],
+    build(svg,p={}){
+      const Ax=p.Ax??48, Ay=p.Ay??28, w=1.0, y0=84;
+      el('line',{x1:30,y1:36,x2:170,y2:36,class:'g'},svg);
+      el('line',{x1:30,y1:124,x2:170,y2:124,class:'g'},svg);
+      let tsp='';
+      for(let i=0;i<=240;i++){
+        const tt=i/240*2*Math.PI/w;
+        tsp+=(i?' ':'')+(100+Ax*Math.sin(w*tt)).toFixed(1)+','+(y0+Ay*Math.sin(2*w*tt)).toFixed(1);
+      }
+      el('polyline',{points:tsp,class:'trace',fill:'none'},svg);
+      const beam=el('line',{x1:100,y1:36,x2:100,y2:124,class:'g'},svg);
+      const xc=el('rect',{x:92,y:31,width:16,height:10,rx:2,class:'slider'},svg);
+      const yc=el('rect',{x:92,y:80,width:16,height:10,rx:2,class:'slider'},svg);
+      const ef=el('circle',{cx:100,cy:y0,r:4,class:'pin'},svg);
+      return function(t){
+        const X=100+Ax*Math.sin(w*t), Y=y0+Ay*Math.sin(2*w*t);
+        setAttr(beam,{x1:X,x2:X});
+        setAttr(xc,{x:X-8});
+        setAttr(yc,{x:X-8,y:Y-5});
+        setAttr(ef,{cx:X,cy:Y});
+      };
+    }
+  },
+  'robot-stewart':{
+    name:'Stewart 六足并联平台', en:'STEWART-PLATFORM', cat:'机器人机构', idx:'250',
+    desc:'六条支链并联驱动动平台实现六自由度运动；此处以三支链侧视示意，支链按逆运动学实时伸缩（沉浮 + 摇摆 + 纵移），模拟飞行模拟器与并联机床。',
+    params:[['构型','并联 6 自由度'],['求解','逆运动学（位姿 → 支链长）'],['自由度','6（升降 / 纵横 / 三转）'],['特点','刚度高 / 承载大 / 无误差累积'],['典型应用','飞行模拟器 / 并联机床 / 舰载稳定平台']],
+    inputs:[
+      {key:'wp',label:'平台半宽',min:20,max:40,step:1,value:30},
+      {key:'Ah',label:'沉浮幅度',min:4,max:16,step:1,value:10},
+      {key:'Ar',label:'摇摆幅度 (°)',min:6,max:22,step:1,value:14}
+    ],
+    build(svg,p={}){
+      const wp=p.wp??30, Ah=p.Ah??10, Ard=(p.Ar??14)*Math.PI/180, w=1.0;
+      const B=[{x:58,y:120},{x:100,y:120},{x:142,y:120}];
+      const sg=[-1,0,1];
+      el('line',{x1:44,y1:120,x2:156,y2:120,class:'g'},svg);
+      B.forEach(b=>el('polygon',{points:`${b.x-6},${b.y} ${b.x+6},${b.y} ${b.x},${b.y+12}`,class:'ground'},svg));
+      let tsp='';
+      for(let i=0;i<=240;i++){
+        const tt=i/240*2*Math.PI/w;
+        tsp+=(i?' ':'')+(100+8*Math.sin(w*tt*0.55)).toFixed(1)+','+(74-Ah*Math.sin(w*tt)).toFixed(1);
+      }
+      el('polyline',{points:tsp,class:'trace',fill:'none'},svg);
+      const rods=[], cyls=[];
+      for(let i=0;i<3;i++){
+        rods.push(el('line',{x1:0,y1:0,x2:0,y2:0,class:'link'},svg));
+        cyls.push(el('line',{x1:0,y1:0,x2:0,y2:0,class:'crank'},svg));
+      }
+      const plat=el('line',{x1:0,y1:0,x2:0,y2:0,class:'crank'},svg);
+      const pc=el('circle',{r:3,class:'pin'},svg);
+      return function(t){
+        const heave=Ah*Math.sin(w*t), roll=Ard*Math.sin(w*t*0.7+1.1);
+        const cx=100+8*Math.sin(w*t*0.55), cy=74-heave;
+        const P=sg.map(s=>({x:cx+s*wp*Math.cos(roll), y:cy+s*wp*Math.sin(roll)}));
+        setAttr(plat,{x1:P[0].x,y1:P[0].y,x2:P[2].x,y2:P[2].y});
+        setAttr(pc,{cx,cy});
+        for(let i=0;i<3;i++){
+          const dx=P[i].x-B[i].x, dy=P[i].y-B[i].y, L=Math.hypot(dx,dy)||1e-6;
+          const ux=dx/L, uy=dy/L, cl=L*0.55;
+          setAttr(rods[i],{x1:B[i].x,y1:B[i].y,x2:P[i].x,y2:P[i].y});
+          setAttr(cyls[i],{x1:B[i].x,y1:B[i].y,x2:B[i].x+ux*cl,y2:B[i].y+uy*cl});
+        }
+      };
+    }
+  },
+  'robot-redundant':{
+    name:'冗余自由度机械臂', en:'REDUNDANT-3R', cat:'机器人机构', idx:'251',
+    desc:'三回转关节平面臂（3R）含冗余自由度：末端沿直线行进的同时，大臂关节可自由重构姿态以避障，由余弦定理实时求解两关节逆解。',
+    params:[['自由度','3（平面冗余）'],['逆解','余弦定理 + 位姿分配'],['冗余特性','末端确定而肘部可调'],['优势','避障 / 避奇异 / 优化力矩'],['典型应用','狭小空间焊接 / 医疗机械臂']],
+    inputs:[
+      {key:'L1',label:'大臂长 L1',min:22,max:38,step:1,value:30},
+      {key:'L2',label:'中臂长 L2',min:26,max:42,step:1,value:34},
+      {key:'L3',label:'末端臂长 L3',min:20,max:34,step:1,value:26}
+    ],
+    drag:{type:'arm3', O:[100,118], keys:['L1','L2','L3']},
+    build(svg,p={}){
+      const L1=p.L1??30, L2=p.L2??34, L3=p.L3??26, w=1.0, amp=38;
+      const O={x:100,y:118}, ty=70;
+      function solve(tt, pose){
+        const th1 = pose? pose.th1 : (85*Math.PI/180)+(18*Math.PI/180)*Math.sin(w*tt+1.3);
+        const P1={x:O.x+L1*Math.cos(th1), y:O.y-L1*Math.sin(th1)};
+        let P2, T;
+        if(pose){
+          const x2=P1.x+L2*Math.cos(pose.th2), y2=P1.y-L2*Math.sin(pose.th2);
+          P2={x:x2,y:y2};
+          T={x:x2+L3*Math.cos(pose.th3), y:y2-L3*Math.sin(pose.th3)};
+        } else {
+          T={x:100+amp*Math.sin(w*tt), y:ty};
+          const dx=T.x-P1.x, dy=P1.y-T.y;
+          let dist=Math.hypot(dx,dy);
+          dist=Math.max(Math.abs(L2-L3)+0.01, Math.min(L2+L3-0.01, dist));
+          let c=(dist*dist+L2*L2-L3*L3)/(2*dist*L2);
+          c=Math.max(-1,Math.min(1,c));
+          const beta=Math.atan2(dy,dx), th2=beta-Math.acos(c);
+          P2={x:P1.x+L2*Math.cos(th2), y:P1.y-L2*Math.sin(th2)};
+        }
+        return {P1,P2,T};
+      }
+      const T2=2*Math.PI/w;
+      let tsp='';
+      for(let i=0;i<=240;i++){ const q=solve(i/240*T2); tsp+=(i?' ':'')+q.P2.x.toFixed(1)+','+q.P2.y.toFixed(1); }
+      el('polyline',{points:tsp,class:'trace',fill:'none'},svg);
+      el('line',{x1:64,y1:O.y,x2:136,y2:O.y,class:'g'},svg);
+      el('polygon',{points:`${O.x-11},${O.y} ${O.x+11},${O.y} ${O.x},${O.y+16}`,class:'ground'},svg);
+      el('line',{x1:60,y1:ty,x2:140,y2:ty,class:'g',style:'stroke-dasharray:4 4'},svg);
+      const a1=el('line',{x1:O.x,y1:O.y,x2:0,y2:0,class:'crank'},svg);
+      const a2=el('line',{x1:0,y1:0,x2:0,y2:0,class:'link rod'},svg);
+      const a3=el('line',{x1:0,y1:0,x2:0,y2:0,class:'link rod'},svg);
+      el('circle',{cx:O.x,cy:O.y,r:4,class:'pin'},svg);
+      const j2=el('circle',{r:3,class:'pinB'},svg);
+      const j3=el('circle',{r:3,class:'pinB'},svg);
+      const ef=el('circle',{r:4,class:'pin'},svg);
+      return function(t){
+        const q=solve(t, p.__pose);
+        setAttr(a1,{x2:q.P1.x,y2:q.P1.y});
+        setAttr(a2,{x1:q.P1.x,y1:q.P1.y,x2:q.P2.x,y2:q.P2.y});
+        setAttr(a3,{x1:q.P2.x,y1:q.P2.y,x2:q.T.x,y2:q.T.y});
+        setAttr(j2,{cx:q.P1.x,cy:q.P1.y});
+        setAttr(j3,{cx:q.P2.x,cy:q.P2.y});
+        setAttr(ef,{cx:q.T.x,cy:q.T.y});
+      };
+    }
+  },
+  'bionic-flapping':{
+    name:'扑翼机构', en:'FLAPPING-WING', cat:'仿生机构', idx:'252',
+    desc:'曲柄经连杆驱动摇杆（翅根）往复摆动，双翼由同一曲柄对称驱动同步上下扑动，模拟扑翼飞行器的扑翼传动。',
+    params:[['构型','曲柄摇杆四杆（双翼对称）'],['求解','圆-圆交点 → 摇杆角'],['扑动频率','5 – 20 Hz（仿生）'],['典型应用','扑翼飞行器 / 仿生鸟'],['特点','单曲柄驱动双翼同步扑动']],
+    inputs:[
+      {key:'r1',label:'曲柄长 r1',min:8,max:14,step:1,value:12},
+      {key:'r2',label:'连杆长 r2',min:38,max:50,step:1,value:42},
+      {key:'r3',label:'翅根摇杆 r3',min:14,max:20,step:1,value:17},
+      {key:'Lw',label:'翼展 Lw',min:28,max:52,step:1,value:40}
+    ],
+    build(svg,p={}){
+      const r1=p.r1??12, r2=p.r2??42, r3=p.r3??17, Lw=p.Lw??40;
+      const A={x:100,y:100}, DL={x:66,y:70}, DR={x:134,y:70};
+      function rocker(tt){
+        const B={x:A.x+r1*Math.cos(tt), y:A.y+r1*Math.sin(tt)};
+        const dx=DL.x-B.x, dy=DL.y-B.y, d=Math.max(1e-6,Math.hypot(dx,dy));
+        const a=(r2*r2-r3*r3+d*d)/(2*d);
+        const h=Math.sqrt(Math.max(0,r2*r2-a*a));
+        return {B,C:{x:B.x+a*dx/d-h*dy/d, y:B.y+a*dy/d+h*dx/d}};
+      }
+      el('ellipse',{cx:100,cy:92,rx:8,ry:15,class:'gearBody'},svg);
+      const crank=el('line',{x1:A.x,y1:A.y,x2:0,y2:0,class:'crank'},svg);
+      const cpL=el('line',{x1:0,y1:0,x2:0,y2:0,class:'link rod'},svg);
+      const cpR=el('line',{x1:0,y1:0,x2:0,y2:0,class:'link rod'},svg);
+      el('circle',{cx:A.x,cy:A.y,r:3.5,class:'pin'},svg);
+      const shL=el('circle',{cx:DL.x,cy:DL.y,r:3,class:'pin'},svg);
+      const shR=el('circle',{cx:DR.x,cy:DR.y,r:3,class:'pin'},svg);
+      const spL=el('line',{x1:DL.x,y1:DL.y,x2:0,y2:0,class:'crank'},svg);
+      const spR=el('line',{x1:DR.x,y1:DR.y,x2:0,y2:0,class:'crank'},svg);
+      const memL=el('polygon',{points:'',class:'camLobe'},svg);
+      const memR=el('polygon',{points:'',class:'camLobe'},svg);
+      return function(t){
+        const q=rocker(t);
+        const vx=q.C.x-DL.x, vy=q.C.y-DL.y, vl=Math.max(1e-6,Math.hypot(vx,vy));
+        const dir={x:vx/vl, y:vy/vl};
+        const per={x:-dir.y, y:dir.x};
+        const tipL={x:DL.x+dir.x*Lw, y:DL.y+dir.y*Lw};
+        const dirR={x:-dir.x, y:dir.y}, perR={x:-per.x, y:per.y};
+        const tipR={x:DR.x+dirR.x*Lw, y:DR.y+dirR.y*Lw};
+        const CR={x:200-q.C.x, y:q.C.y};
+        setAttr(crank,{x2:q.B.x,y2:q.B.y});
+        setAttr(cpL,{x1:q.B.x,y1:q.B.y,x2:q.C.x,y2:q.C.y});
+        setAttr(cpR,{x1:q.B.x,y1:q.B.y,x2:CR.x,y2:CR.y});
+        setAttr(spL,{x2:tipL.x,y2:tipL.y});
+        setAttr(spR,{x2:tipR.x,y2:tipR.y});
+        setAttr(memL,{points:`${DL.x},${DL.y} ${tipL.x},${tipL.y} ${tipL.x+per.x*7},${tipL.y+per.y*7} ${DL.x+per.x*12},${DL.y+per.y*12}`});
+        setAttr(memR,{points:`${DR.x},${DR.y} ${tipR.x},${tipR.y} ${tipR.x+perR.x*7},${tipR.y+perR.y*7} ${DR.x+perR.x*12},${DR.y+perR.y*12}`});
+      };
+    }
+  },
+  'bionic-cheetah-leg':{
+    name:'四足腿部机构', en:'QUADRUPED-LEG', cat:'仿生机构', idx:'253',
+    desc:'髋、膝两关节按相位差摆动，足端在矢状面内描绘步态椭圆轨迹（支撑相贴地、摆动相抬腿），是四足机器人腿部的基本模型。',
+    params:[['构型','二连杆腿（髋 + 膝）'],['求解','正运动学（关节角 → 足端）'],['步态','支撑相 / 摆动相交替'],['优势','越障能力强 / 能耗低'],['典型应用','四足机器人 / 仿生猎豹']],
+    inputs:[
+      {key:'Lt',label:'大腿长 Lt',min:26,max:44,step:1,value:34},
+      {key:'Ls',label:'小腿长 Ls',min:24,max:40,step:1,value:30},
+      {key:'Ah',label:'髋摆幅 (°)',min:10,max:30,step:1,value:22},
+      {key:'Ak',label:'膝摆幅 (°)',min:14,max:40,step:1,value:30}
+    ],
+    build(svg,p={}){
+      const Lt=p.Lt??34, Ls=p.Ls??30;
+      const Ahr=(p.Ah??22)*Math.PI/180, Akr=(p.Ak??30)*Math.PI/180, w=1.0;
+      const H={x:100,y:58}, gy=124;
+      function foot(tt){
+        const th=Ahr*Math.sin(w*tt);
+        const tk=25*Math.PI/180+Akr*Math.sin(w*tt+1.9);
+        const K={x:H.x+Lt*Math.sin(th), y:H.y+Lt*Math.cos(th)};
+        return {K,F:{x:K.x+Ls*Math.sin(tk), y:K.y+Ls*Math.cos(tk)}};
+      }
+      el('line',{x1:40,y1:gy,x2:160,y2:gy,class:'g'},svg);
+      let tsp='';
+      for(let i=0;i<=180;i++){ const q=foot(i/180*2*Math.PI/w); tsp+=(i?' ':'')+q.F.x.toFixed(1)+','+q.F.y.toFixed(1); }
+      el('polyline',{points:tsp,class:'trace',fill:'none'},svg);
+      el('line',{x1:H.x,y1:38,x2:H.x,y2:H.y,class:'g'},svg);
+      el('polygon',{points:`${H.x-6},${38} ${H.x+6},${38} ${H.x},${30}`,class:'ground'},svg);
+      const thigh=el('line',{x1:H.x,y1:H.y,x2:0,y2:0,class:'crank'},svg);
+      const shin=el('line',{x1:0,y1:0,x2:0,y2:0,class:'link rod'},svg);
+      el('circle',{cx:H.x,cy:H.y,r:4,class:'pin'},svg);
+      const kn=el('circle',{r:3,class:'pinB'},svg);
+      const ft=el('circle',{r:3.5,class:'pin'},svg);
+      return function(t){
+        const q=foot(t);
+        setAttr(thigh,{x2:q.K.x,y2:q.K.y});
+        setAttr(shin,{x1:q.K.x,y1:q.K.y,x2:q.F.x,y2:q.F.y});
+        setAttr(kn,{cx:q.K.x,cy:q.K.y});
+        setAttr(ft,{cx:q.F.x,cy:q.F.y});
+      };
+    }
+  },
+  'bionic-fish-tail':{
+    name:'鱼尾摆动推进', en:'FISH-TAIL', cat:'仿生机构', idx:'254',
+    desc:'沿鱼体脊柱传播的行波使尾部摆幅逐级放大，末端尾鳍拍水产生推力（鳗鲡式/鲹科式游动），是仿生机器鱼的基本推进模型。',
+    params:[['模型','行波脊柱（行波方程）'],['波数','沿体长 0.8 – 1.2 个波'],['推进','尾部反作用推力'],['优势','效率高 / 噪声低'],['典型应用','仿生机器鱼 / 水下探测']],
+    inputs:[
+      {key:'A',label:'摆幅 A (rad)',min:0.15,max:0.6,step:0.05,value:0.35},
+      {key:'kk',label:'行波波数 k',min:0.5,max:1.6,step:0.1,value:0.9}
+    ],
+    build(svg,p={}){
+      const Ar=p.A??0.35, kk=p.kk??0.9, w=1.4, N=8, seg=9, hx=44, hy=76;
+      const body=el('polygon',{points:'',class:'camLobe'},svg);
+      const spine=el('polyline',{points:'',class:'link',fill:'none'},svg);
+      const fin=el('polygon',{points:'',class:'camLobe'},svg);
+      const eye=el('circle',{cx:hx+3,cy:hy-3,r:2,class:'pin'},svg);
+      return function(t){
+        const pts=[]; let x=hx, y=hy, ang=0;
+        for(let i=0;i<N;i++){
+          ang=Math.pow(i/N,1.4)*Ar*Math.sin(w*t-kk*i);
+          pts.push({x,y}); x+=seg*Math.cos(ang); y+=seg*Math.sin(ang);
+        }
+        pts.push({x,y});
+        setAttr(spine,{points:pts.map(q=>q.x.toFixed(1)+','+q.y.toFixed(1)).join(' ')});
+        const up=[], dn=[];
+        for(let i=0;i<pts.length;i++){
+          const a=pts[Math.max(0,i-1)], b=pts[Math.min(pts.length-1,i+1)];
+          const dx=b.x-a.x, dy=b.y-a.y, L=Math.max(1e-6,Math.hypot(dx,dy));
+          const nx=-dy/L, ny=dx/L, ww=2+8*Math.pow(1-i/(pts.length-1),0.8);
+          up.push({x:pts[i].x+nx*ww, y:pts[i].y+ny*ww});
+          dn.push({x:pts[i].x-nx*ww, y:pts[i].y-ny*ww});
+        }
+        setAttr(body,{points:up.concat(dn.reverse()).map(q=>q.x.toFixed(1)+','+q.y.toFixed(1)).join(' ')});
+        const P=pts[pts.length-1], cx=Math.cos(ang), sy=Math.sin(ang), px=-sy, py=cx, fl=17, fw=13;
+        setAttr(fin,{points:`${P.x},${P.y} ${(P.x+cx*fl*0.5+px*fw).toFixed(1)},${(P.y+sy*fl*0.5+py*fw).toFixed(1)} ${(P.x+cx*fl).toFixed(1)},${(P.y+sy*fl).toFixed(1)} ${(P.x+cx*fl*0.5-px*fw).toFixed(1)},${(P.y+sy*fl*0.5-py*fw).toFixed(1)}`});
+        setAttr(eye,{cx:pts[0].x+3, cy:pts[0].y-3});
+      };
+    }
+  },
+  'bionic-inchworm':{
+    name:'尺蠖蠕动机构', en:'INCHWORM', cat:'仿生机构', idx:'255',
+    desc:'前后两个夹持器交替锚固、中间柔性体节伸展与收缩，形成尺蠖式蠕动前进；一个周期完成「锚固—伸展—锚固—收缩」四拍。',
+    params:[['构型','双夹持器 + 柔性体节'],['节拍','锚固 → 伸展 → 锚固 → 收缩'],['驱动','形状记忆合金 / 气动人工肌肉'],['优势','管内行走 / 越障性好'],['典型应用','管道机器人 / 内窥镜机器人']],
+    inputs:[
+      {key:'L0',label:'体节长 L0',min:30,max:60,step:1,value:44},
+      {key:'E',label:'步距 E',min:8,max:22,step:1,value:16},
+      {key:'hump',label:'拱起高度',min:6,max:20,step:1,value:13}
+    ],
+    build(svg,p={}){
+      const L0=p.L0??44, E=Math.max(2,p.E??16), hump=p.hump??13, gy=112;
+      el('line',{x1:26,y1:gy,x2:174,y2:gy,class:'g'},svg);
+      const K=Math.ceil(160/E)+2, ticks=[];
+      for(let i=-1;i<=K;i++) ticks.push(el('line',{x1:0,y1:gy+3,x2:0,y2:gy+8,class:'g'},svg));
+      const body=el('polyline',{points:'',class:'link',fill:'none',style:'stroke-width:6'},svg);
+      const cl=el('polygon',{points:'',class:'slider'},svg);
+      const cr=el('polygon',{points:'',class:'slider'},svg);
+      return function(t){
+        const u=(t*0.25)%1;
+        const ext=E*(0.5-0.5*Math.cos(2*Math.PI*u));
+        const rearHold=u<0.5;
+        const x0=100-L0/2-E/2;
+        const R=rearHold?x0:(x0+L0+E)-(L0+ext);
+        const F=rearHold?x0+L0+ext:x0+L0+E;
+        const arch=hump*(1-ext/E);
+        let bp='';
+        for(let i=0;i<=24;i++){
+          const s=i/24;
+          bp+=(i?' ':'')+(R+(F-R)*s).toFixed(1)+','+(gy-3-arch*Math.sin(Math.PI*s)).toFixed(1);
+        }
+        setAttr(body,{points:bp});
+        const rl=rearHold?0:7, fl=rearHold?7:0;
+        setAttr(cl,{points:`${R-6},${gy-rl} ${R+6},${gy-rl} ${R},${gy+9-rl}`});
+        setAttr(cr,{points:`${F-6},${gy-fl} ${F+6},${gy-fl} ${F},${gy+9-fl}`});
+        for(let i=-1;i<=K;i++){
+          const x=40+i*E-E*u;
+          setAttr(ticks[i+1],{x1:x,y1:gy+3,x2:x,y2:gy+8,style:(x<28||x>172)?'display:none':''});
+        }
+      };
+    }
+  },
+  'bionic-jumper':{
+    name:'弹跳跳跃机构', en:'JUMPING-LEG', cat:'仿生机构', idx:'256',
+    desc:'腿部弹簧压缩储能后瞬间释放实现弹跳：下蹲储能 → 蹬伸起跳 → 抛物线飞行 → 落地缓冲，模拟跳蚤与袋鼠的弹跳推进。',
+    params:[['构型','弹簧腿 + 锁扣释放'],['阶段','储能 / 起跳 / 飞行 / 缓冲'],['能量','弹性势能 → 动能'],['优势','越障高度可达体长数倍'],['典型应用','星际探测跳跃机器人']],
+    inputs:[
+      {key:'hs',label:'站立高度',min:24,max:44,step:1,value:34},
+      {key:'H',label:'跳跃高度',min:20,max:50,step:1,value:40},
+      {key:'hc',label:'下蹲高度',min:10,max:26,step:1,value:18}
+    ],
+    build(svg,p={}){
+      const hs=p.hs??34, H=p.H??40, hc=Math.min(p.hc??18, hs-4), gy=124;
+      el('line',{x1:44,y1:gy,x2:156,y2:gy,class:'g'},svg);
+      const shadow=el('ellipse',{cx:100,cy:gy+4,rx:12,ry:3,class:'camLobe'},svg);
+      const body=el('circle',{cx:100,cy:gy-hs,r:10,class:'gearBody'},svg);
+      const leg=el('line',{x1:100,y1:gy-hs+8,x2:100,y2:gy,class:'crank'},svg);
+      const spring=el('polyline',{points:'',class:'link',fill:'none'},svg);
+      const foot=el('rect',{x:92,y:gy-3,width:16,height:6,rx:2,class:'slider'},svg);
+      return function(t){
+        const u=(t*0.3)%1;
+        let h;
+        if(u<0.28){ h=hs+(hc-hs)*easeInOut(u/0.28); }
+        else if(u<0.36){ h=hc+(hs-hc)*easeInOut((u-0.28)/0.08); }
+        else if(u<0.86){ const s=(u-0.36)/0.5; h=hs+H*4*s*(1-s); }
+        else { h=hs; }
+        const by=gy-h, fy=by+Math.min(h,hs);
+        setAttr(body,{cy:by});
+        setAttr(leg,{y1:by+8,y2:fy});
+        setAttr(foot,{y:fy-3});
+        let sp=''; const top=by+8, n=8;
+        for(let j=0;j<=n;j++){
+          const y=top+(fy-top)*j/n;
+          sp+=(j?' ':'')+(100+(j===0||j===n?0:(j%2?7:-7))).toFixed(1)+','+y.toFixed(1);
+        }
+        setAttr(spring,{points:sp});
+        setAttr(shadow,{rx:Math.max(4,12-h*0.07)});
+      };
+    }
+  },
+  'bionic-bird-wing':{
+    name:'仿生折叠翼', en:'FOLDING-WING', cat:'仿生机构', idx:'257',
+    desc:'内翼（肱骨）与外翼（桡骨+掌骨）两段铰接，扑动同时在上升拍折叠、下降拍展开，模拟鸟类折叠扑动以提高气动效率。',
+    params:[['构型','两段铰接翼（肩 + 腕）'],['运动','扑动与折叠耦合'],['优势','上升拍阻力小 / 效率高'],['典型应用','仿生扑翼飞行器'],['特点','单驱动实现扑动-折叠耦合']],
+    inputs:[
+      {key:'L1',label:'内翼长 L1',min:20,max:30,step:1,value:26},
+      {key:'L2',label:'外翼长 L2',min:22,max:34,step:1,value:30},
+      {key:'A',label:'扑动幅度 (°)',min:16,max:44,step:1,value:32},
+      {key:'fd',label:'折叠量 (°)',min:20,max:70,step:1,value:50}
+    ],
+    build(svg,p={}){
+      const L1=p.L1??26, L2=p.L2??30;
+      const Ar=(p.A??32)*Math.PI/180, fr=(p.fd??50)*Math.PI/180, w=1.0;
+      const SL={x:82,y:68}, SR={x:118,y:68};
+      function strip(A,B,wa,wb){
+        const dx=B.x-A.x, dy=B.y-A.y, L=Math.max(1e-6,Math.hypot(dx,dy));
+        const nx=-dy/L, ny=dx/L;
+        return `${(A.x+nx*wa).toFixed(1)},${(A.y+ny*wa).toFixed(1)} ${(B.x+nx*wb).toFixed(1)},${(B.y+ny*wb).toFixed(1)} ${(B.x-nx*wb).toFixed(1)},${(B.y-ny*wb).toFixed(1)} ${(A.x-nx*wa).toFixed(1)},${(A.y-ny*wa).toFixed(1)}`;
+      }
+      el('ellipse',{cx:100,cy:76,rx:7,ry:13,class:'gearBody'},svg);
+      const mk=()=>({i:el('polygon',{points:'',class:'camLobe'},svg), o:el('polygon',{points:'',class:'camLobe'},svg), b:el('polyline',{points:'',class:'link',fill:'none'},svg)});
+      const WL=mk(), WR=mk();
+      return function(t){
+        const phi=Ar*Math.sin(w*t), psi=fr*(0.5+0.5*Math.sin(w*t));
+        const a1=Math.PI-phi, a2=a1+psi;
+        const EL={x:SL.x+L1*Math.cos(a1), y:SL.y-L1*Math.sin(a1)};
+        const TL={x:EL.x+L2*Math.cos(a2), y:EL.y-L2*Math.sin(a2)};
+        const b1=phi, b2=phi-psi;
+        const ER={x:SR.x+L1*Math.cos(b1), y:SR.y-L1*Math.sin(b1)};
+        const TR={x:ER.x+L2*Math.cos(b2), y:ER.y-L2*Math.sin(b2)};
+        setAttr(WL.i,{points:strip(SL,EL,8,5)});
+        setAttr(WL.o,{points:strip(EL,TL,5,2)});
+        setAttr(WL.b,{points:`${SL.x},${SL.y} ${EL.x.toFixed(1)},${EL.y.toFixed(1)} ${TL.x.toFixed(1)},${TL.y.toFixed(1)}`});
+        setAttr(WR.i,{points:strip(SR,ER,8,5)});
+        setAttr(WR.o,{points:strip(ER,TR,5,2)});
+        setAttr(WR.b,{points:`${SR.x},${SR.y} ${ER.x.toFixed(1)},${ER.y.toFixed(1)} ${TR.x.toFixed(1)},${TR.y.toFixed(1)}`});
+      };
+    }
+  },
 };
 function drawGear(parent,c,r,n){
   el('circle',{cx:c.x,cy:c.y,r,class:'gearBody'},parent);
@@ -5991,6 +6618,7 @@ function drawGear(parent,c,r,n){
     el('line',{x1:c.x+Math.cos(a)*r,y1:c.y+Math.sin(a)*r,
       x2:c.x+Math.cos(a)*(r+7),y2:c.y+Math.sin(a)*(r+7),class:'gearTeeth'},parent);
   }
+  try{ parent.setAttribute('data-teeth', n); }catch(e){}
 }
 
 /* ================= 渲染主循环 ================= */
@@ -6009,7 +6637,7 @@ requestAnimationFrame(loop);
 
 /* ================= 机构卡片 ================= */
 const grid=document.getElementById('grid');
-const CATS=['连杆机构','凸轮机构','齿轮机构','间歇机构','螺旋机构','夹紧机构','液压机构','万向传动','挠性传动'];
+const CATS=['连杆机构','凸轮机构','齿轮机构','间歇机构','螺旋机构','夹紧机构','液压机构','万向传动','挠性传动','机器人机构','仿生机构'];
 const filters=document.getElementById('filters');
 let activeCat='全部';
 let searchTerm='';
@@ -6018,13 +6646,18 @@ let currentPage=1;
 const pagination=document.getElementById('pagination');
 
 const fBtn=[];
-['全部',...CATS].forEach(c=>{
-  const b=document.createElement('button');
-  b.className='filter'+(c==='全部'?' on':'');
-  b.textContent=c;
-  b.onclick=()=>{ activeCat=c; currentPage=1; fBtn.forEach(x=>x.classList.remove('on')); b.classList.add('on'); renderGrid(); };
-  fBtn.push(b); filters.appendChild(b);
-});
+function renderFilters(){
+  filters.innerHTML=''; fBtn.length=0;
+  ['全部',...CATS].forEach(c=>{
+    const b=document.createElement('button');
+    const lbl = c==='全部' ? _('cat.all','全部') : _('cat.'+c, c);
+    b.className='filter'+(c==='全部'?' on':'');
+    b.textContent=lbl;
+    b.onclick=()=>{ activeCat=c; currentPage=1; fBtn.forEach(x=>x.classList.remove('on')); b.classList.add('on'); renderGrid(); };
+    fBtn.push(b); filters.appendChild(b);
+  });
+}
+renderFilters();
 
 function cardSvg(builder){
   const svg=el('svg',{class:'mech-svg',viewBox:'0 0 200 150'});
@@ -6064,7 +6697,7 @@ function renderGrid(){
   let list=Object.entries(MECHANISMS).filter(([,m])=>(activeCat==='全部'||m.cat===activeCat));
   if(q) list=list.filter(([,m])=>m.name.toLowerCase().includes(q)||m.en.toLowerCase().includes(q)||m.cat.toLowerCase().includes(q)||m.desc.toLowerCase().includes(q));
   const countEl=document.getElementById('searchCount');
-  if(countEl) countEl.innerHTML = q||activeCat!=='全部' ? `<b>${list.length}</b> / ${Object.keys(MECHANISMS).length} 项` : `<b>${list.length}</b> 项机构`;
+  if(countEl) countEl.innerHTML = q||activeCat!=='全部' ? `<b>${list.length}</b> / ${Object.keys(MECHANISMS).length} ${_('unit.item', '项')}` : `<b>${list.length}</b> ${_('unit.mech', '项机构')}`;
   const totalPages=Math.max(1,Math.ceil(list.length/PAGE_SIZE));
   if(currentPage>totalPages) currentPage=totalPages;
   const pageList=list.slice((currentPage-1)*PAGE_SIZE, currentPage*PAGE_SIZE);
@@ -6080,8 +6713,8 @@ function renderGrid(){
     const upd=m.build(svg); animations.push(upd);
     const body=document.createElement('div'); body.className='mech-body';
     body.innerHTML=`
-      <div class="mech-head"><span class="mech-name">${m.name}</span><span class="mech-en">${m.en}</span></div>
-      <span class="mech-tag">${m.cat}</span>
+      <div class="mech-head"><span class="mech-name">${LANG==='zh'?m.name:m.en}</span><span class="mech-en">${LANG==='zh'?m.en:m.name}</span></div>
+      <span class="mech-tag">${_( 'cat.'+m.cat, m.cat )}</span>
       <p class="mech-desc">${m.desc}</p>
       <div class="mech-params">
         ${m.params.slice(0,3).map(([k,v])=>`<span class="p-chip">${k}<b>${v}</b></span>`).join('')}
@@ -6118,37 +6751,283 @@ themeBtns.forEach(b=>b.addEventListener('click',()=>applyTheme(b.dataset.theme))
 const modal=document.getElementById('modal');
 const modalSvg=document.getElementById('modalMech');
 let modalUpd=null;
+let velOn=false;
+/* 速度/受力着色：按每帧运动图元位移速度映射热力色（青→琥珀→玫红） */
+let velPrev=new WeakMap();
+function centroidOf(el){
+  const t=el.tagName;
+  if(t==='line'){
+    const x1=+el.getAttribute('x1'),y1=+el.getAttribute('y1'),x2=+el.getAttribute('x2'),y2=+el.getAttribute('y2');
+    if(![x1,y1,x2,y2].every(isFinite)) return null;
+    return {x:(x1+x2)/2,y:(y1+y2)/2};
+  }
+  if(t==='circle'){
+    const cx=+el.getAttribute('cx'),cy=+el.getAttribute('cy');
+    if(!isFinite(cx)||!isFinite(cy)) return null;
+    return {x:cx,y:cy};
+  }
+  if(t==='rect'){
+    const x=+el.getAttribute('x'),y=+el.getAttribute('y'),w=+el.getAttribute('width'),h=+el.getAttribute('height');
+    if(![x,y,w,h].every(isFinite)) return null;
+    return {x:x+w/2,y:y+h/2};
+  }
+  if(t==='polygon'||t==='polyline'){
+    const pts=(el.getAttribute('points')||'').trim().split(/[\s,]+/);
+    let sx=0,sy=0,n=0;
+    for(let i=0;i+1<pts.length;i+=2){ const x=+pts[i],y=+pts[i+1]; if(isFinite(x)&&isFinite(y)){ sx+=x; sy+=y; n++; } }
+    if(!n) return null;
+    return {x:sx/n,y:sy/n};
+  }
+  return null;
+}
+function colorByVelocity(group){
+  const now=performance.now()/1000;
+  let dt=now-(colorByVelocity._last||now);
+  colorByVelocity._last=now;
+  if(!(dt>0)) dt=1/60;
+  group.querySelectorAll('line,circle,rect,polygon,polyline').forEach(el=>{
+    const cls=el.getAttribute('class')||'';
+    if(/\b(g|ground|trace)\b/.test(cls)) return;
+    const c=centroidOf(el);
+    if(!c) return;
+    const prev=velPrev.get(el);
+    if(prev){
+      const dx=c.x-prev.x, dy=c.y-prev.y, dist=Math.hypot(dx,dy);
+      const sp=dist/dt, ratio=Math.max(0,Math.min(1,sp/90));
+      let hue = ratio<0.5 ? 190+(45-190)*(ratio/0.5) : 45+(345-45)*((ratio-0.5)/0.5);
+      const col='hsl('+hue.toFixed(0)+',85%,62%)';
+      el.style.stroke=col;
+      if(el.tagName==='circle'||el.tagName==='rect'||el.tagName==='polygon') el.style.fill=col;
+    }
+    velPrev.set(el,c);
+  });
+}
+function clearVelColors(group){
+  group.querySelectorAll('line,circle,rect,polygon,polyline').forEach(el=>{ el.style.stroke=''; el.style.fill=''; });
+  velPrev=new WeakMap();
+}
+/* ================= 方向②：运动性能曲线 + 约束校验 ================= */
+let modalUpdRaw=null;            // 当前弹窗机构的原始 upd 闭包（供采样）
+const MOVING_SEL='.crank,.link,.rod,.slider,.camLobe,.camBase,.gearBody,.thread,.ujRim,.pinB';
+
+/* 元素“离质心最远的角点”——对平移与旋转体均敏感，作为运动探针 */
+function rimPoint(el){
+  let bb; try{ bb=el.getBBox(); }catch(e){ return null; }
+  if(!bb||(bb.width===0&&bb.height===0)) return null;
+  const cx=bb.x+bb.width/2, cy=bb.y+bb.height/2;
+  const corners=[[bb.x,bb.y],[bb.x+bb.width,bb.y],[bb.x,bb.y+bb.height],[bb.x+bb.width,bb.y+bb.height]];
+  let best=corners[0], bd=-1;
+  for(const c of corners){ const d=Math.hypot(c[0]-cx,c[1]-cy); if(d>bd){bd=d;best=c;} }
+  return {x:best[0], y:best[1]};
+}
+
+/* 统计单周期内“速度趋零（局部极小值）”的个数 = 潜在死点/驻点数 */
+function countStall(v){
+  const n=v.length; if(n<3) return {count:0,phases:[]};
+  const w=2, sm=v.slice();
+  for(let pass=0;pass<1;pass++){ const cur=sm.slice(); for(let i=0;i<n;i++){ let s=0,c=0; for(let k=-w;k<=w;k++){ const j=(i+k+n)%n; s+=cur[j]; c++; } sm[i]=s/c; } }
+  const vmax=Math.max.apply(null,sm)||1, thr=vmax*0.06;
+  let runs=0; const phases=[];
+  for(let i=0;i<n;i++){ const a=sm[(i-1+n)%n], b=sm[i], c=sm[(i+1+n)%n]; if(b<thr && b<=a && b<=c){ runs++; phases.push((i/n).toFixed(2)); } }
+  return {count:runs, phases};
+}
+/* 对一个完整机械周期采样，得到主运动图元的位移/速度/加速度，以及潜在死点图元 */
+function sampleKinematics(N){
+  if(!modalUpdRaw||!modalG) return null;
+  const Nn=N||150, Tmax=2.5*CYC, dt=Tmax/Nn;
+  const raw=(modalG.querySelectorAll)?modalG.querySelectorAll(MOVING_SEL):null;
+  const els=raw?Array.prototype.slice.call(raw):[];
+  if(!els.length) return null;
+  const traj=els.map(()=>[]);
+  for(let i=0;i<=Nn;i++){ modalUpdRaw(i*dt); els.forEach((el,k)=>{ const r=rimPoint(el); traj[k].push(r?{x:r.x,y:r.y}:null); }); }
+  const perEl=[]; let ci=0, maxAmp=-1, di=0, minRatio=2;
+  traj.forEach((arr,k)=>{
+    const pts=arr.filter(Boolean); if(pts.length<Math.floor(Nn*0.6)) return;
+    let mx=0,my=0; pts.forEach(p=>{mx+=p.x;my+=p.y;}); mx/=pts.length; my/=pts.length;
+    const disp=pts.map(p=>Math.hypot(p.x-mx,p.y-my));
+    const amp=Math.max.apply(null,disp)-Math.min.apply(null,disp);
+    const v=pts.map((p,i)=>{ const a=pts[(i-1+pts.length)%pts.length], b=pts[(i+1)%pts.length]; return Math.hypot(b.x-a.x,b.y-a.y)/(2*dt); });
+    const vmax=Math.max.apply(null,v)||0, vmin=Math.min.apply(null,v);
+    perEl[k]={pts,disp,v,vmax,vmin,amp};
+    if(amp>maxAmp){maxAmp=amp;ci=k;}
+  });
+  /* 死点探针：在“位移显著”的图元中，选速度起伏最大（最易趋零=输出）者；排除纯转动/近零位移的退化图元 */
+  perEl.forEach((e,k)=>{ if(!e) return; if(e.amp<0.05*maxAmp) return; const r=(e.vmax>1e-3)?e.vmin/e.vmax:2; if(r<minRatio){minRatio=r;di=k;} });
+  if(maxAmp<3){ /* 纯等速回转（齿轮 / 凸轮本体等）：输出不趋零，无死点 */
+    try{ globalThis.__kin={ci,di,nEls:perEl.length,amps:perEl.map(e=>e?+e.amp.toFixed(2):null),pureRot:true,maxAmp:+maxAmp.toFixed(2)}; }catch(e){}
+    return {disp:[0],vel:[0],acc:[0],deadV:[],deadRatio:minRatio,period:0,pureRot:true};
+  }
+  if(!perEl[ci]) return null;
+  // 周期检测：主探针回到起点附近 → 截取单周期，使曲线/死点按一个周期呈现（避免多周期重复计数）
+  let periodIdx=perEl[ci].pts.length;
+  const P0=perEl[ci].pts[0];
+  for(let i=Math.floor(perEl[ci].pts.length*0.25);i<perEl[ci].pts.length;i++){
+    const p=perEl[ci].pts[i]; if(Math.hypot(p.x-P0.x,p.y-P0.y)<2){ periodIdx=i; break; }
+  }
+  const crop=(a)=>a.slice(0,periodIdx);
+  perEl.forEach(e=>{ e.disp=crop(e.disp); e.v=crop(e.v); });
+  const main=perEl[ci], vel=main.v;
+  const acc=vel.map((v,i)=>{ const a=vel[(i-1+vel.length)%vel.length], b=vel[(i+1)%vel.length]; return Math.abs(b-a)/(2*dt); });
+  const dead=perEl[di]?perEl[di].v:vel;
+  try{ globalThis.__kin={ci,di,nEls:perEl.length,amps:perEl.map(e=>e?+e.amp.toFixed(2):null),vmax:perEl.map(e=>e?+e.vmax.toFixed(2):0),vmin:perEl.map(e=>e?+e.vmin.toFixed(2):0),period:periodIdx,maxAmp:+maxAmp.toFixed(2)}; }catch(e){}
+  return {disp:main.disp, vel, acc, deadV:dead, deadRatio:minRatio, period:periodIdx};
+}
+
+/* 在弹窗 canvas 上绘制 位移/速度/加速度 三条曲线 */
+function drawPerf(S){
+  const cv=document.getElementById('perfCanvas'); if(!cv) return;
+  let ctx; try{ ctx=cv.getContext('2d'); }catch(e){ return; }
+  if(!S||!S.disp||S.disp.length<2||S.pureRot){ ctx.clearRect(0,0,cv.width,cv.height); ctx.fillStyle='rgba(255,255,255,.5)'; ctx.font='13px Rajdhani, sans-serif'; ctx.fillText(S&&S.pureRot?'连续等速回转 · 无速度驻点':'运动幅度过小 · 无性能曲线', 16, cv.height/2); return; }
+  const W=cv.width, H=cv.height; ctx.clearRect(0,0,W,H);
+  const rows=[['位移 d',S.disp,'#37e0d8'],['速度 v',S.vel,'#f5b53d'],['加速度 a',S.acc,'#ff7a8a']];
+  const rh=H/rows.length, x0=16, x1=W-16;
+  rows.forEach((rw,ri)=>{
+    const y0=ri*rh+10, y1=(ri+1)*rh-10, mid=(y0+y1)/2, base=Math.max.apply(null,rw[1])||1;
+    ctx.strokeStyle='rgba(255,255,255,.10)'; ctx.lineWidth=1; ctx.beginPath(); ctx.moveTo(x0,mid); ctx.lineTo(x1,mid); ctx.stroke();
+    ctx.strokeStyle=rw[2]; ctx.lineWidth=1.8; ctx.beginPath();
+    rw[1].forEach((v,i)=>{ const x=x0+(x1-x0)*i/(rw[1].length-1); const y=mid-(v/base)*((y1-y0)/2-4); i?ctx.lineTo(x,y):ctx.moveTo(x,y); });
+    ctx.stroke();
+    ctx.fillStyle=rw[2]; ctx.font='11px Rajdhani, sans-serif'; ctx.fillText(rw[0],x0+2,y0+8);
+    ctx.fillStyle='rgba(255,255,255,.45)'; ctx.font='10px Rajdhani, sans-serif'; ctx.fillText('peak '+base.toFixed(1),x1-54,y0+8);
+  });
+}
+
+/* 约束校验：四连杆 Grashof / 齿轮根切·干涉 / 通用死点 */
+function analyzeConstraints(S){
+  const box=document.getElementById('constraintBox'); if(!box) return;
+  const items=[];
+  // 四连杆 Grashof：关节几何检测（2 固定铰 + 2 活动铰）
+  const gp=(modalG.querySelectorAll)?modalG.querySelectorAll('circle.pin'):null;
+  const bp=(modalG.querySelectorAll)?modalG.querySelectorAll('circle.pinB'):null;
+  const pins=gp?Array.prototype.slice.call(gp):[], pbs=bp?Array.prototype.slice.call(bp):[];
+  if(pins.length===2&&pbs.length===2){
+    const P=(c)=>({x:+c.getAttribute('cx'),y:+c.getAttribute('cy')});
+    const a=P(pins[0]),d=P(pins[1]),b=P(pbs[0]),c=P(pbs[1]);
+    const L={ ground:Math.hypot(a.x-d.x,a.y-d.y), crank:Math.hypot(a.x-b.x,a.y-b.y), coupler:Math.hypot(b.x-c.x,b.y-c.y), rocker:Math.hypot(d.x-c.x,d.y-c.y) };
+    const arr=Object.values(L).sort((x,y)=>x-y), s=arr[0], l=arr[3], p=arr[1], q=arr[2];
+    const grashof=s+l<=p+q+1e-6;
+    let type='双摇杆（无整周回转）';
+    if(grashof){ if(s===L.ground) type='双曲柄（机架最短）'; else if(s===L.crank||s===L.rocker) type='曲柄摇杆（可整周回转）'; else if(s===L.coupler) type='双摇杆（连杆最短）'; }
+    items.push({cls:grashof?'c-ok':'c-warn', title:_('c.grashof','四连杆 Grashof 判定'),
+      body:`四杆长 机架 ${L.ground.toFixed(0)} · 曲柄 ${L.crank.toFixed(0)} · 连杆 ${L.coupler.toFixed(0)} · 摇杆 ${L.rocker.toFixed(0)}。`
+        +(grashof?` 满足 Grashof（s+l≤p+q）：${type}。`:` 不满足 Grashof：${type}，需关注运动连续性。`),
+      sub:'Grashof：最短杆+最长杆 ≤ 其余两杆之和'});
+  }
+  // 齿轮根切 / 干涉（drawGear 写入 data-teeth）
+  const gg=(modalG.querySelectorAll)?modalG.querySelectorAll('[data-teeth]'):null;
+  const gears=gg?Array.prototype.slice.call(gg).map(g=>+g.getAttribute('data-teeth')).filter(z=>z>0):[];
+  if(gears.length){
+    const under=gears.filter(z=>z<17); let body='齿数 '+gears.join(' / ')+'。', cls='c-ok', w=[];
+    if(under.length) w.push(`z<17 存在根切风险（${under.join(',')}）`);
+    if(gears.length>=2){ const sum=gears[0]+gears[1]; if(sum<34) w.push(`啮合 z₁+z₂=${sum}<34 易干涉/根切`); }
+    if(w.length){ cls='c-bad'; body+=' '+w.join('；')+'。'; } else body+=' 均≥17，无根切；啮合安全。';
+    items.push({cls, title:_('c.gear','齿轮根切 / 干涉'), body, sub:'20° 全齿高渐开线，z_min=17；啮合安全需 z₁+z₂≥34'});
+  }
+  // 通用死点（输出速度趋零 = 死点/驻点；统计单周期内速度的局部极小值个数 = 拐点/死点数）
+  if(S&&S.pureRot){
+    items.push({cls:'c-ok', title:_('c.dead','速度驻点（潜在死点）'),
+      body:'机构为连续等速回转（齿轮 / 凸轮本体等），输出速度不趋零，不存在机械死点。',
+      sub:'纯回转机构无死点'});
+  } else if(S&&S.deadV&&S.deadV.length){
+    const st=countStall(S.deadV);
+    items.push({cls:st.count?'c-warn':'c-ok', title:_('c.dead','速度驻点（潜在死点）'),
+      body:st.count?`检测到 ${st.count} 处输出速度趋零（死点/驻点），相位：${st.phases.join(' / ')}（机构在此可逆或存在死点，需惯性/辅助动力通过）。`:'整周期输出速度连续，未检出死点风险。',
+      sub:'输出速度趋零的相位即潜在死点'});
+  }
+  if(!items.length){ box.innerHTML=`<div class="c-item"><span class="c-badge c-info">–</span><div class="c-body">${_('c.none','该机构暂无内置约束规则（死点检测通用）')}</div></div>`; return; }
+  box.innerHTML=items.map(it=>`<div class="c-item"><span class="c-badge ${it.cls}">${it.cls==='c-ok'?'OK':it.cls==='c-bad'?'!':'~'}</span><div class="c-body"><b>${it.title}</b><br>${it.body}<div class="sub">${it.sub}</div></div></div>`).join('');
+}
+
+/* 重新计算并刷新性能曲线 + 约束面板（弹窗打开 / 参数变更后调用） */
+function recomputeAnalysis(){
+  const S=sampleKinematics(150);
+  try{ globalThis.__lastS=S; }catch(e){}
+  if(!S){
+    const cv=document.getElementById('perfCanvas'); if(cv){ try{ const c=cv.getContext('2d'); c.clearRect(0,0,cv.width,cv.height); }catch(e){} }
+    const box=document.getElementById('constraintBox'); if(box) box.innerHTML=`<div class="c-item"><span class="c-badge c-info">–</span><div class="c-body">${_('c.unsupported','该机构无运动图元，暂不支持性能曲线')}</div></div>`;
+    return;
+  }
+  drawPerf(S);
+  analyzeConstraints(S);
+  if(typeof modalUpd==='function'){ try{ modalUpd(performance.now()/1000); }catch(e){} }
+}
+/* SVG 拖拽反解：可解算机构的逆运动学 */
+let dragPose=null;
+let modalG=null;
+function ccInt(c0,r0,c1,r1){
+  const dx=c1[0]-c0[0], dy=c1[1]-c0[1], d=Math.hypot(dx,dy)||1e-6;
+  const a=(d*d - r1*r1 + r0*r0)/(2*d);
+  const h2=r0*r0-a*a; if(h2<0) return null;
+  const h=Math.sqrt(h2);
+  const xm=c0[0]+a*dx/d, ym=c0[1]+a*dy/d;
+  const s1=[xm - h*dy/d, ym + h*dx/d], s2=[xm + h*dy/d, ym - h*dx/d];
+  return s1[1]>=s2[1]? s1 : s2;
+}
+function ikArm2(O,L1,L2,tx,ty){
+  const dx=tx-O[0], dy=O[1]-ty;
+  let D=Math.hypot(dx,dy);
+  D=Math.max(Math.abs(L1-L2)+1e-3, Math.min(L1+L2-1e-3, D));
+  const c2=Math.max(-1,Math.min(1,(D*D-L1*L1-L2*L2)/(2*L1*L2)));
+  const g2=Math.acos(c2);
+  const g1=Math.atan2(dy,dx)-Math.atan2(L2*Math.sin(g2), L1+L2*Math.cos(g2));
+  return {a1:g1, a2:g1+g2};
+}
+function ikArm3(O,L1,L2,L3,tx,ty){
+  const dx=tx-O[0], dy=O[1]-ty;
+  const th1=Math.atan2(dy,dx);
+  const P1={x:O[0]+L1*Math.cos(th1), y:O[1]-L1*Math.sin(th1)};
+  const sol=ikArm2([P1.x,P1.y], L2, L3, tx, ty);
+  return {th1, th2:sol.a1, th3:sol.a2};
+}
+function ikDelta(BL,BR,Lu,Lf,tx,ty){
+  const eL=ccInt(BL,Lu,[tx,ty],Lf), eR=ccInt(BR,Lu,[tx,ty],Lf);
+  if(!eL||!eR) return null;
+  return { pL: Math.PI/2-Math.atan2(eL[1]-BL[1], eL[0]-BL[0]),
+           pR: Math.atan2(eR[1]-BR[1], eR[0]-BR[0])-Math.PI/2 };
+}
+function solveDrag(drag, q, state){
+  if(!drag) return null;
+  if(drag.type==='arm2') return ikArm2(drag.O, state[drag.keys[0]], state[drag.keys[1]], q.x, q.y);
+  if(drag.type==='arm3') return ikArm3(drag.O, state[drag.keys[0]], state[drag.keys[1]], state[drag.keys[2]], q.x, q.y);
+  if(drag.type==='delta') return ikDelta(drag.BL, drag.BR, state[drag.keys[0]], state[drag.keys[1]], q.x, q.y);
+  return null;
+}
 function openModal(key,m,init){
   modalSvg.innerHTML='';
+  curMech=m;
+  dragPose=null;
   if(modalUpd){ animations.splice(animations.indexOf(modalUpd),1); modalUpd=null; }
   paused=false; manualT=0;
   const g=el('g',{},modalSvg);
   const custom=m.inputs||[];
   // 通用参数：所有机构均支持实时调节
   const uni=[
-    {key:'speed',label:'动画速度',min:0.1,max:4,step:0.1,value:1},
-    {key:'scale',label:'整体缩放',min:0.6,max:1.35,step:0.05,value:1}
+    {key:'speed',label:'动画速度',en:'Speed',min:0.1,max:4,step:0.1,value:1},
+    {key:'scale',label:'整体缩放',en:'Scale',min:0.6,max:1.35,step:0.05,value:1}
   ];
   const all=[...custom,...uni];
   const state={}; all.forEach(i=>state[i.key]=i.value);
   if(init) for(const k in init){ if(k in state) state[k]=init[k]; }
   function rebuild(){
+  window.__rebuildModal=rebuild;
     g.innerHTML='';
     if(modalUpd){ animations.splice(animations.indexOf(modalUpd),1); }
-    const cp={}; custom.forEach(i=>cp[i.key]=state[i.key]);
+    const cp={}; custom.forEach(i=>cp[i.key]=state[i.key]); cp.__pose=dragPose;
     const upd=m.build(g,cp);
-    modalUpd=(t)=>{ const tt=paused?manualT:t*state.speed; upd(tt); };
+    modalUpdRaw=upd;
+    modalG=g;
+    modalUpd=(t)=>{ const tt=paused?manualT:t*state.speed; upd(tt); if(velOn) colorByVelocity(g); };
     animations.push(modalUpd);
     const s=state.scale;
     g.setAttribute('transform',`translate(100 75) scale(${s}) translate(-100 -75)`);
   }
-  document.getElementById('mEn').textContent=m.en+' · '+m.cat;
-  document.getElementById('mName').textContent=m.name;
+  document.getElementById('mEn').textContent=m.en+' · '+_( 'cat.'+m.cat, m.cat );
+  document.getElementById('mName').textContent=LANG==='zh'?m.name:m.en;
   document.getElementById('mDesc').textContent=m.desc;
   const mInputs=document.getElementById('mInputs');
   const mTable=document.getElementById('mTable');
   mTable.innerHTML=m.params.map(([k,v])=>`<tr><td>${k}</td><td>${v}</td></tr>`).join('');
-  mInputs.innerHTML=all.map(i=>`<label>${i.label}<div class="input-row"><input type="range" data-key="${i.key}" min="${i.min}" max="${i.max}" step="${i.step}" value="${state[i.key]}"><span class="input-value">${state[i.key]}</span></div></label>`).join('');
+  mInputs.innerHTML=all.map(i=>`<label>${LANG==='en'&&i.en?i.en:i.label}<div class="input-row"><input type="range" data-key="${i.key}" min="${i.min}" max="${i.max}" step="${i.step}" value="${state[i.key]}"><span class="input-value">${state[i.key]}</span></div></label>`).join('');
   mInputs.querySelectorAll('input[data-key]').forEach(input=>{
     input.oninput=()=>{
       input.parentElement.querySelector('.input-value').textContent=input.value;
@@ -6168,7 +7047,7 @@ function openModal(key,m,init){
   const presetSel=document.getElementById('presetSel');
   if(m.presets && m.presets.length){
     presetSel.style.display='';
-    presetSel.innerHTML='<option value="">预设…</option>'+m.presets.map((p,i)=>`<option value="${i}">${p.name}</option>`).join('');
+    presetSel.innerHTML='<option value="">'+_('preset','预设…')+'</option>'+m.presets.map((p,i)=>`<option value="${i}">${p.name}</option>`).join('');
     presetSel.onchange=()=>{
       const p=m.presets[+presetSel.value]; if(!p) return;
       for(const k in p.params){ if(k in state){ state[k]=p.params[k]; const inp=mInputs.querySelector(`input[data-key="${k}"]`); if(inp){ inp.value=p.params[k]; inp.parentElement.querySelector('.input-value').textContent=p.params[k]; } } }
@@ -6180,6 +7059,21 @@ function openModal(key,m,init){
   const expPng=document.getElementById('expPng');
   const expJson=document.getElementById('expJson');
   const shareBtn=document.getElementById('shareBtn');
+  const velBtn=document.getElementById('velBtn');
+  velBtn.classList.remove('on'); velOn=false;
+  velBtn.onclick=()=>{ velOn=!velOn; velBtn.classList.toggle('on',velOn); if(!velOn) clearVelColors(g); };
+  /* ===== SVG 拖拽反解 ===== */
+  modalSvg.style.cursor = m.drag ? 'grab' : 'default';
+  const dragApply=(e)=>{
+    if(!modalG) return;
+    const ctm=modalG.getScreenCTM(); if(!ctm) return;
+    const pt=new DOMPoint(e.clientX,e.clientY).matrixTransform(ctm.inverse());
+    const pose=solveDrag(m.drag, {x:pt.x, y:pt.y}, state);
+    if(pose){ dragPose=pose; rebuild(); }
+  };
+  modalSvg.onpointerdown=(e)=>{ if(!m.drag) return; e.preventDefault(); paused=true; playBtn.textContent='▶'; try{ modalSvg.setPointerCapture(e.pointerId); }catch(_){} dragApply(e); };
+  modalSvg.onpointermove=(e)=>{ if(m.drag && dragPose) dragApply(e); };
+  modalSvg.onpointerup=(e)=>{ try{ modalSvg.releasePointerCapture(e.pointerId); }catch(_){} };
   const styleTxt=()=>[...document.querySelectorAll('style')].map(s=>s.textContent).join('\n');
   function downloadBlob(blob,name){ const a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download=name; document.body.appendChild(a); a.click(); a.remove(); }
   expSvg.onclick=()=>{
@@ -6201,10 +7095,11 @@ function openModal(key,m,init){
   };
   shareBtn.onclick=()=>{
     const url=location.origin+location.pathname+'#m='+encodeURIComponent(key)+'&p='+encodeURIComponent(JSON.stringify(state));
-    if(navigator.clipboard&&navigator.clipboard.writeText){ navigator.clipboard.writeText(url).then(()=>{ shareBtn.textContent='已复制 ✓'; setTimeout(()=>shareBtn.textContent='复制分享链接',1500); }).catch(()=>{ window.prompt('复制此链接：',url); }); }
+    if(navigator.clipboard&&navigator.clipboard.writeText){ navigator.clipboard.writeText(url).then(()=>{ shareBtn.textContent='已复制 ✓'; setTimeout(()=>shareBtn.textContent=_( 'modal.share', '复制分享链接' ),1500); }).catch(()=>{ window.prompt('复制此链接：',url); }); }
     else { window.prompt('复制此链接：',url); }
   };
   rebuild();
+  recomputeAnalysis();
   modal.classList.add('open');
 }
 document.getElementById('modalClose').onclick=closeModal;
@@ -6292,12 +7187,13 @@ document.addEventListener('keydown',e=>{ if(e.key==='Escape') closeModal(); });
 })();
 
 /* ================= 跑马灯（由机构库自动生成） ================= */
-(function mq(){
-  const items=Object.keys(MECHANISMS).map(k=>MECHANISMS[k].name);
+function renderMarquee(){
+  const items=Object.keys(MECHANISMS).map(k=>LANG==='zh'?MECHANISMS[k].name:MECHANISMS[k].en);
   const track=document.getElementById('mqTrack');
   const html=items.map(x=>`<span class="mq-item">${x}</span>`).join('');
   track.innerHTML=html+html; // 双份用于无缝循环
-})();
+}
+renderMarquee();
 
 /* ================= 数字滚动 ================= */
 function countUp(el2,target,suffix){
